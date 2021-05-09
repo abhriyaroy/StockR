@@ -18,7 +18,11 @@ class LocalPreferenceSourceImpl(private val gson: Gson) : LocalPreferenceSource 
 
     override suspend fun getSavedKotakStockRecommendation(): List<StockRecommendationsDataModel> {
         return Preferences.kotakStockRecommendations.let {
-            gson.fromJson(it, stockRecommendationsDataModelAdapter)
+            if(it.isNullOrEmpty()){
+                listOf()
+            } else {
+                gson.fromJson(it, stockRecommendationsDataModelAdapter)
+            }
         }
     }
 

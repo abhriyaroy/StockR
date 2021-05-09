@@ -1,6 +1,8 @@
 package studio.zebro.recommendation.domain
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.data.RecommendationRepository
@@ -30,5 +32,5 @@ internal class RecommendationsInteractor(
                     ResourceState.loading()
                 }
             }
-        }
+        }.flowOn(Dispatchers.IO)
 }

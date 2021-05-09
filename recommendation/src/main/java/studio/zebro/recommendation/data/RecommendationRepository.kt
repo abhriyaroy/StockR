@@ -1,8 +1,10 @@
 package studio.zebro.recommendation.data
 
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.StockRecommendationsDataModel
@@ -44,5 +46,5 @@ class RecommendationRepository(
                 }
         }
 
-    }.asFlow(gson)
+    }.asFlow(gson).flowOn(Dispatchers.IO)
 }

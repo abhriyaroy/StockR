@@ -94,6 +94,8 @@ dependencies {
   implementation(Libs.MPAndroidChart)
   // Jsoup
   implementation(Libs.jsoup)
+  // Lottie
+  implementation(Libs.lottie)
 
   implementation(project(Modules.recommendation))
   implementation(project(Modules.core))
