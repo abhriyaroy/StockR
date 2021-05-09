@@ -15,21 +15,13 @@ android {
   compileSdkVersion(Apps.compileSdk)
   buildToolsVersion = Apps.buildToolsVersion
   defaultConfig {
-    applicationId = "com.biofourmis.ipmpatient"
+    applicationId = "studio.zebro.stockr"
     minSdkVersion(Apps.minSdk)
     targetSdkVersion(Apps.targetSdk)
     versionCode = Apps.versionCode
     versionName = Apps.versionName
     multiDexEnabled = true
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-  }
-  signingConfigs {
-    create("release") {
-      keyAlias = "BiovitalsRPM"
-      keyPassword = "BiovitalsRPM"
-      storeFile = file("../key/BiovitalsRPM")
-      storePassword = "BiovitalsRPM"
-    }
   }
   buildTypes {
     getByName("debug") {
@@ -47,7 +39,7 @@ android {
         getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro"
       )
-      signingConfig = signingConfigs.getByName("release")
+//      signingConfig = signingConfigs.getByName("release")
     }
   }
   buildFeatures {

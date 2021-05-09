@@ -1,4 +1,3 @@
-val kotlin_version: String by extra
 plugins {
   id("com.android.library")
   kotlin("android")
@@ -23,13 +22,21 @@ android {
   buildTypes {
     getByName("debug") {
       isMinifyEnabled = true
-      buildConfigField(BuildConfigType.boolean, BuildConfigFields.isLogIn, true.toString())
       consumerProguardFiles("datasource-proguard-rules.pro")
+      buildConfigField(
+        BuildConfigType.string,
+        BuildConfigFields.kotakRecommendationsUrl,
+        BuildConfigValues.kotakRecommendationsUrl
+      )
     }
     getByName("release") {
       isMinifyEnabled = true
       consumerProguardFiles("datasource-proguard-rules.pro")
-      buildConfigField(BuildConfigType.boolean, BuildConfigFields.isLogIn, false.toString())
+      buildConfigField(
+        BuildConfigType.string,
+        BuildConfigFields.kotakRecommendationsUrl,
+        BuildConfigValues.kotakRecommendationsUrl
+      )
     }
   }
 
@@ -44,8 +51,6 @@ android {
 
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
-  api(Libs.securityCrypto)
 
   // Hilt
   implementation(Libs.hiltCore)
@@ -72,6 +77,10 @@ dependencies {
   // Kotlin preferences
   api(Libs.kotPref)
   api(Libs.kotPrefEnumSupport)
+
+  //Gson
+  api(Libs.gson)
+  api(Libs.gsonConverter)
 
   implementation(Libs.jsoup)
 

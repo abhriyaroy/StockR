@@ -1,4 +1,3 @@
-val kotlin_version: String by extra
 plugins {
   id("com.android.library")
   kotlin("android")

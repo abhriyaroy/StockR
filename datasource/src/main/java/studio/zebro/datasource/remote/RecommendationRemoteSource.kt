@@ -4,20 +4,24 @@ import android.util.Log
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-import studio.zebro.datasource.model.StockRecommendationsModel
-
+import retrofit2.Response
+import studio.zebro.datasource.BuildConfig
+import studio.zebro.datasource.model.StockRecommendationsDataModel
 
 interface RecommendationRemoteSource {
-    fun getRecommendationsFromKotakSecurities() : List<StockRecommendationsModel>
+    fun getRecommendationsFromKotakSecurities() : Response<List<StockRecommendationsDataModel>>
 }
 
 class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
-    override fun getRecommendationsFromKotakSecurities(): List<StockRecommendationsModel> {
-        val doc: Document = Jsoup.connect("https://bestbrokerindia.com/kotak-securities-share-broker-market-tips.html").get()
-        val newsHeadlines: Elements = doc.select("td")
-        return mutableListOf<StockRecommendationsModel>().let {
+
+    private val tableItemCss = "td"
+
+    override fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>> {
+        val doc: Document = Jsoup.connect(BuildConfig.KOTAK_RECOMMENDATIONS_URL).get()
+        val newsHeadlines: Elements = doc.select(tableItemCss)
+        return mutableListOf<StockRecommendationsDataModel>().let {
            Log.d(this.javaClass.name, newsHeadlines[0].toString() )
-            it
+            Response.success(it)
         }
     }
 

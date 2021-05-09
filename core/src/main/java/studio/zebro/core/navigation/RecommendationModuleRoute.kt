@@ -1,4 +1,7 @@
 package studio.zebro.core.navigation
 
-class RecommendationModuleRoute {
+import androidx.navigation.NavController
+
+interface RecommendationModuleRoute {
+    fun populateView(navController: NavController)
 }

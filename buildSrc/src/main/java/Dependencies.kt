@@ -84,6 +84,9 @@ object Libs {
     const val moshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
     const val moshiCodeGen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+    // Gson
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+    const val gsonConverter = "com.squareup.retrofit2:converter-gson:2.8.1"
     // Kotlin preferences
     const val kotPref = "com.chibatching.kotpref:kotpref:${Versions.kotPref}"
     const val kotPrefEnumSupport = "com.chibatching.kotpref:enum-support:${Versions.kotPref}"

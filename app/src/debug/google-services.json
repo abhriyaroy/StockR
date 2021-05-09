@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1083780545682",
+    "project_id": "stockr-debug",
+    "storage_bucket": "stockr-debug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083780545682:android:bd4db56c1406c496b07a4b",
+        "android_client_info": {
+          "package_name": "studio.zebro.stockr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083780545682-q2dtfnpgke4n8qrsgdjvru70n201mdb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "studio.zebro.stockr",
+            "certificate_hash": "622a4eb2e0c0760aebf4aac03dc53ba5ca98f784"
+          }
+        },
+        {
+          "client_id": "1083780545682-r4sbrvblfbau9cnhb9edmenoaajg3kph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-l5lCN49cg6FkpFsXg_yL0PsS7UpqmmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083780545682-r4sbrvblfbau9cnhb9edmenoaajg3kph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
