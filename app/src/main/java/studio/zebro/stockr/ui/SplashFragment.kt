@@ -1,22 +1,23 @@
 package studio.zebro.stockr.ui
 
-import android.animation.Animator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import studio.zebro.core.navigation.RecommendationModuleRoute
-import studio.zebro.core.navigation.TransitionNameConstants
+import studio.zebro.core.util.addOnAnimationListener
+import studio.zebro.core.util.gone
+import studio.zebro.core.util.visible
 import studio.zebro.core.util.withDelayOnMain
 import studio.zebro.recommendation.ui.RecommendationViewModel
-import studio.zebro.stockr.R
 import studio.zebro.stockr.databinding.FragmentSplashBinding
 import javax.inject.Inject
+import kotlin.math.max
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -47,35 +48,37 @@ class SplashFragment : Fragment() {
 
     private fun attachSplashAnimationCompleteListener() {
         splashFragmentBinding.splashLogoLottieView.apply {
-            playAnimation()
-            addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator?) {
+            addOnAnimationListener(
+                onAnimationEnd = { showBackgroundAnimation(showRecommendationsScreenWithDelayAndSharedTransition()) }
+            )
+        }
+    }
 
+
+    private fun showBackgroundAnimation(onAnimationEnd: () -> Unit) {
+        splashFragmentBinding.backgroundView.apply {
+            val cx = this.measuredWidth / 2
+            val cy = this.measuredHeight / 2
+            val finalRadius = max(this.width, this.height) / 2
+            ViewAnimationUtils.createCircularReveal(this, cx, cy, 0f, finalRadius.toFloat())
+                .let {
+                    this.visibility = View.VISIBLE
+                    it.start()
+                    it.addOnAnimationListener(onAnimationEnd = {
+                        onAnimationEnd()
+                    })
                 }
+        }
+    }
 
-                override fun onAnimationEnd(animation: Animator?) {
-                    withDelayOnMain(500) {
-
-                        val extras = FragmentNavigatorExtras(splashFragmentBinding.splashLogoLottieView to TransitionNameConstants.SPLASH_TO_RECOMMENDATION_LOGO_TRANSITION_NAME)
-                        findNavController().navigate(
-                            R.id.nav_graph_recommendation,
-                            null,
-                            null,
-                            extras
-                        )
-
-//                        recommendationModuleRoute.populateView(
-//                            this@SplashFragment.findNavController(),
-//                            splashFragmentBinding.splashLogoLottieView
-//                        )
-                    }
-                }
-
-                override fun onAnimationCancel(animation: Animator?) {}
-
-                override fun onAnimationRepeat(animation: Animator?) {}
-
-            })
+    private fun showRecommendationsScreenWithDelayAndSharedTransition(): () -> Unit =  {
+        splashFragmentBinding.splashLogoImageView.visible()
+        splashFragmentBinding.splashLogoLottieView.gone()
+        withDelayOnMain(100) {
+            recommendationModuleRoute.populateView(
+                this@SplashFragment.findNavController(),
+                splashFragmentBinding.splashLogoImageView
+            )
         }
     }
 

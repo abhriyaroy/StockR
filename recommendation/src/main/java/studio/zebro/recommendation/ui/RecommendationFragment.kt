@@ -20,12 +20,7 @@ class RecommendationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val animation = TransitionInflater.from(requireContext()).inflateTransition(
-                android.R.transition.move
-        )
-
-        sharedElementEnterTransition = animation
-        sharedElementReturnTransition = animation
+        setupSharedElementTransition()
     }
 
     override fun onCreateView(
@@ -45,9 +40,12 @@ class RecommendationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
+    }
 
-        recommendationViewModel.getStockRecommendations()
-
+    private fun setupSharedElementTransition(){
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(
+            android.R.transition.move
+        )
     }
 
     private fun setupObservers() {

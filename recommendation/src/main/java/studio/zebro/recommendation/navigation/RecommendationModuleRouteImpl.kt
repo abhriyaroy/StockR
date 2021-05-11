@@ -1,6 +1,7 @@
 package studio.zebro.recommendation.navigation
 
 import android.view.View
+import android.widget.ImageView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.airbnb.lottie.LottieAnimationView
@@ -13,7 +14,7 @@ import studio.zebro.recommendation.R
 class RecommendationModuleRouteImpl : RecommendationModuleRoute {
     override fun populateView(
         navController: NavController,
-        transitionView: LottieAnimationView?
+        transitionView: ImageView?
     ) {
         navController.navigate(R.id.nav_graph_recommendation,
             null,
