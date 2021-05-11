@@ -7,15 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
 import studio.zebro.datasource.util.ResourceState
-import studio.zebro.recommendation.databinding.RecommendationFragmentBinding
+import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
 
 @AndroidEntryPoint
 class RecommendationFragment : Fragment() {
 
     private lateinit var recommendationViewModel: RecommendationViewModel
-    private lateinit var binding: RecommendationFragmentBinding
+    private lateinit var binding: FragmentRecommendationBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val animation = TransitionInflater.from(requireContext()).inflateTransition(
+                android.R.transition.move
+        )
+
+        sharedElementEnterTransition = animation
+        sharedElementReturnTransition = animation
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +35,7 @@ class RecommendationFragment : Fragment() {
     ): View {
         recommendationViewModel =
             ViewModelProvider(requireActivity())[RecommendationViewModel::class.java]
-        return RecommendationFragmentBinding.inflate(inflater)
+        return FragmentRecommendationBinding.inflate(inflater)
             .let {
                 binding = it
                 binding.root
@@ -36,11 +47,12 @@ class RecommendationFragment : Fragment() {
         setupObservers()
 
         recommendationViewModel.getStockRecommendations()
+
     }
 
-    private fun setupObservers(){
+    private fun setupObservers() {
         recommendationViewModel.stockRecommendations.observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 is ResourceState.Success -> {
                     Log.d(this.javaClass.name, "the data is --> ${it.data.size}")
                 }

@@ -5,12 +5,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.SplashFragment">
+        tools:context=".ui.SplashFragment"
+        android:background="@color/light_blue">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/splashLottieAnim"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/splash_logo_lottie_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:transitionName="app_logo_transition"
             app:lottie_rawRes="@raw/spash_anim"
             app:lottie_loop="false"
             app:lottie_speed="0.7"
@@ -21,4 +23,8 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <import type="studio.zebro.core.navigation.TransitionNameConstants"/>
+    </data>
 </layout>

@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_nav_host"
-        android:name="studio.zebro.core.navigation.CustomNavHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"

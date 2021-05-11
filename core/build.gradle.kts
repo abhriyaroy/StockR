@@ -50,21 +50,23 @@ android {
 dependencies {
   api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
   api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
-  implementation(Libs.kotlin)
-  implementation(Libs.appcompat)
-  implementation(Libs.coreKtx)
-  implementation(Libs.recyclerView)
-  implementation(Libs.constraintLayout)
-  implementation(Libs.designSupportLibrary)
+  api(Libs.kotlin)
+  api(Libs.appcompat)
+  api(Libs.coreKtx)
+  api(Libs.recyclerView)
+  api(Libs.constraintLayout)
+  api(Libs.designSupportLibrary)
   // Navigation
-  implementation(Libs.navComponentFragment)
-  implementation(Libs.navComponentUi)
+  api(Libs.navComponentFragment)
+  api(Libs.navComponentUi)
   // Hilt
-  implementation(Libs.hiltCore)
-  implementation(Libs.hiltCommon)
-  implementation(Libs.hiltViewModelLifecycle)
+  api(Libs.hiltCore)
+  api(Libs.hiltCommon)
+  api(Libs.hiltViewModelLifecycle)
   kapt(Libs.hiltDaggerAndroidCompiler)
   kapt(Libs.hiltCompiler)
+  // Lottie
+  api(Libs.lottie)
 
   api(project(Modules.datasource))
 }

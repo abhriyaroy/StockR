@@ -9,5 +9,5 @@
         android:id="@+id/recommendationFragment"
         android:name="studio.zebro.recommendation.ui.RecommendationFragment"
         android:label="recommendation_fragment"
-        tools:layout="@layout/recommendation_fragment" />
+        tools:layout="@layout/fragment_recommendation" />
 </navigation>
