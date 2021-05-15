@@ -91,7 +91,7 @@ dependencies {
   // Firebase
   implementation(Libs.firebaseMessaging)
   implementation(Libs.firebaseAnalytics)
-  implementation(Libs.MPAndroidChart)
+  implementation(Libs.mPAndroidChart)
   // Jsoup
   implementation(Libs.jsoup)
   // Lottie

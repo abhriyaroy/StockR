@@ -45,6 +45,9 @@ class RecommendationModule {
 
     @Singleton
     @Provides
-    fun providesRecommendationUseCase(recommendationRepository: RecommendationRepository)
-            : RecommendationUseCase = RecommendationsInteractor(recommendationRepository)
+    fun providesRecommendationUseCase(
+        recommendationRepository: RecommendationRepository,
+        historicalStockDataRepository: HistoricalStockDataRepository
+    ): RecommendationUseCase =
+        RecommendationsInteractor(recommendationRepository, historicalStockDataRepository)
 }

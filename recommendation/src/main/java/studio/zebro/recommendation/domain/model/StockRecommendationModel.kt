@@ -12,5 +12,6 @@ data class StockRecommendationModel(
     val duration: String,
     val type: String,
     val action: String,
-    val remark: String
+    val remark: String,
+    var historicStockData: HistoricStockDataModel? = null
 )

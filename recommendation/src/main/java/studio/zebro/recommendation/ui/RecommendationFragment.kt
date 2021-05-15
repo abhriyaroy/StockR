@@ -12,7 +12,9 @@ import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
 import studio.zebro.core.VerticalSpaceItemDecoration
 import studio.zebro.core.util.convertDpToPx
+import studio.zebro.core.util.showAnimation
 import studio.zebro.datasource.util.ResourceState
+import studio.zebro.recommendation.R
 import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
 import studio.zebro.recommendation.ui.adapter.RecommendationsRecyclerViewAdapter
 
@@ -44,6 +46,7 @@ class RecommendationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        animateRecommendationCard()
         initRecyclerView()
         setupObservers()
     }
@@ -52,6 +55,10 @@ class RecommendationFragment : Fragment() {
         sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(
             android.R.transition.move
         )
+    }
+
+    private fun animateRecommendationCard(){
+        binding.recommendationsCardView.showAnimation(R.anim.scale_up)
     }
 
     private fun initRecyclerView() {

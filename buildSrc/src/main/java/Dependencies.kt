@@ -106,7 +106,7 @@ object Libs {
     const val lifecycleExtension = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     // Timber
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-    const val MPAndroidChart = "com.github.PhilJay:MPAndroidChart:${Versions.mpChart}"
+    const val mPAndroidChart = "com.github.PhilJay:MPAndroidChart:${Versions.mpChart}"
     // Firebase
     const val firebaseMessaging =
         "com.google.firebase:firebase-messaging:${Versions.firebaseMessaging}"

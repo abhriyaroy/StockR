@@ -71,6 +71,8 @@ dependencies {
   implementation(Libs.lifecycleCommon)
   implementation(Libs.lifecycleExtension)
 
+  implementation(Libs.mPAndroidChart)
+
   implementation(Libs.lottieSwipeRefresh)
 
   implementation(project(Modules.core))

@@ -23,7 +23,14 @@ constructor(private val recommendationUseCase: RecommendationUseCase) : ViewMode
         viewModelScope.launch {
             recommendationUseCase.fetchRecommendations()
                 .collect {
-                    _stockRecommendations.postValue(it)
+                    when(it){
+                        is ResourceState.Success -> {
+
+                        }
+                        else -> {
+                            _stockRecommendations.postValue(it)
+                        }
+                    }
                 }
         }
     }
