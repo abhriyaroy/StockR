@@ -1,8 +1,10 @@
 package studio.zebro.stockr.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import studio.zebro.stockr.R
 
 @AndroidEntryPoint

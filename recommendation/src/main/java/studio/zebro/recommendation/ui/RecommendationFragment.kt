@@ -7,16 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
+import studio.zebro.core.VerticalSpaceItemDecoration
+import studio.zebro.core.util.convertDpToPx
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
+import studio.zebro.recommendation.ui.adapter.RecommendationsRecyclerViewAdapter
 
 @AndroidEntryPoint
 class RecommendationFragment : Fragment() {
 
     private lateinit var recommendationViewModel: RecommendationViewModel
     private lateinit var binding: FragmentRecommendationBinding
+    private lateinit var recommendationsAdapter: RecommendationsRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +44,24 @@ class RecommendationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
         setupObservers()
     }
 
-    private fun setupSharedElementTransition(){
+    private fun setupSharedElementTransition() {
         sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(
             android.R.transition.move
         )
+    }
+
+    private fun initRecyclerView() {
+        recommendationsAdapter = RecommendationsRecyclerViewAdapter(requireContext())
+        binding.recommendationRecyclerView.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(VerticalSpaceItemDecoration(requireContext().convertDpToPx(8)))
+            this.adapter = recommendationsAdapter
+        }
     }
 
     private fun setupObservers() {
@@ -53,6 +69,7 @@ class RecommendationFragment : Fragment() {
             when (it) {
                 is ResourceState.Success -> {
                     Log.d(this.javaClass.name, "the data is --> ${it.data.size}")
+                    recommendationsAdapter.setItemsList(it.data)
                 }
                 is ResourceState.Loading -> {
                     Log.d(this.javaClass.name, "loading --->")

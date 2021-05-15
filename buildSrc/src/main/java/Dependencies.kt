@@ -41,6 +41,7 @@ object Versions {
     const val glide = "4.11.0"
     const val glideKapt = "4.11.0"
     const val glideVector = "v2.0.0"
+    const val lottieSwipeRefresh ="1.0.0"
     const val androidSvg = "1.3"
     // const val countlyVersion = "18.08.1"
     const val countlyVersion = "19.09.3"
@@ -116,6 +117,7 @@ object Libs {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideKapt = "com.github.bumptech.glide:compiler:${Versions.glideKapt}"
     const val glideVector = "com.github.corouteam:GlideToVectorYou:${Versions.glideVector}"
+    const val lottieSwipeRefresh = "com.github.nabil6391:LottieSwipeRefreshLayout:${Versions.lottieSwipeRefresh}"
     //Loader
     const val loader = "com.github.ybq:Android-SpinKit:${Versions.loader}"
     //Jsoup

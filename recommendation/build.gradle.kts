@@ -71,6 +71,8 @@ dependencies {
   implementation(Libs.lifecycleCommon)
   implementation(Libs.lifecycleExtension)
 
+  implementation(Libs.lottieSwipeRefresh)
+
   implementation(project(Modules.core))
 }
 repositories {
