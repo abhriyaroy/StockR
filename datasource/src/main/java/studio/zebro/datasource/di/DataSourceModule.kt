@@ -7,6 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.local.LocalPreferenceSourceImpl
+import studio.zebro.datasource.remote.HistoricalDataRemoteSource
+import studio.zebro.datasource.remote.HistoricalDataRemoteSourceImpl
 import studio.zebro.datasource.remote.RecommendationRemoteSource
 import studio.zebro.datasource.remote.RecommendationRemoteSourceImpl
 import javax.inject.Singleton
@@ -19,6 +21,11 @@ class DataSourceModule {
     @Provides
     fun providesRecommendationRemoteSource(): RecommendationRemoteSource =
         RecommendationRemoteSourceImpl()
+
+    @Singleton
+    @Provides
+    fun providesHistoricalDataRemoteSource(): HistoricalDataRemoteSource =
+        HistoricalDataRemoteSourceImpl()
 
     @Singleton
     @Provides

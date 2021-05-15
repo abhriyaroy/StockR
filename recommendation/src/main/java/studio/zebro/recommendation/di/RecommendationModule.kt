@@ -7,7 +7,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import studio.zebro.core.navigation.RecommendationModuleRoute
 import studio.zebro.datasource.local.LocalPreferenceSource
+import studio.zebro.datasource.remote.HistoricalDataRemoteSource
 import studio.zebro.datasource.remote.RecommendationRemoteSource
+import studio.zebro.recommendation.data.HistoricalStockDataRepository
 import studio.zebro.recommendation.data.RecommendationRepository
 import studio.zebro.recommendation.domain.RecommendationUseCase
 import studio.zebro.recommendation.domain.RecommendationsInteractor
@@ -31,6 +33,15 @@ class RecommendationModule {
         recommendationRemoteSource: RecommendationRemoteSource
     ): RecommendationRepository =
         RecommendationRepository(gson, localPreferenceSource, recommendationRemoteSource)
+
+    @Singleton
+    @Provides
+    fun providesHistoricStockDataRepository(
+        gson: Gson,
+        localPreferenceSource: LocalPreferenceSource,
+        historicalDataRemoteSource: HistoricalDataRemoteSource
+    ): HistoricalStockDataRepository =
+        HistoricalStockDataRepository(gson, localPreferenceSource, historicalDataRemoteSource)
 
     @Singleton
     @Provides
