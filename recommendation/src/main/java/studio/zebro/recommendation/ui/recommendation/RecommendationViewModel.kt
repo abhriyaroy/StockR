@@ -1,4 +1,4 @@
-package studio.zebro.recommendation.ui
+package studio.zebro.recommendation.ui.recommendation
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
@@ -47,7 +47,6 @@ constructor(private val recommendationUseCase: RecommendationUseCase) : ViewMode
         viewModelScope.launch(Dispatchers.IO) {
             recommendationUseCase.fetchHistoricData(stockRecommendationModel.shortName)
                 .collect {
-                    stockRecommendationModel.historicStockData = it
                 }
         }
     }

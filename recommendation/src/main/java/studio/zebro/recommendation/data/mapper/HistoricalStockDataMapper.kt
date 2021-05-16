@@ -16,8 +16,8 @@ object HistoricalStockDataMapper {
 
     fun mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(list: List<HistoricalStockDataDayWiseModel>): HistoricalStockDataEntity {
         return HistoricalStockDataEntity(
-            list.maxOf { replaceDelimiterFromNumberIfAnyStringAndReturnFloat(it.highPrice) },
-            list.minOf { replaceDelimiterFromNumberIfAnyStringAndReturnFloat(it.lowPrice) },
+            list.maxOf { it.highPrice.replace(",", "").toFloat() },
+            list.minOf { it.lowPrice.replace(",", "").toFloat() },
             list.last().date,
             list.first().date,
             list.map {

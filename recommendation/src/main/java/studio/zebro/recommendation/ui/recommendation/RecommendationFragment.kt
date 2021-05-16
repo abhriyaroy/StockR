@@ -1,4 +1,4 @@
-package studio.zebro.recommendation.ui
+package studio.zebro.recommendation.ui.recommendation
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -6,30 +6,35 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
+import studio.zebro.core.BaseFragment
+import studio.zebro.core.navigation.TransitionNameConstants
 import studio.zebro.core.util.showAnimation
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.R
 import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
-import studio.zebro.recommendation.ui.adapter.RecommendationsRecyclerViewAdapter
+import studio.zebro.recommendation.domain.model.StockRecommendationModel
+import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationItemClickListener
+import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationsRecyclerViewAdapter
+import studio.zebro.recommendation.ui.transition.RecommendationItemToRecommendationDetailTransitionModel
 
 @AndroidEntryPoint
-class RecommendationFragment : Fragment() {
+class RecommendationFragment : BaseFragment() {
 
     private lateinit var recommendationViewModel: RecommendationViewModel
     private lateinit var binding: FragmentRecommendationBinding
     private lateinit var recommendationsAdapter: RecommendationsRecyclerViewAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setupSharedElementTransition()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,16 +52,12 @@ class RecommendationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         animateRecommendationCard()
         initRecyclerView()
         setupObservers()
         setupSwipeRefreshListener()
-    }
-
-    private fun setupSharedElementTransition() {
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(
-            android.R.transition.move
-        )
     }
 
     private fun animateRecommendationCard() {
@@ -64,8 +65,35 @@ class RecommendationFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        recommendationsAdapter = RecommendationsRecyclerViewAdapter(requireContext())
+        recommendationsAdapter = RecommendationsRecyclerViewAdapter(requireContext(),
+            object : RecommendationItemClickListener {
+
+                override fun onRecommendationItemClick(
+                    position: Int,
+                    stockRecommendationModel: StockRecommendationModel,
+                    transitionModel: RecommendationItemToRecommendationDetailTransitionModel
+                ) {
+
+                    val extras = FragmentNavigatorExtras(
+                        transitionModel.rootItem!! to "t_1",
+                        transitionModel.titleTextView!! to "t_2",
+                        transitionModel.sellAtTextView!! to "t_3",
+                        transitionModel.buyAtTextView!! to "t_4",
+                        transitionModel.actionTextView!! to "t_5",
+                        binding.appLogoImageView to TransitionNameConstants.SPLASH_TO_RECOMMENDATION_LOGO_TRANSITION_NAME
+                    )
+
+                    findNavController().navigate(
+                        RecommendationFragmentDirections.actionRecommendationFragmentToRecommendationDetailFragment(
+                            transitionModel,
+                            stockRecommendationModel
+                        ),
+                        extras
+                    )
+                }
+            })
         binding.recommendationRecyclerView.apply {
+            setHasFixedSize(true)
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
@@ -100,7 +128,7 @@ class RecommendationFragment : Fragment() {
         })
     }
 
-    private fun setupSwipeRefreshListener(){
+    private fun setupSwipeRefreshListener() {
         binding.swipeRefresh
     }
 }

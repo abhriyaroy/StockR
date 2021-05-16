@@ -14,7 +14,7 @@ import studio.zebro.core.util.addOnAnimationListener
 import studio.zebro.core.util.gone
 import studio.zebro.core.util.visible
 import studio.zebro.core.util.withDelayOnMain
-import studio.zebro.recommendation.ui.RecommendationViewModel
+import studio.zebro.recommendation.ui.recommendation.RecommendationViewModel
 import studio.zebro.stockr.databinding.FragmentSplashBinding
 import javax.inject.Inject
 import kotlin.math.max

@@ -1,5 +1,9 @@
 package studio.zebro.recommendation.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class StockRecommendationModel(
     val fullName: String,
     val shortName: String,
@@ -13,5 +17,4 @@ data class StockRecommendationModel(
     val type: String,
     val action: String,
     val remark: String,
-    var historicStockData: HistoricStockDataModel? = null
-)
+) : Parcelable

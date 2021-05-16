@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_main">
+
+        <ImageButton
+            android:id="@+id/backImageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="16dp"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_back"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/appLogoImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/appLogoImageView" />
+
+        <ImageView
+            android:id="@+id/appLogoImageView"
+            android:layout_width="96dp"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_stockr"
+            android:transitionName="app_logo_transition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/recommendationDetailCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:minHeight="240dp"
+            android:transitionName="t_1"
+            app:cardBackgroundColor="@color/primary_light"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appLogoImageView"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recommendationsCardRootLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemNameTextView"
+                    style="@style/AndroidParagraph1Roboto17Pt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:transitionName="t_2"
+                    android:text="@{stockRecommendationModelItem.shortName}"
+                    android:textColor="@{CoreUtility.INSTANCE.getStockUpOrDownColor(context, stockRecommendationModelItem.action)}"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/itemActionTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="CHOLAFIN" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemActionTextView"
+                    style="@style/AndroidParagraph3Roboto12Pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:transitionName="t_5"
+                    android:text="@{CoreUtility.INSTANCE.getActionSpannableHighlight(context, context.getString(R.string.action_x ,stockRecommendationModelItem.action.toUpperCase()), stockRecommendationModelItem.action)}"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Action: SELL" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemBuyAtTextView"
+                    style="@style/AndroidParagraph3Roboto12Pt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:transitionName="t_3"
+                    android:text="@{context.getString(R.string.buy_at_x ,stockRecommendationModelItem.entryPriceInRupees)}"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/itemNameTextView"
+                    tools:text="Buy at: 943" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/itemSellAtTextView"
+                    style="@style/AndroidParagraph3Roboto12Pt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:transitionName="t_4"
+                    android:text="@{context.getString(R.string.sell_at_x ,stockRecommendationModelItem.targetPriceInRupees)}"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/itemBuyAtTextView"
+                    tools:text="Sell at: 990" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="studio.zebro.recommendation.R" />
+
+        <import type="studio.zebro.core.util.CoreUtility" />
+
+        <variable
+            name="stockRecommendationModelItem"
+            type="studio.zebro.recommendation.domain.model.StockRecommendationModel" />
+    </data>
+
+
+</layout>

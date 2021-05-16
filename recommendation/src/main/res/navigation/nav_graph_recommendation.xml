@@ -7,7 +7,23 @@
 
     <fragment
         android:id="@+id/recommendationFragment"
-        android:name="studio.zebro.recommendation.ui.RecommendationFragment"
+        android:name="studio.zebro.recommendation.ui.recommendation.RecommendationFragment"
         android:label="recommendation_fragment"
-        tools:layout="@layout/fragment_recommendation" />
+        tools:layout="@layout/fragment_recommendation">
+        <action
+            android:id="@+id/action_recommendationFragment_to_recommendationDetailFragment"
+            app:destination="@id/recommendationDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendationDetailFragment"
+        android:name="studio.zebro.recommendation.ui.recommendationdetail.RecommendationDetailFragment"
+        android:label="fragment_recommendation_detail"
+        tools:layout="@layout/fragment_recommendation_detail">
+        <argument
+            android:name="transitionModel"
+            app:argType="studio.zebro.recommendation.ui.transition.RecommendationItemToRecommendationDetailTransitionModel" />
+        <argument
+            android:name="recommendationItem"
+            app:argType="studio.zebro.recommendation.domain.model.StockRecommendationModel" />
+    </fragment>
 </navigation>
