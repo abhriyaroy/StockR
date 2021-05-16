@@ -1,12 +1,11 @@
 package studio.zebro.datasource.util
 
-import android.util.Log
 import androidx.annotation.WorkerThread
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import studio.zebro.datasource.local.CustomError
 import studio.zebro.datasource.model.ErrorModel
 import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_CODE
 import java.io.IOException
@@ -22,10 +21,7 @@ abstract class NetworkBoundSource<API_RESPONSE_TYPE, MAPPED_RETURN_TYPE> {
     /* @Inject
      lateinit var changePassWordModuleRoute: ChangePasswordRoute*/
 
-    fun asFlow(gson: Gson) = flow<ResourceState<MAPPED_RETURN_TYPE>> {
-
-        // Emit Loading State
-        emit(ResourceState.loading())
+    fun asFlow(gson: Gson) = flow<MAPPED_RETURN_TYPE> {
 
         try {
             // Fetch latest data from server
@@ -37,7 +33,7 @@ abstract class NetworkBoundSource<API_RESPONSE_TYPE, MAPPED_RETURN_TYPE> {
             // Check for response
             if (apiResponse.isSuccessful && remoteData != null) {
                 // Emit success state with data
-                emit(ResourceState.success(postProcess(remoteData)))
+                emit(postProcess(remoteData))
             } else {
                 var errorResponse: ErrorModel? = null
                 val adapter: TypeAdapter<ErrorModel> = gson.getAdapter(ErrorModel::class.java)
@@ -52,12 +48,12 @@ abstract class NetworkBoundSource<API_RESPONSE_TYPE, MAPPED_RETURN_TYPE> {
                 }
 
                 // Emit Error state
-                emit(ResourceState.error(errorResponse))
+                throw CustomError(errorResponse)
             }
         } catch (e: Exception) {
             e.printStackTrace()
             // Emit Exception occurred
-            emit(ResourceState.error(ErrorModel(NETWORK_ERROR_CODE, "Can't get latest data.")))
+            throw CustomError(ErrorModel(NETWORK_ERROR_CODE, "Can't get latest data."))
         }
     }
 

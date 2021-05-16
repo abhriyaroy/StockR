@@ -1,5 +1,6 @@
 package studio.zebro.recommendation.data.mapper
 
+import studio.zebro.core.util.CoreUtility.replaceDelimiterFromNumberIfAnyStringAndReturnFloat
 import studio.zebro.datasource.model.HistoricalStockDataDayWiseModel
 import studio.zebro.recommendation.data.entity.HistoricalStockDataEntity
 import studio.zebro.recommendation.data.entity.HistoricalStockDataIntraDayEntity
@@ -15,8 +16,8 @@ object HistoricalStockDataMapper {
 
     fun mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(list: List<HistoricalStockDataDayWiseModel>): HistoricalStockDataEntity {
         return HistoricalStockDataEntity(
-            list.maxOf { it.highPrice.toFloat() },
-            list.minOf { it.lowPrice.toFloat() },
+            list.maxOf { replaceDelimiterFromNumberIfAnyStringAndReturnFloat(it.highPrice) },
+            list.minOf { replaceDelimiterFromNumberIfAnyStringAndReturnFloat(it.lowPrice) },
             list.last().date,
             list.first().date,
             list.map {
@@ -49,11 +50,11 @@ object HistoricalStockDataMapper {
             historicalStockDataDayWiseModel.date,
             historicalStockDataDayWiseModel.stockName,
             historicalStockDataDayWiseModel.stockSeries,
-            historicalStockDataDayWiseModel.openPrice.toFloat(),
-            historicalStockDataDayWiseModel.highPrice.toFloat(),
-            historicalStockDataDayWiseModel.lowPrice.toFloat(),
-            historicalStockDataDayWiseModel.ltpPrice.toFloat(),
-            historicalStockDataDayWiseModel.closePrice.toFloat(),
+            replaceDelimiterFromNumberIfAnyStringAndReturnFloat(historicalStockDataDayWiseModel.openPrice),
+            replaceDelimiterFromNumberIfAnyStringAndReturnFloat(historicalStockDataDayWiseModel.highPrice),
+            replaceDelimiterFromNumberIfAnyStringAndReturnFloat(historicalStockDataDayWiseModel.lowPrice),
+            replaceDelimiterFromNumberIfAnyStringAndReturnFloat(historicalStockDataDayWiseModel.ltpPrice),
+            replaceDelimiterFromNumberIfAnyStringAndReturnFloat(historicalStockDataDayWiseModel.closePrice),
             historicalStockDataDayWiseModel.volume,
             historicalStockDataDayWiseModel.turnOver
         )

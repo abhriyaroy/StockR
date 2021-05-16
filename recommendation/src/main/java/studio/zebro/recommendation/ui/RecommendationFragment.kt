@@ -1,17 +1,18 @@
 package studio.zebro.recommendation.ui
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
-import studio.zebro.core.VerticalSpaceItemDecoration
-import studio.zebro.core.util.convertDpToPx
 import studio.zebro.core.util.showAnimation
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.R
@@ -57,7 +58,7 @@ class RecommendationFragment : Fragment() {
         )
     }
 
-    private fun animateRecommendationCard(){
+    private fun animateRecommendationCard() {
         binding.recommendationsCardView.showAnimation(R.anim.scale_up)
     }
 
@@ -66,7 +67,17 @@ class RecommendationFragment : Fragment() {
         binding.recommendationRecyclerView.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            addItemDecoration(VerticalSpaceItemDecoration(requireContext().convertDpToPx(8)))
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+                .apply {
+                    setDrawable(
+                        ColorDrawable(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.white
+                            )
+                        )
+                    )
+                })
             this.adapter = recommendationsAdapter
         }
     }

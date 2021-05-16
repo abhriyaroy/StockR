@@ -10,7 +10,6 @@ import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.StockRecommendationsDataModel
 import studio.zebro.datasource.remote.RecommendationRemoteSource
 import studio.zebro.datasource.util.NetworkBoundWithLocalSource
-import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.data.entity.StockRecommendationEntity
 import studio.zebro.recommendation.data.mapper.StockRecommendationEntityMapper.mapStockRecommendationRemoteDataModelToStockRecommendationEntity
 
@@ -20,7 +19,7 @@ class RecommendationRepository(
     private val recommendationRemoteSource: RecommendationRemoteSource
 ) {
 
-    fun fetchStockRecommendations(): Flow<ResourceState<List<StockRecommendationEntity>>> = object :
+    fun fetchStockRecommendations(): Flow<List<StockRecommendationEntity>> = object :
         NetworkBoundWithLocalSource<List<StockRecommendationsDataModel>, List<StockRecommendationsDataModel>, List<StockRecommendationEntity>>() {
         override suspend fun saveToLocal(response: List<StockRecommendationsDataModel>) {
             localPreferenceSource.saveStockKotakRecommendation(response)

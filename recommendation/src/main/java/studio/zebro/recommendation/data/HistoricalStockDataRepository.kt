@@ -1,5 +1,6 @@
 package studio.zebro.recommendation.data
 
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -9,8 +10,8 @@ import retrofit2.Response
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.HistoricalStockDataDayWiseModel
 import studio.zebro.datasource.remote.HistoricalDataRemoteSource
+import studio.zebro.datasource.util.NetworkBoundSource
 import studio.zebro.datasource.util.NetworkBoundWithLocalSource
-import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.data.entity.HistoricalStockDataEntity
 import studio.zebro.recommendation.data.mapper.HistoricalStockDataMapper
 
@@ -20,24 +21,17 @@ class HistoricalStockDataRepository(
     private val historicalDataRemoteSource: HistoricalDataRemoteSource
 ) {
 
-    fun getHistoricDataForStock(stockSymbol: String): Flow<ResourceState<HistoricalStockDataEntity>> =
+    fun getHistoricDataForStock(stockSymbol: String): Flow<HistoricalStockDataEntity> =
         object :
-            NetworkBoundWithLocalSource<List<HistoricalStockDataDayWiseModel>, List<HistoricalStockDataDayWiseModel>, HistoricalStockDataEntity>() {
-            override suspend fun saveToLocal(response: List<HistoricalStockDataDayWiseModel>) {
-                localPreferenceSource.saveStockHistoricalData(stockSymbol, response)
-            }
-
-            override suspend fun fetchFromLocal(): Flow<List<HistoricalStockDataDayWiseModel>> {
-                return flow {
-                    localPreferenceSource.getSavedStockHistoricalData(stockSymbol)
-                }
-            }
+            NetworkBoundSource<List<HistoricalStockDataDayWiseModel>, HistoricalStockDataEntity>() {
 
             override suspend fun fetchFromRemote(): Response<List<HistoricalStockDataDayWiseModel>> {
+                Log.d(this.javaClass.name, "---->>>>> here ")
                 return historicalDataRemoteSource.get3monthsHistoricData(stockSymbol)
             }
 
             override suspend fun postProcess(originalData: List<HistoricalStockDataDayWiseModel>): HistoricalStockDataEntity {
+                Log.d(this.javaClass.name, "---->>>>> here mapped")
                 return HistoricalStockDataMapper.mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(
                     originalData
                 )
