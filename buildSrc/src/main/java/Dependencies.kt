@@ -17,6 +17,7 @@ object Versions {
     const val lifecycle = "2.2.0"
     const val recyclerView = "1.1.0"
     const val cardView = "1.0.0"
+    const val swipeRefresh = "1.0.0"
     const val navComponent = "2.3.0"
     const val hilt = "2.28-alpha"
     const val hiltSnapShot = "1.0.0-alpha01"
@@ -63,6 +64,7 @@ object Libs {
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
+    const val swipeRefresh =  "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefresh}"
     const val designSupportLibrary =
         "com.google.android.material:material:${Versions.designSupport}"
     const val securityCrypto = "androidx.security:security-crypto:${Versions.securityCrypto}"

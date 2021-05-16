@@ -50,6 +50,7 @@ class RecommendationFragment : Fragment() {
         animateRecommendationCard()
         initRecyclerView()
         setupObservers()
+        setupSwipeRefreshListener()
     }
 
     private fun setupSharedElementTransition() {
@@ -97,5 +98,9 @@ class RecommendationFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun setupSwipeRefreshListener(){
+        binding.swipeRefresh
     }
 }

@@ -52,7 +52,7 @@
                     android:paddingStart="16dp"
                     android:paddingTop="16dp"/>
 
-                <com.nabilmh.lottieswiperefreshlayout.LottieSwipeRefreshLayout
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/swipeRefresh"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -61,8 +61,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recommendationsTitleTextView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:lottie_rawRes="@raw/loader_growth">
+                    app:layout_constraintEnd_toEndOf="parent">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recommendationRecyclerView"
@@ -73,7 +72,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
 
-                </com.nabilmh.lottieswiperefreshlayout.LottieSwipeRefreshLayout>
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

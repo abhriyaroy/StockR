@@ -26,10 +26,10 @@ constructor(private val recommendationUseCase: RecommendationUseCase) : ViewMode
     val stockRecommendations: LiveData<ResourceState<List<StockRecommendationModel>>> =
         _stockRecommendations
 
-    fun getStockRecommendations() {
+    fun getStockRecommendations(isForceRefresh : Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             _stockRecommendations.postValue(ResourceState.loading())
-            recommendationUseCase.fetchRecommendations()
+            recommendationUseCase.fetchRecommendations(isForceRefresh)
                 .catch { error ->
                     if (error is CustomError) {
                         _stockRecommendations.postValue(ResourceState.error(error.errorModel))

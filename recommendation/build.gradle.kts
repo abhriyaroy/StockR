@@ -53,6 +53,7 @@ dependencies {
   implementation(Libs.appcompat)
   implementation(Libs.coreKtx)
   implementation(Libs.constraintLayout)
+  implementation(Libs.swipeRefresh)
 
   // Hilt
   implementation(Libs.hiltCore)
@@ -72,8 +73,6 @@ dependencies {
   implementation(Libs.lifecycleExtension)
 
   implementation(Libs.mPAndroidChart)
-
-  implementation(Libs.lottieSwipeRefresh)
 
   implementation(project(Modules.core))
 }

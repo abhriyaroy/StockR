@@ -9,6 +9,7 @@ import retrofit2.Response
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.StockRecommendationsDataModel
 import studio.zebro.datasource.remote.RecommendationRemoteSource
+import studio.zebro.datasource.util.NetworkBoundSource
 import studio.zebro.datasource.util.NetworkBoundWithLocalSource
 import studio.zebro.recommendation.data.entity.StockRecommendationEntity
 import studio.zebro.recommendation.data.mapper.StockRecommendationEntityMapper.mapStockRecommendationRemoteDataModelToStockRecommendationEntity
@@ -19,8 +20,33 @@ class RecommendationRepository(
     private val recommendationRemoteSource: RecommendationRemoteSource
 ) {
 
-    fun fetchStockRecommendations(): Flow<List<StockRecommendationEntity>> = object :
-        NetworkBoundWithLocalSource<List<StockRecommendationsDataModel>, List<StockRecommendationsDataModel>, List<StockRecommendationEntity>>() {
+    fun fetchStockRecommendations(isForceRefresh: Boolean = false): Flow<List<StockRecommendationEntity>> =
+        if (isForceRefresh) {
+            getStockRecommendationsFromRemoteAndSaveToCache()
+        } else {
+            getCachedRecommendationsAndLazilyUpdateCache()
+        }
+
+    private fun getStockRecommendationsFromRemoteAndSaveToCache() = object :
+        NetworkBoundSource<List<StockRecommendationsDataModel>, List<StockRecommendationEntity>>() {
+
+        override suspend fun fetchFromRemote(): Response<List<StockRecommendationsDataModel>> {
+            return recommendationRemoteSource.getRecommendationsFromKotakSecurities()
+        }
+
+        override suspend fun postProcess(originalData: List<StockRecommendationsDataModel>): List<StockRecommendationEntity> {
+            localPreferenceSource.saveStockKotakRecommendation(originalData)
+            return originalData
+                .map {
+                    mapStockRecommendationRemoteDataModelToStockRecommendationEntity(it)
+                }
+        }
+    }.asFlow(gson).flowOn(Dispatchers.IO)
+
+    private fun getCachedRecommendationsAndLazilyUpdateCache() = object :
+        NetworkBoundWithLocalSource<List<StockRecommendationsDataModel>,
+                List<StockRecommendationsDataModel>, List<StockRecommendationEntity>>() {
+
         override suspend fun saveToLocal(response: List<StockRecommendationsDataModel>) {
             localPreferenceSource.saveStockKotakRecommendation(response)
         }
@@ -44,6 +70,5 @@ class RecommendationRepository(
                     mapStockRecommendationRemoteDataModelToStockRecommendationEntity(it)
                 }
         }
-
     }.asFlow(gson).flowOn(Dispatchers.IO)
 }

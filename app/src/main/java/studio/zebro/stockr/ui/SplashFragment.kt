@@ -42,7 +42,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recommendationViewModel =
             ViewModelProvider(requireActivity())[RecommendationViewModel::class.java]
-        recommendationViewModel.getStockRecommendations()
+        recommendationViewModel.getStockRecommendations(false)
         attachSplashAnimationCompleteListener()
     }
 

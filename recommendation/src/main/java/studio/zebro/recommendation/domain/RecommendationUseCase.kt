@@ -11,7 +11,7 @@ import studio.zebro.recommendation.domain.model.HistoricStockDataModel
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
 
 interface RecommendationUseCase {
-    fun fetchRecommendations(): Flow<List<StockRecommendationModel>>
+    fun fetchRecommendations(isForceRefresh : Boolean = false): Flow<List<StockRecommendationModel>>
     fun fetchHistoricData(stockSymbol: String): Flow<HistoricStockDataModel>
 }
 
@@ -20,12 +20,12 @@ internal class RecommendationsInteractor(
     private val historicalStockDataRepository: HistoricalStockDataRepository
 ) : RecommendationUseCase {
 
-    override fun fetchRecommendations(): Flow<List<StockRecommendationModel>> {
+    override fun fetchRecommendations(isForceRefresh : Boolean): Flow<List<StockRecommendationModel>> {
         var stockRecommendationModel: StockRecommendationModel? = null
         val stockRecommendationModelTransformedList: MutableList<StockRecommendationModel> =
             mutableListOf()
         var stockRecommendationModelOriginalList: List<StockRecommendationModel> = listOf()
-        return recommendationRepository.fetchStockRecommendations()
+        return recommendationRepository.fetchStockRecommendations(isForceRefresh)
             .map {
                 Log.d(this.javaClass.name, "---->>>>> here 1")
                 it.map {
