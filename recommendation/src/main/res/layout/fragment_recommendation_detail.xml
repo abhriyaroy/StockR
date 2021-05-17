@@ -64,7 +64,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:transitionName="t_2"
+                    android:transitionName="checker_1"
                     android:text="@{stockRecommendationModelItem.shortName}"
                     android:textColor="@{CoreUtility.INSTANCE.getStockUpOrDownColor(context, stockRecommendationModelItem.action)}"
                     android:textStyle="bold"

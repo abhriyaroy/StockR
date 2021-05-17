@@ -59,8 +59,6 @@ dependencies {
   implementation(Libs.hiltCore)
   implementation(Libs.hiltCommon)
   implementation(Libs.hiltViewModelLifecycle)
-  implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-  implementation("androidx.legacy:legacy-support-v4:1.0.0")
   kapt(Libs.hiltDaggerAndroidCompiler)
   kapt(Libs.hiltCompiler)
 

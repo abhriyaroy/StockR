@@ -2,7 +2,7 @@ package studio.zebro.core
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.transition.TransitionInflater
+import com.google.android.material.transition.MaterialContainerTransform
 
 abstract class BaseFragment : Fragment() {
 
@@ -12,10 +12,10 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun setupSharedElementTransition() {
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(
+        sharedElementEnterTransition = androidx.transition.TransitionInflater.from(requireContext()).inflateTransition(
             android.R.transition.move
         ).apply {
-            duration = 2000
+            duration = 700
         }
     }
 }

@@ -1,12 +1,10 @@
 package studio.zebro.recommendation.ui.recommendationdetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import studio.zebro.core.BaseFragment
-import studio.zebro.core.util.withDelayOnMain
 import studio.zebro.recommendation.databinding.FragmentRecommendationDetailBinding
 
 class RecommendationDetailFragment : BaseFragment() {
@@ -22,7 +20,6 @@ class RecommendationDetailFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         return FragmentRecommendationDetailBinding.inflate(inflater).let {
             binding = it
             it.root
@@ -47,9 +44,7 @@ class RecommendationDetailFragment : BaseFragment() {
 //                binding.itemSellAtTextView.transitionName = sellAtTextViewTransitionName
 //            }
         }
-        withDelayOnMain(1000) {
-            startPostponedEnterTransition()
-        }
+        startPostponedEnterTransition()
         attachClickListeners()
     }
 

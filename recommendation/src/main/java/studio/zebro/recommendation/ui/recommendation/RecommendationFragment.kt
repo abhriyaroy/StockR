@@ -6,13 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,14 +24,14 @@ import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
 import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationItemClickListener
 import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationsRecyclerViewAdapter
-import studio.zebro.recommendation.ui.transition.RecommendationItemToRecommendationDetailTransitionModel
 
 @AndroidEntryPoint
-class RecommendationFragment : BaseFragment() {
+class RecommendationFragment : BaseFragment(), ItemsAdapter.ItemAdapterListener {
 
     private lateinit var recommendationViewModel: RecommendationViewModel
     private lateinit var binding: FragmentRecommendationBinding
     private lateinit var recommendationsAdapter: RecommendationsRecyclerViewAdapter
+    var stockRecommendationModel: StockRecommendationModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +51,7 @@ class RecommendationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-        animateRecommendationCard()
+//        animateRecommendationCard()
         initRecyclerView()
         setupObservers()
         setupSwipeRefreshListener()
@@ -71,44 +68,73 @@ class RecommendationFragment : BaseFragment() {
                 override fun onRecommendationItemClick(
                     position: Int,
                     stockRecommendationModel: StockRecommendationModel,
-                    transitionModel: RecommendationItemToRecommendationDetailTransitionModel
+                    textView: TextView
                 ) {
-
                     val extras = FragmentNavigatorExtras(
-                        transitionModel.rootItem!! to "t_1",
-                        transitionModel.titleTextView!! to "t_2",
-                        transitionModel.sellAtTextView!! to "t_3",
-                        transitionModel.buyAtTextView!! to "t_4",
-                        transitionModel.actionTextView!! to "t_5",
+                        textView to "checker_1",
                         binding.appLogoImageView to TransitionNameConstants.SPLASH_TO_RECOMMENDATION_LOGO_TRANSITION_NAME
                     )
 
                     findNavController().navigate(
                         RecommendationFragmentDirections.actionRecommendationFragmentToRecommendationDetailFragment(
-                            transitionModel,
-                            stockRecommendationModel
+                            stockRecommendationModel!!
                         ),
                         extras
                     )
+
+
+//                    val extras = FragmentNavigatorExtras(
+//                        textView to "transss"
+//                    )
+//                    val navAction = RecommendationFragmentDirections.actionRecommendationFragmentToImageFragment(863244)
+//                    findNavController().navigate(navAction, extras)
                 }
             })
+
+//        binding.recommendationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        binding.recommendationRecyclerView.adapter = ItemsAdapter(this)
+//
         binding.recommendationRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-                .apply {
-                    setDrawable(
-                        ColorDrawable(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.white
+            addItemDecoration(
+                DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+                    .apply {
+                        setDrawable(
+                            ColorDrawable(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
                             )
                         )
-                    )
-                })
+                    })
             this.adapter = recommendationsAdapter
         }
+    }
+
+    override fun onItemClicked(viewGroup: ViewGroup, item: Item) {
+
+//        val extras = FragmentNavigatorExtras(
+//            viewGroup to "checker_1",
+//            binding.appLogoImageView to TransitionNameConstants.SPLASH_TO_RECOMMENDATION_LOGO_TRANSITION_NAME
+//        )
+//
+//        findNavController().navigate(
+//            RecommendationFragmentDirections.actionRecommendationFragmentToRecommendationDetailFragment(
+//                stockRecommendationModel!!
+//            ),
+//            extras
+//        )
+
+
+        val extras = FragmentNavigatorExtras(
+            viewGroup to "transss"
+        )
+        val navAction =
+            RecommendationFragmentDirections.actionRecommendationFragmentToImageFragment(863244)
+        findNavController().navigate(navAction, extras)
     }
 
     private fun setupObservers() {
@@ -116,6 +142,7 @@ class RecommendationFragment : BaseFragment() {
             when (it) {
                 is ResourceState.Success -> {
                     Log.d(this.javaClass.name, "the data is --> ${it.data.size}")
+                    stockRecommendationModel = it.data[4]
                     recommendationsAdapter.setItemsList(it.data)
                 }
                 is ResourceState.Loading -> {
@@ -129,6 +156,6 @@ class RecommendationFragment : BaseFragment() {
     }
 
     private fun setupSwipeRefreshListener() {
-        binding.swipeRefresh
+//        binding.swipeRefresh
     }
 }

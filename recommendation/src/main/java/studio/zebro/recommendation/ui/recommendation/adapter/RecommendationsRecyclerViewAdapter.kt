@@ -58,16 +58,19 @@ class RecommendationsRecyclerViewAdapter(
             position: Int,
             stockRecommendationModel: StockRecommendationModel
         ) {
-            binding.itemRootViewGroup.transitionName =
-            "${stockRecommendationModel.codeNumber}$position${binding.itemRootViewGroup.id}"
-            binding.itemNameTextView.transitionName =
-            "${stockRecommendationModel.codeNumber}$position${binding.itemNameTextView.id}"
-            binding.itemSellAtTextView.transitionName =
-                "${stockRecommendationModel.codeNumber}$position${binding.itemSellAtTextView.id}"
-            binding.itemBuyAtTextView.transitionName =
-                "${stockRecommendationModel.codeNumber}$position${binding.itemBuyAtTextView.id}"
-            binding.itemActionTextView.transitionName =
-                "${stockRecommendationModel.codeNumber}$position${binding.itemActionTextView.id}"
+            if(position == 4){
+                binding.itemNameTextView.transitionName = "checker_1"
+            } else {
+                binding.itemNameTextView.transitionName = "$position"
+            }
+//            binding.itemNameTextView.transitionName =
+//            "${stockRecommendationModel.codeNumber}$position${binding.itemNameTextView.id}"
+//            binding.itemSellAtTextView.transitionName =
+//                "${stockRecommendationModel.codeNumber}$position${binding.itemSellAtTextView.id}"
+//            binding.itemBuyAtTextView.transitionName =
+//                "${stockRecommendationModel.codeNumber}$position${binding.itemBuyAtTextView.id}"
+//            binding.itemActionTextView.transitionName =
+//                "${stockRecommendationModel.codeNumber}$position${binding.itemActionTextView.id}"
         }
 
         fun attachClickListener(
@@ -76,26 +79,22 @@ class RecommendationsRecyclerViewAdapter(
             recommendationItemClickListener: RecommendationItemClickListener
         ) {
             binding.itemRootViewGroup.setOnClickListener {
-                Log.d(this.javaClass.name, "check last adapter ${binding.itemRootViewGroup.transitionName}")
-                Log.d(this.javaClass.name, "check last adapter ${binding.itemNameTextView.transitionName}")
-                Log.d(this.javaClass.name, "check last adapter ${binding.itemSellAtTextView.transitionName}")
-                Log.d(this.javaClass.name, "check last adapter ${binding.itemBuyAtTextView.transitionName}")
-                Log.d(this.javaClass.name, "check last adapter ${binding.itemActionTextView.transitionName}")
                 recommendationItemClickListener.onRecommendationItemClick(
                     position,
                     stockRecommendationModel,
-                    RecommendationItemToRecommendationDetailTransitionModel(
-                        binding.itemRootViewGroup,
-                        binding.itemRootViewGroup.transitionName,
-                        binding.itemNameTextView,
-                        binding.itemNameTextView.transitionName,
-                        binding.itemBuyAtTextView,
-                        binding.itemBuyAtTextView.transitionName,
-                        binding.itemSellAtTextView,
-                        binding.itemSellAtTextView.transitionName,
-                        binding.itemActionTextView,
-                        binding.itemActionTextView.transitionName,
-                    )
+//                    RecommendationItemToRecommendationDetailTransitionModel(
+//                        binding.itemRootViewGroup,
+//                        binding.itemRootViewGroup.transitionName,
+//                        binding.itemNameTextView,
+//                        binding.itemNameTextView.transitionName,
+//                        binding.itemBuyAtTextView,
+//                        binding.itemBuyAtTextView.transitionName,
+//                        binding.itemSellAtTextView,
+//                        binding.itemSellAtTextView.transitionName,
+//                        binding.itemActionTextView,
+//                        binding.itemActionTextView.transitionName,
+//                    )
+                binding.itemNameTextView
                 )
             }
         }
