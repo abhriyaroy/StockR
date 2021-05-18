@@ -25,7 +25,7 @@ class HistoricalDataRemoteSourceImpl : HistoricalDataRemoteSource {
                     URLEncoder.encode(
                         stockSymbol
                     )
-                }&series=EQ&fromDate=undefined&toDate=undefined&datePeriod=3months"
+                }&series=EQ&fromDate=undefined&toDate=undefined&datePeriod=12months"
             )
         val `in` = BufferedReader(
             InputStreamReader(oracle.openStream())

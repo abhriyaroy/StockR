@@ -1,13 +1,12 @@
 package studio.zebro.recommendation.ui.recommendation.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import studio.zebro.recommendation.databinding.ItemRecommendationBinding
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
-import studio.zebro.recommendation.ui.transition.RecommendationItemToRecommendationDetailTransitionModel
+import studio.zebro.recommendation.ui.transition.RecommendationRecyclerItemTransitionViewsModel
 
 class RecommendationsRecyclerViewAdapter(
     val context: Context,
@@ -58,19 +57,11 @@ class RecommendationsRecyclerViewAdapter(
             position: Int,
             stockRecommendationModel: StockRecommendationModel
         ) {
-            if(position == 4){
-                binding.itemNameTextView.transitionName = "checker_1"
-            } else {
-                binding.itemNameTextView.transitionName = "$position"
-            }
-//            binding.itemNameTextView.transitionName =
-//            "${stockRecommendationModel.codeNumber}$position${binding.itemNameTextView.id}"
-//            binding.itemSellAtTextView.transitionName =
-//                "${stockRecommendationModel.codeNumber}$position${binding.itemSellAtTextView.id}"
-//            binding.itemBuyAtTextView.transitionName =
-//                "${stockRecommendationModel.codeNumber}$position${binding.itemBuyAtTextView.id}"
-//            binding.itemActionTextView.transitionName =
-//                "${stockRecommendationModel.codeNumber}$position${binding.itemActionTextView.id}"
+            binding.itemRootViewGroup.transitionName = "${position}viewgroup"
+            binding.itemNameTextView.transitionName = "${position}titletextview"
+            binding.itemSellAtTextView.transitionName = "${position}selltextview"
+            binding.itemBuyAtTextView.transitionName = "${position}buytextview"
+            binding.itemActionTextView.transitionName = "${position}actiontextview"
         }
 
         fun attachClickListener(
@@ -82,19 +73,13 @@ class RecommendationsRecyclerViewAdapter(
                 recommendationItemClickListener.onRecommendationItemClick(
                     position,
                     stockRecommendationModel,
-//                    RecommendationItemToRecommendationDetailTransitionModel(
-//                        binding.itemRootViewGroup,
-//                        binding.itemRootViewGroup.transitionName,
-//                        binding.itemNameTextView,
-//                        binding.itemNameTextView.transitionName,
-//                        binding.itemBuyAtTextView,
-//                        binding.itemBuyAtTextView.transitionName,
-//                        binding.itemSellAtTextView,
-//                        binding.itemSellAtTextView.transitionName,
-//                        binding.itemActionTextView,
-//                        binding.itemActionTextView.transitionName,
-//                    )
-                binding.itemNameTextView
+                    RecommendationRecyclerItemTransitionViewsModel(
+                        binding.itemRootViewGroup,
+                        binding.itemNameTextView,
+                        binding.itemBuyAtTextView,
+                        binding.itemSellAtTextView,
+                        binding.itemActionTextView,
+                    )
                 )
             }
         }

@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_recommendationFragment_to_recommendationDetailFragment"
             app:destination="@id/recommendationDetailFragment" />
-        <action
-            android:id="@+id/action_recommendationFragment_to_imageFragment"
-            app:destination="@id/imageFragment" />
     </fragment>
     <fragment
         android:id="@+id/recommendationDetailFragment"
@@ -27,23 +24,4 @@
             app:argType="studio.zebro.recommendation.domain.model.StockRecommendationModel" />
     </fragment>
 
-    <fragment
-        android:id="@+id/imageFragment"
-        android:name="studio.zebro.recommendation.ui.recommendation.adapter.ImageFragment"
-        android:label="ImageFragment" >
-        <argument
-            android:name="imgId"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="studio.zebro.recommendation.ui.recommendation.adapter.MainFragment"
-        android:label="MainFragment" >
-        <action
-            android:id="@+id/action_mainFragment_to_imageFragment"
-            app:destination="@id/imageFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_recommendationDetailFragment"
-            app:destination="@id/recommendationDetailFragment" />
-    </fragment>
 </navigation>

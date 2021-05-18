@@ -3,4 +3,13 @@
     <string name="buy_at_x">Buy at: ₹%1$s</string>
     <string name="sell_at_x">Sell at: ₹%1$s</string>
     <string name="action_x">Action: %1$s</string>
+
+
+    <!-- Transition names -->
+    <string name="app_logo_transition_name">app_logo_transition</string>
+    <string name="stock_symbol_transition_name">stock_title_transition</string>
+    <string name="stock_buyat_transition_name">stock_buyat_transition_name</string>
+    <string name="stock_sellat_transition_name">stock_sellat_transition_name</string>
+    <string name="stock_action_transition_name">stock_action_transition_name</string>
+    <string name="stock_parent_view_transition_name">stock_parent_view_transition_name</string>
 </resources>

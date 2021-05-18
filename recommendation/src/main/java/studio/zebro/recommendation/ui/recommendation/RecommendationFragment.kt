@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.ViewModelProvider
@@ -24,9 +23,10 @@ import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
 import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationItemClickListener
 import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationsRecyclerViewAdapter
+import studio.zebro.recommendation.ui.transition.RecommendationRecyclerItemTransitionViewsModel
 
 @AndroidEntryPoint
-class RecommendationFragment : BaseFragment(), ItemsAdapter.ItemAdapterListener {
+class RecommendationFragment : BaseFragment() {
 
     private lateinit var recommendationViewModel: RecommendationViewModel
     private lateinit var binding: FragmentRecommendationBinding
@@ -51,7 +51,7 @@ class RecommendationFragment : BaseFragment(), ItemsAdapter.ItemAdapterListener 
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-//        animateRecommendationCard()
+        animateRecommendationCard()
         initRecyclerView()
         setupObservers()
         setupSwipeRefreshListener()
@@ -68,32 +68,28 @@ class RecommendationFragment : BaseFragment(), ItemsAdapter.ItemAdapterListener 
                 override fun onRecommendationItemClick(
                     position: Int,
                     stockRecommendationModel: StockRecommendationModel,
-                    textView: TextView
+                    viewsModel: RecommendationRecyclerItemTransitionViewsModel
                 ) {
                     val extras = FragmentNavigatorExtras(
-                        textView to "checker_1",
+                        viewsModel.rootItem to getString(R.string.stock_parent_view_transition_name),
+                        viewsModel.titleTextView to getString(R.string.stock_symbol_transition_name),
+                        viewsModel.buyAtTextView to getString(R.string.stock_buyat_transition_name),
+                        viewsModel.sellAtTextView to getString(R.string.stock_sellat_transition_name),
+                        viewsModel.actionTextView to getString(R.string.stock_action_transition_name),
                         binding.appLogoImageView to TransitionNameConstants.SPLASH_TO_RECOMMENDATION_LOGO_TRANSITION_NAME
                     )
 
                     findNavController().navigate(
                         RecommendationFragmentDirections.actionRecommendationFragmentToRecommendationDetailFragment(
-                            stockRecommendationModel!!
+                            stockRecommendationModel
                         ),
                         extras
                     )
 
 
-//                    val extras = FragmentNavigatorExtras(
-//                        textView to "transss"
-//                    )
-//                    val navAction = RecommendationFragmentDirections.actionRecommendationFragmentToImageFragment(863244)
-//                    findNavController().navigate(navAction, extras)
                 }
             })
 
-//        binding.recommendationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        binding.recommendationRecyclerView.adapter = ItemsAdapter(this)
-//
         binding.recommendationRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager =
@@ -112,29 +108,6 @@ class RecommendationFragment : BaseFragment(), ItemsAdapter.ItemAdapterListener 
                     })
             this.adapter = recommendationsAdapter
         }
-    }
-
-    override fun onItemClicked(viewGroup: ViewGroup, item: Item) {
-
-//        val extras = FragmentNavigatorExtras(
-//            viewGroup to "checker_1",
-//            binding.appLogoImageView to TransitionNameConstants.SPLASH_TO_RECOMMENDATION_LOGO_TRANSITION_NAME
-//        )
-//
-//        findNavController().navigate(
-//            RecommendationFragmentDirections.actionRecommendationFragmentToRecommendationDetailFragment(
-//                stockRecommendationModel!!
-//            ),
-//            extras
-//        )
-
-
-        val extras = FragmentNavigatorExtras(
-            viewGroup to "transss"
-        )
-        val navAction =
-            RecommendationFragmentDirections.actionRecommendationFragmentToImageFragment(863244)
-        findNavController().navigate(navAction, extras)
     }
 
     private fun setupObservers() {
