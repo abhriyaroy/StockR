@@ -26,12 +26,10 @@ class HistoricalStockDataRepository(
             NetworkBoundSource<List<HistoricalStockDataDayWiseModel>, HistoricalStockDataEntity>() {
 
             override suspend fun fetchFromRemote(): Response<List<HistoricalStockDataDayWiseModel>> {
-                Log.d(this.javaClass.name, "---->>>>> here ")
                 return historicalDataRemoteSource.get3monthsHistoricData(stockSymbol)
             }
 
             override suspend fun postProcess(originalData: List<HistoricalStockDataDayWiseModel>): HistoricalStockDataEntity {
-                Log.d(this.javaClass.name, "---->>>>> here mapped")
                 return HistoricalStockDataMapper.mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(
                     originalData
                 )

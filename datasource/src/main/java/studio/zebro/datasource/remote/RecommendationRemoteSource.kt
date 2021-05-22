@@ -1,5 +1,6 @@
 package studio.zebro.datasource.remote
 
+import android.util.Log
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -18,10 +19,12 @@ class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
     override fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>> {
         val parsedData: Document = Jsoup.connect(BuildConfig.KOTAK_RECOMMENDATIONS_URL).get()
         val rawStockRecommendations: Elements = parsedData.select(TABLE_ITEM_CSS_TAG)
+        Log.d(this.javaClass.name, "The fetched items are $rawStockRecommendations")
         var iterableSize = rawStockRecommendations.size
         return mutableListOf<StockRecommendationsDataModel>().let {
             var count = 0
             while (count < iterableSize) {
+                rawStockRecommendations
                 if (
                     rawStockRecommendations[count].text().trim().equals("NA", true)
                     || rawStockRecommendations[count + 1].text().split(",")[0].equals("NA", true)

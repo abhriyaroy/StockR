@@ -3,7 +3,7 @@
     <string name="buy_at_x">Buy at: ₹%1$s</string>
     <string name="sell_at_x">Sell at: ₹%1$s</string>
     <string name="action_x">Action: %1$s</string>
-
+    <string name="loading_graph">Loading graph data</string>
 
     <!-- Transition names -->
     <string name="app_logo_transition_name">app_logo_transition</string>

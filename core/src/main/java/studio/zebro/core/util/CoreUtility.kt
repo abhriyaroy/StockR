@@ -7,6 +7,9 @@ import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import studio.zebro.core.R
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 object CoreUtility {
 
@@ -34,22 +37,36 @@ object CoreUtility {
         }
     }
 
-    fun getActionSpannableHighlight(context: Context, string: String, action: String): SpannableString {
-        with(SpannableString(string)){
+    fun getActionSpannableHighlight(
+        context: Context,
+        string: String,
+        action: String
+    ): SpannableString {
+        with(SpannableString(string)) {
             val indexOfSeparator = this.indexOf(':')
             setSpan(
                 ForegroundColorSpan(ContextCompat.getColor(context, R.color.white)),
-                0, indexOfSeparator+1,
+                0, indexOfSeparator + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 
             setSpan(
                 ForegroundColorSpan(getStockUpOrDownColor(context, action)),
-                indexOfSeparator+1, length,
+                indexOfSeparator + 1, length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             return this
         }
     }
 
+    fun formatDate(inputDate: String, inputDatFormat : String, outputDateFormat: String): String {
+        val inputFormat: DateFormat = SimpleDateFormat(inputDatFormat, Locale.ENGLISH)
+        val outputFormat: DateFormat = SimpleDateFormat(outputDateFormat, Locale.ENGLISH)
+
+        val date: Date = inputFormat.parse(inputDate)
+        return outputFormat.format(date)
+    }
+
+    const val DD_MMM_YYYY_DATE_FORMAT = "dd-MMM-yyyy"
+    const val DD_MM_YY_DATE_FORMAT = "dd-MM-yy"
 }

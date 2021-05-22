@@ -115,8 +115,12 @@ class RecommendationFragment : BaseFragment() {
             when (it) {
                 is ResourceState.Success -> {
                     Log.d(this.javaClass.name, "the data is --> ${it.data.size}")
-                    stockRecommendationModel = it.data[4]
-                    recommendationsAdapter.setItemsList(it.data)
+                    if(it.data.size > 0) {
+                        stockRecommendationModel = it.data[4]
+                        recommendationsAdapter.setItemsList(it.data)
+                    } else {
+
+                    }
                 }
                 is ResourceState.Loading -> {
                     Log.d(this.javaClass.name, "loading --->")

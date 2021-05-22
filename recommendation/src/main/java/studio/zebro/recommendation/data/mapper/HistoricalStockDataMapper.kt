@@ -9,6 +9,7 @@ object HistoricalStockDataMapper {
 
     fun mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(historicalStockDataEntity: HistoricalStockDataEntity): List<HistoricalStockDataDayWiseModel> {
         return historicalStockDataEntity.dataItemsList
+            .reversed()
             .map {
                 mapHistoricalStockDataIntraDayEntityToHistoricalStockDataModel(it)
             }
@@ -20,7 +21,8 @@ object HistoricalStockDataMapper {
             list.minOf { it.lowPrice.replace(",", "").toFloat() },
             list.last().date,
             list.first().date,
-            list.map {
+            list.reversed()
+                .map {
                 mapHistoricalStockDataModelToHistoricalStockDataIntraDayEntity(it)
             }
         )
