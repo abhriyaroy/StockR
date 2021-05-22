@@ -7,6 +7,7 @@ import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import studio.zebro.core.R
+import studio.zebro.datasource.model.StockRecommendationsDataModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,10 +31,18 @@ object CoreUtility {
     }
 
     fun getStockUpOrDownColor(context: Context, action: String): Int {
-        if (action.equals("buy", true) || action.equals("add", true)) {
-            return ContextCompat.getColor(context, R.color.positive)
+        return if (action.equals("buy", true) || action.equals("add", true)) {
+            ContextCompat.getColor(context, R.color.positive)
         } else {
-            return ContextCompat.getColor(context, R.color.negative)
+            ContextCompat.getColor(context, R.color.negative)
+        }
+    }
+
+    fun getStockPositiveNegativeState(action: String) :StockPositiveNegativeState{
+        return if (action.equals("buy", true) || action.equals("add", true)) {
+            StockPositiveNegativeState.POSITVE
+        } else {
+            StockPositiveNegativeState.NEGATIVE
         }
     }
 

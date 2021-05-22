@@ -16,12 +16,10 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import studio.zebro.core.BaseFragment
-import studio.zebro.core.util.CoreUtility
+import studio.zebro.core.util.*
 import studio.zebro.core.util.CoreUtility.DD_MMM_YYYY_DATE_FORMAT
 import studio.zebro.core.util.CoreUtility.DD_MM_YY_DATE_FORMAT
-import studio.zebro.core.util.gone
-import studio.zebro.core.util.invisible
-import studio.zebro.core.util.visible
+import studio.zebro.core.util.CoreUtility.getStockPositiveNegativeState
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.R
 import studio.zebro.recommendation.databinding.FragmentRecommendationDetailBinding
@@ -113,6 +111,21 @@ class RecommendationDetailFragment : BaseFragment() {
         }
 
         val lineDataSet = LineDataSet(values, "")
+        lineDataSet.setDrawFilled(true)
+        val fillGradient =
+            when (getStockPositiveNegativeState(stockRecommendationModel.action)) {
+                StockPositiveNegativeState.POSITVE -> {
+                    lineDataSet.color = ContextCompat.getColor(requireContext(), R.color.positive)
+                    lineDataSet.setCircleColor(ContextCompat.getColor(requireContext(), R.color.positive))
+                    ContextCompat.getDrawable(requireContext(), R.drawable.gradient_positive)
+                }
+                StockPositiveNegativeState.NEGATIVE -> {
+                    lineDataSet.color = ContextCompat.getColor(requireContext(), R.color.negative)
+                    lineDataSet.setCircleColor(ContextCompat.getColor(requireContext(), R.color.negative))
+                    ContextCompat.getDrawable(requireContext(), R.drawable.gradient_negative)
+                }
+            }
+        lineDataSet.fillDrawable = fillGradient
         val lineData = LineData(lineDataSet)
         binding.lineChart.data = lineData
         binding.lineChart.xAxis.valueFormatter = XAxisValueFormatter(historicStockDataModel)

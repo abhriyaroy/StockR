@@ -17,9 +17,9 @@
 
             <ImageButton
                 android:id="@+id/backImageButton"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_margin="16dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
                 android:background="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_back"
@@ -152,7 +152,7 @@
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChart"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="324dp"
                         android:layout_marginTop="16dp"
                         android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
