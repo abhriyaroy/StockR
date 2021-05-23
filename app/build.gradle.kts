@@ -23,21 +23,33 @@ android {
     multiDexEnabled = true
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
+  signingConfigs {
+    create("release") {
+      val properties = org.jetbrains.kotlin.konan.properties.Properties().apply {
+        load(File("signing.properties").reader())
+      }
+      storeFile = File(properties.getProperty("storeFilePath"))
+      storePassword = properties.getProperty("storePassword")
+      keyPassword = properties.getProperty("keyPassword")
+      keyAlias = properties.getProperty("keyAlias")
+    }
+  }
   buildTypes {
     getByName("debug") {
       isMinifyEnabled = false
       isDebuggable = true
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
-        "proguard-rules.pro"
+        "recommendation-proguard-rules.pro"
       )
     }
     getByName("release") {
+      signingConfig = signingConfigs.getByName("release")
       isMinifyEnabled = true
-      isDebuggable = false
+      isDebuggable = true
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
-        "proguard-rules.pro"
+        "recommendation-proguard-rules.pro"
       )
 //      signingConfig = signingConfigs.getByName("release")
     }

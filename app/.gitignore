@@ -1,3 +1,5 @@
 /build
 /debug
 /release
+/signing.properties
+/stockr_signing_key

@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep public class studio.zebro.recommendation.data.entity.*
+-keep public class studio.zebro.recommendation.data.mapper.*
+
+-keep public class studio.zebro.recommendation.domain.model.*
+-keep public class studio.zebro.recommendation.domain.mapper.*
