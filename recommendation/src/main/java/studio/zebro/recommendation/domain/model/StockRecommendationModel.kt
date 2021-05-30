@@ -17,4 +17,5 @@ data class StockRecommendationModel(
     val type: String,
     val action: String,
     val remark: String,
+    var historicalData : HistoricStockDataModel?=null
 ) : Parcelable

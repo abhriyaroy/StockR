@@ -11,7 +11,7 @@ import studio.zebro.recommendation.domain.model.HistoricStockDataModel
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
 
 interface RecommendationUseCase {
-    fun fetchRecommendations(isForceRefresh : Boolean = false): Flow<List<StockRecommendationModel>>
+    fun fetchRecommendations(isForceRefresh: Boolean = false): Flow<List<StockRecommendationModel>>
     fun fetchHistoricData(stockSymbol: String): Flow<HistoricStockDataModel>
 }
 
@@ -20,11 +20,11 @@ internal class RecommendationsInteractor(
     private val historicalStockDataRepository: HistoricalStockDataRepository
 ) : RecommendationUseCase {
 
-    override fun fetchRecommendations(isForceRefresh : Boolean): Flow<List<StockRecommendationModel>> {
-        var stockRecommendationModel: StockRecommendationModel? = null
-        val stockRecommendationModelTransformedList: MutableList<StockRecommendationModel> =
-            mutableListOf()
-        var stockRecommendationModelOriginalList: List<StockRecommendationModel> = listOf()
+    override fun fetchRecommendations(isForceRefresh: Boolean): Flow<List<StockRecommendationModel>> {
+//        var stockRecommendationModelMap: HashMap<String, StockRecommendationModel> = hashMapOf()
+//        val stockRecommendationModelTransformedList: MutableList<StockRecommendationModel> =
+//            mutableListOf()
+//        var stockRecommendationModelOriginalList: List<StockRecommendationModel> = listOf()
         return recommendationRepository.fetchStockRecommendations(isForceRefresh)
             .map {
                 Log.d(this.javaClass.name, "---->>>>> here 1")
@@ -32,15 +32,24 @@ internal class RecommendationsInteractor(
                     mapStockRecommendationEntityToStockRecommendationModel(it)
                 }
             }
-
-//            .flatMapConcat {
+//            .flatMapMerge {
 //                Log.d(this.javaClass.name, "---->>>>> here 2")
 //                stockRecommendationModelOriginalList = it
 //                flattenListOfStockRecommendationModel(it)
-//            }.flatMapConcat {
+//            }.flatMapMerge {
 //                Log.d(this.javaClass.name, "---->>>>> here 3")
-//                stockRecommendationModel = it
-//                    historicalStockDataRepository.getHistoricDataForStock(it.shortName)
+//                stockRecommendationModelMap[it.shortName] = it
+//                historicalStockDataRepository.getHistoricDataForStock(it.shortName)
+//            }.flatMapMerge {
+//                flow<List<StockRecommendationModel>> {
+//                    with(stockRecommendationModelMap[it.dataItemsList[0].stockName]!!) {
+//                        this.historicalData = mapHistoricalStockDataEntityToHistoricStockDataModel(it)
+//                        stockRecommendationModelTransformedList.add(this)
+//                    }
+//                    if (stockRecommendationModelTransformedList.size == stockRecommendationModelOriginalList.size) {
+//                        emit(stockRecommendationModelTransformedList)
+//                    }
+//                }
 //            }
 //            .transform {
 //                Log.d(this.javaClass.name, "---->>>>> here $it")
@@ -69,7 +78,6 @@ private fun flattenListOfStockRecommendationModel(list: List<StockRecommendation
             emit(it)
         }
     }
-
 
 
 //it.map {
