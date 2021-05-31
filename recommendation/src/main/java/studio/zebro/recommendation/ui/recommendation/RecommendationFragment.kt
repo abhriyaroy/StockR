@@ -114,25 +114,29 @@ class RecommendationFragment : BaseFragment() {
         recommendationViewModel.stockRecommendations.observe(viewLifecycleOwner, {
             when (it) {
                 is ResourceState.Success -> {
-                    Log.d(this.javaClass.name, "the data is --> ${it.data.size}")
-                    if(it.data.size > 0) {
+                    if(it.data.isNotEmpty()) {
                         stockRecommendationModel = it.data[4]
                         recommendationsAdapter.setItemsList(it.data)
                     } else {
 
                     }
+                    binding.swipeRefresh.isRefreshing = false
                 }
                 is ResourceState.Loading -> {
                     Log.d(this.javaClass.name, "loading --->")
+                    binding.swipeRefresh.isRefreshing = true
                 }
                 is ResourceState.Error -> {
                     Log.e(this.javaClass.name, "the error is --> ${it.error?.message}")
+                    binding.swipeRefresh.isRefreshing = false
                 }
             }
         })
     }
 
     private fun setupSwipeRefreshListener() {
-//        binding.swipeRefresh
+        binding.swipeRefresh.setOnRefreshListener {
+            recommendationViewModel.getStockRecommendations(true)
+        }
     }
 }

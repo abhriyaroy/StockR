@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/primary_main</item>
         <item name="colorPrimaryVariant">@color/primary_main</item>
         <item name="colorOnPrimary">@color/primary_main</item>
-        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:statusBarColor">@color/primary_main</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
