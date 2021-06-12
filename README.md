@@ -43,8 +43,8 @@ StockR can be directly downloaded from the play store.
 - Add build pipeline
 
 ## Acknowledgements
-All stock recommendations are taken out of this super amazing website - https://bestbrokerindia.com/index.html
-All stock related details are fetched directly from NSE website - https://www.nseindia.com/
+All stock recommendations are taken out of this super amazing website - https://bestbrokerindia.com/index.html<br>
+All stock related details are fetched directly from NSE website - https://www.nseindia.com/<br><br>
 
 StockR will always be free and opensource.🧡
 
