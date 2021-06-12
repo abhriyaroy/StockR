@@ -8,9 +8,8 @@ A stock recommendation app to help your money grow 💸
 # Table of Contents
 - [Introduction](#introduction) <br>
 - [UI Samples](#ui-samples) <br>
-- [Features](#features) <br>
-- [Architecture](#architecture)<br>
-- [Installation](#installation) <br>
+- [Download App](#download_app) <br>
+- [TODO](#todo) <br>
 - [Acknowledgements](#acknowledgements) <br>
 - [About the Author](#about-the-author)<br>
 
@@ -31,6 +30,17 @@ StockR aims to help you manage your finances by putting your money where it can 
   <img src="storeassets/ss_tablet_recommendations.png" alt="Recommendations" width=410 height=310 hspace="2">
   <img src="storeassets/ss_tablet_detail_chart.png" alt="Past performance" width=410 height=310 hspace="2">
 </p>
+
+## Download App
+StockR can be directly downloaded from the play store.
+
+
+## Todo
+- Add nifty 50 index card
+- Add sensex card
+- Write unit tests
+- Write integration tests
+- Add build pipeline
 
 ## Acknowledgements
 All stock recommendations are taken out of this super amazing website - https://bestbrokerindia.com/index.html
