@@ -1,20 +1,35 @@
 package studio.zebro.datasource.remote
 
 import android.util.Log
+import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import retrofit2.Response
 import studio.zebro.datasource.BuildConfig
+import studio.zebro.datasource.model.NiftyIndexesDayModel
 import studio.zebro.datasource.model.StockRecommendationsDataModel
+import studio.zebro.datasource.util.Constants.DIV_ITEM_CSS_TAG
 import studio.zebro.datasource.util.Constants.TABLE_ITEM_CSS_TAG
 
 interface RecommendationRemoteSource {
+    fun getNiftyIndexes() : Response<List<NiftyIndexesDayModel>>?
     fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>>
 }
 
 class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
 
+    override fun getNiftyIndexes(): Response<List<NiftyIndexesDayModel>>? {
+        val webPageData: Document = Jsoup.connect(BuildConfig.NSE_BASE_URL).get()
+        println(webPageData)
+        val rawDivItems: Elements = webPageData.select(DIV_ITEM_CSS_TAG)
+        println("heree1-----> $rawDivItems")
+        val rawNiftyIndicesList = rawDivItems.filter {
+           it.className() == "current-price" || it.className() == "change-live mt25"
+        }
+        println("heree2-----> $rawNiftyIndicesList")
+        return null
+    }
 
     override fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>> {
         val parsedData: Document = Jsoup.connect(BuildConfig.KOTAK_RECOMMENDATIONS_URL).get()

@@ -21,8 +21,13 @@ android {
 
   buildTypes {
     getByName("debug") {
-      isMinifyEnabled = true
+      isMinifyEnabled = false
       consumerProguardFiles("datasource-proguard-rules.pro")
+      buildConfigField(
+        BuildConfigType.string,
+        BuildConfigFields.nseBaseUrl,
+        BuildConfigValues.nseBaseUrl
+      )
       buildConfigField(
         BuildConfigType.string,
         BuildConfigFields.kotakRecommendationsUrl,
@@ -32,6 +37,11 @@ android {
     getByName("release") {
       isMinifyEnabled = true
       consumerProguardFiles("datasource-proguard-rules.pro")
+      buildConfigField(
+        BuildConfigType.string,
+        BuildConfigFields.nseBaseUrl,
+        BuildConfigValues.nseBaseUrl
+      )
       buildConfigField(
         BuildConfigType.string,
         BuildConfigFields.kotakRecommendationsUrl,
