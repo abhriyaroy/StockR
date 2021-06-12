@@ -9,10 +9,15 @@ A stock recommendation app to help your money grow 💸
 - [Introduction](#introduction) <br>
 - [UI Samples](#ui-samples) <br>
 - [Features](#features) <br>
-- [Architecture](#things-to-look-out-for)<br>
+- [Architecture](#architecture)<br>
 - [Installation](#installation) <br>
 - [Acknowledgements](#acknowledgements) <br>
 - [About the Author](#about-the-author)<br>
+
+## Introduction
+StockR aims to help you manage your finances by putting your money where it can grow! StockR will periodically give you a list of stock recommendations which you can buy at a suggested price and sell at a target price inorder to maximize your gains. StockR will also help you make descisions by looking at past performances of the recommended stocks.
+
+
 
 ## UI Samples
 ### Mobile
