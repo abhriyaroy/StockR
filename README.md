@@ -31,7 +31,7 @@ StockR aims to help you manage your finances by putting your money where it can 
 </p>
 
 ## Download App
-StockR can be directly downloaded from the play store.
+StockR can be directly downloaded from the [play store](https://play.google.com/store/apps/details?id=studio.zebro.stockr).
 
 
 ## Todo
