@@ -159,6 +159,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/itemSellAtTextView" />
 
+                    <include layout="@layout/layout_empty_graphic_with_text"
+                        android:id="@+id/layoutEmptyChartView"
+                        app:emptyText="@{context.getString(R.string.empty_chart)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

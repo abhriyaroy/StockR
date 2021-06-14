@@ -74,10 +74,21 @@
 
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+                <include layout="@layout/layout_empty_graphic_with_text"
+                    android:id="@+id/layoutEmptyRecommendations"
+                    app:emptyText="@{context.getString(R.string.empty_recommendations)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    
+    <data>
+        <import type="android.content.Context" />
+        <import type="studio.zebro.recommendation.R"/>
+    </data>
 
 </layout>

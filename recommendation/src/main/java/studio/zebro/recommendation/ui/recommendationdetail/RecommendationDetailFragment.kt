@@ -81,15 +81,17 @@ class RecommendationDetailFragment : BaseFragment() {
         recommendationViewModel.stockHistoricalData.observe(viewLifecycleOwner, {
             when (it) {
                 is ResourceState.Success -> {
+                    binding.layoutEmptyChartView.rootViewGroup.gone()
                     binding.chartLoadingLayout.root.gone()
                     configureLineChart(it.data)
                 }
                 is ResourceState.Loading -> {
+                    binding.layoutEmptyChartView.rootViewGroup.gone()
                     binding.lineChart.invisible()
                     binding.chartLoadingLayout.root.visible()
                 }
                 is ResourceState.Error -> {
-
+                    binding.layoutEmptyChartView.rootViewGroup.visible()
                 }
             }
         })
@@ -134,9 +136,8 @@ class RecommendationDetailFragment : BaseFragment() {
             ContextCompat.getColor(requireContext(), R.color.white)
         binding.lineChart.axisRight.textColor =
             ContextCompat.getColor(requireContext(), R.color.white)
-//        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS)
-        lineDataSet.setValueTextColor(Color.WHITE)
-        lineDataSet.setValueTextSize(18f)
+        lineDataSet.valueTextColor = Color.WHITE
+        lineDataSet.valueTextSize = 18f
         binding.lineChart.setTouchEnabled(true)
         binding.lineChart.setPinchZoom(true)
         binding.lineChart.isDoubleTapToZoomEnabled = true

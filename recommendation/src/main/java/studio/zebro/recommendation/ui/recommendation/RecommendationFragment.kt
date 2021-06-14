@@ -1,6 +1,7 @@
 package studio.zebro.recommendation.ui.recommendation
 
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import studio.zebro.core.BaseFragment
 import studio.zebro.core.navigation.TransitionNameConstants
+import studio.zebro.core.util.gone
 import studio.zebro.core.util.showAnimation
+import studio.zebro.core.util.visible
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.R
 import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
@@ -117,18 +120,23 @@ class RecommendationFragment : BaseFragment() {
                     if(it.data.isNotEmpty()) {
                         stockRecommendationModel = it.data[4]
                         recommendationsAdapter.setItemsList(it.data)
+                        binding.layoutEmptyRecommendations.rootViewGroup.gone()
                     } else {
-
+                        binding.layoutEmptyRecommendations.rootViewGroup.visible()
                     }
                     binding.swipeRefresh.isRefreshing = false
                 }
                 is ResourceState.Loading -> {
                     Log.d(this.javaClass.name, "loading --->")
                     binding.swipeRefresh.isRefreshing = true
+                    binding.layoutEmptyRecommendations.rootViewGroup.gone()
                 }
                 is ResourceState.Error -> {
                     Log.e(this.javaClass.name, "the error is --> ${it.error?.message}")
                     binding.swipeRefresh.isRefreshing = false
+                    if(recommendationsAdapter.getVisibleItemsList().isEmpty()) {
+                        binding.layoutEmptyRecommendations.rootViewGroup.visible()
+                    }
                 }
             }
         })
