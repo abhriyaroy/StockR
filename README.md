@@ -45,6 +45,8 @@ StockR can be directly downloaded from the [play store](https://play.google.com/
 All stock recommendations are taken out of this super amazing website - https://bestbrokerindia.com/index.html<br>
 All stock related details are fetched directly from NSE website - https://www.nseindia.com/<br><br>
 
+StockR scrapes the website to parse data and shows the user with recommendations!
+
 StockR will always be free and opensource.🧡
 
 ## Request to you
