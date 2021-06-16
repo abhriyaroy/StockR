@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.ViewModelProvider
@@ -55,6 +56,7 @@ class RecommendationFragment : BaseFragment() {
         initRecyclerView()
         setupObservers()
         setupSwipeRefreshListener()
+        handleBackPress()
     }
 
     private fun animateRecommendationCard() {
@@ -137,6 +139,12 @@ class RecommendationFragment : BaseFragment() {
     private fun setupSwipeRefreshListener() {
         binding.swipeRefresh.setOnRefreshListener {
             recommendationViewModel.getStockRecommendations(true)
+        }
+    }
+
+    private fun handleBackPress(){
+        requireActivity().onBackPressedDispatcher.addCallback {
+            requireActivity().finish()
         }
     }
 }
