@@ -91,7 +91,9 @@ class RecommendationDetailFragment : BaseFragment() {
                     binding.chartLoadingLayout.root.visible()
                 }
                 is ResourceState.Error -> {
+                    binding.chartLoadingLayout.root.gone()
                     binding.layoutEmptyChartView.rootViewGroup.visible()
+                    binding.layoutEmptyChartView.emptyViewLottie.playAnimation()
                 }
             }
         })

@@ -19,8 +19,8 @@
                 android:id="@+id/backImageButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="12dp"
                 android:background="@null"
+                android:padding="12dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_back"
                 android:tint="@color/white"
@@ -159,12 +159,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/itemSellAtTextView" />
 
-                    <include layout="@layout/layout_empty_graphic_with_text"
+                    <include
                         android:id="@+id/layoutEmptyChartView"
+                        layout="@layout/layout_empty_graphic_with_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         app:emptyText="@{context.getString(R.string.empty_chart)}"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
