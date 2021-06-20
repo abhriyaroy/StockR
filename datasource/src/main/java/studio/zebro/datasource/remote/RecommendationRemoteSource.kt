@@ -19,21 +19,23 @@ interface RecommendationRemoteSource {
 class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
 
     override fun getNifty50Index(): Response<NiftyIndexesDayModel>? {
-        val webPageData: Document = Jsoup.connect(BuildConfig.NSE_BASE_URL).get()
-        println(webPageData)
-        val rawDivItems: Elements = webPageData.select(DIV_ITEM_CSS_TAG)
-        val rawNiftyIndicesList = rawDivItems.filter {
-           it.className() == "current-price" || it.className() == "change-live mt25"
-        }
-        return if(rawNiftyIndicesList.size>=2){
-            Response.success(NiftyIndexesDayModel(
-                "Nifty 50 Index",
-                rawNiftyIndicesList[0].text().toFloat(),
-
-            ))
-        } else {
-            null
-        }
+//        val webPageData: Document = Jsoup.connect(BuildConfig.NSE_BASE_URL).get()
+//        println(webPageData)
+//        val rawDivItems: Elements = webPageData.select(DIV_ITEM_CSS_TAG)
+//        val rawNiftyIndicesList = rawDivItems.filter {
+//           it.className() == "current-price" || it.className() == "change-live mt25"
+//        }
+//        return if(rawNiftyIndicesList.size>=2){
+//            Response.success(NiftyIndexesDayModel(
+//                "Nifty 50 Index",
+//                rawNiftyIndicesList[0].text().toFloat(),
+//                rawNiftyIndicesList[1].text().trim().toFloat(),
+//
+//            ))
+//        } else {
+//            null
+//        }
+        return null
     }
 
     override fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>> {
