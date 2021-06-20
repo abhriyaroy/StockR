@@ -22,12 +22,9 @@ class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
         val webPageData: Document = Jsoup.connect(BuildConfig.NSE_BASE_URL).get()
         println(webPageData)
         val rawDivItems: Elements = webPageData.select(DIV_ITEM_CSS_TAG)
-        println("heree1-----> $rawDivItems")
         val rawNiftyIndicesList = rawDivItems.filter {
            it.className() == "current-price" || it.className() == "change-live mt25"
         }
-        println("heree2-----> ${rawNiftyIndicesList[0].text()}")
-        println("heree2-----> ${rawNiftyIndicesList[1].text()}")
         return if(rawNiftyIndicesList.size>=2){
             Response.success(NiftyIndexesDayModel(
                 "Nifty 50 Index",
@@ -40,7 +37,6 @@ class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
     }
 
     override fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>> {
-        getNifty50Index()
         val parsedData: Document = Jsoup.connect(BuildConfig.KOTAK_RECOMMENDATIONS_URL).get()
         val rawStockRecommendations: Elements = parsedData.select(TABLE_ITEM_CSS_TAG)
         Log.d(this.javaClass.name, "The fetched items are $rawStockRecommendations")
