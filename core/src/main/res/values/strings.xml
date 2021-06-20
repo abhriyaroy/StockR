@@ -5,6 +5,9 @@
     <string name="action_x">Action: %1$s</string>
     <string name="loading_graph">Loading graph data</string>
 
+    <string name="empty_recommendations">Couldn\'t find any recommendations</string>
+    <string name="empty_chart">Couldn\'t load past performance</string>
+
     <!-- Transition names -->
     <string name="app_logo_transition_name">app_logo_transition</string>
     <string name="stock_symbol_transition_name">stock_title_transition</string>

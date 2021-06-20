@@ -1,7 +1,6 @@
 package studio.zebro.datasource.remote
 
 import android.util.Log
-import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -13,22 +12,28 @@ import studio.zebro.datasource.util.Constants.DIV_ITEM_CSS_TAG
 import studio.zebro.datasource.util.Constants.TABLE_ITEM_CSS_TAG
 
 interface RecommendationRemoteSource {
-    fun getNiftyIndexes() : Response<List<NiftyIndexesDayModel>>?
+    fun getNifty50Index() : Response<NiftyIndexesDayModel>?
     fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>>
 }
 
 class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
 
-    override fun getNiftyIndexes(): Response<List<NiftyIndexesDayModel>>? {
+    override fun getNifty50Index(): Response<NiftyIndexesDayModel>? {
         val webPageData: Document = Jsoup.connect(BuildConfig.NSE_BASE_URL).get()
         println(webPageData)
         val rawDivItems: Elements = webPageData.select(DIV_ITEM_CSS_TAG)
-        println("heree1-----> $rawDivItems")
         val rawNiftyIndicesList = rawDivItems.filter {
            it.className() == "current-price" || it.className() == "change-live mt25"
         }
-        println("heree2-----> $rawNiftyIndicesList")
-        return null
+        return if(rawNiftyIndicesList.size>=2){
+            Response.success(NiftyIndexesDayModel(
+                "Nifty 50 Index",
+                rawNiftyIndicesList[0].text().toFloat(),
+
+            ))
+        } else {
+            null
+        }
     }
 
     override fun getRecommendationsFromKotakSecurities(): Response<List<StockRecommendationsDataModel>> {

@@ -44,6 +44,8 @@ class RecommendationsRecyclerViewAdapter(
         this.notifyDataSetChanged()
     }
 
+    fun getVisibleItemsList() = itemsList
+
     class RecommendationsRecyclerViewHolder(
         private val binding: ItemRecommendationBinding
     ) : RecyclerView.ViewHolder(binding.root) {
