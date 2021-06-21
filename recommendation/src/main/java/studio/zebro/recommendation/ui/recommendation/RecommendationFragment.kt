@@ -142,6 +142,20 @@ class RecommendationFragment : BaseFragment() {
                 }
             }
         })
+
+        recommendationViewModel.nifty50IndexData.observe(viewLifecycleOwner, {
+            when(it){
+                is ResourceState.Success -> {
+
+                }
+                is ResourceState.Loading -> {
+
+                }
+                is ResourceState.Error -> {
+
+                }
+            }
+        })
     }
 
     private fun setupSwipeRefreshListener() {

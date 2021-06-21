@@ -43,6 +43,7 @@ class SplashFragment : Fragment() {
         recommendationViewModel =
             ViewModelProvider(requireActivity())[RecommendationViewModel::class.java]
         recommendationViewModel.getStockRecommendations(false)
+        recommendationViewModel.getNifty50IndexData()
         attachSplashAnimationCompleteListener()
     }
 

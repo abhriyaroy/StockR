@@ -15,6 +15,7 @@ import studio.zebro.datasource.model.ErrorModel
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.domain.RecommendationUseCase
 import studio.zebro.recommendation.domain.model.HistoricStockDataModel
+import studio.zebro.recommendation.domain.model.NiftyIndexesDayModel
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
 
 class RecommendationViewModel @ViewModelInject
@@ -22,14 +23,16 @@ constructor(private val recommendationUseCase: RecommendationUseCase) : ViewMode
 
     private val _stockRecommendations: MutableLiveData<ResourceState<List<StockRecommendationModel>>> =
         MutableLiveData()
-
     val stockRecommendations: LiveData<ResourceState<List<StockRecommendationModel>>> =
         _stockRecommendations
 
     private val _stockHistoricalData: MutableLiveData<ResourceState<HistoricStockDataModel>> =
         MutableLiveData()
-
     val stockHistoricalData: LiveData<ResourceState<HistoricStockDataModel>> = _stockHistoricalData
+
+    private val _nifty50IndexData: MutableLiveData<ResourceState<NiftyIndexesDayModel>> =
+        MutableLiveData()
+    val nifty50IndexData: LiveData<ResourceState<NiftyIndexesDayModel>> = _nifty50IndexData
 
     fun getStockRecommendations(isForceRefresh: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -68,5 +71,22 @@ constructor(private val recommendationUseCase: RecommendationUseCase) : ViewMode
 
     fun clearStockHistoricalData(){
         _stockHistoricalData.postValue(ResourceState.loading())
+    }
+
+    fun getNifty50IndexData(){
+        viewModelScope.launch(Dispatchers.IO) {
+            _nifty50IndexData.postValue(ResourceState.loading())
+            recommendationUseCase.fetchNifty50Index()
+                .catch { error ->
+                    if (error is CustomError) {
+                        _nifty50IndexData.postValue(ResourceState.error(error.errorModel))
+                    } else {
+                        _nifty50IndexData.postValue(ResourceState.error(ErrorModel(message = error.message)))
+                    }
+                }
+                .collect {
+                    _nifty50IndexData.postValue(ResourceState.success(it))
+                }
+        }
     }
 }

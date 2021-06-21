@@ -8,13 +8,16 @@ import kotlinx.coroutines.flow.map
 import studio.zebro.recommendation.data.HistoricalStockDataRepository
 import studio.zebro.recommendation.data.RecommendationRepository
 import studio.zebro.recommendation.domain.mapper.HistoricStockDataModelMapper.mapHistoricalStockDataEntityToHistoricStockDataModel
+import studio.zebro.recommendation.domain.mapper.NiftyIndexesDayModelMapper.mapNiftyIndexesDayEntityToNiftyIndexesDayModel
 import studio.zebro.recommendation.domain.mapper.StockRecommendationModelMapper.mapStockRecommendationEntityToStockRecommendationModel
 import studio.zebro.recommendation.domain.model.HistoricStockDataModel
+import studio.zebro.recommendation.domain.model.NiftyIndexesDayModel
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
 
 interface RecommendationUseCase {
     fun fetchRecommendations(isForceRefresh: Boolean = false): Flow<List<StockRecommendationModel>>
     fun fetchHistoricData(stockSymbol: String): Flow<HistoricStockDataModel>
+    fun fetchNifty50Index(): Flow<NiftyIndexesDayModel>
 }
 
 internal class RecommendationsInteractor(
@@ -37,6 +40,13 @@ internal class RecommendationsInteractor(
         return historicalStockDataRepository.getHistoricDataForStock(stockSymbol)
             .map {
                 mapHistoricalStockDataEntityToHistoricStockDataModel(it)
+            }
+    }
+
+    override fun fetchNifty50Index(): Flow<NiftyIndexesDayModel> {
+        return recommendationRepository.fetchNifty50Index()
+            .map {
+                mapNiftyIndexesDayEntityToNiftyIndexesDayModel(it)
             }
     }
 }
