@@ -7,11 +7,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import studio.zebro.datasource.local.LocalPreferenceSource
+import studio.zebro.datasource.model.NiftyIndexesDayWiseDataModel
 import studio.zebro.datasource.model.StockRecommendationsDataModel
 import studio.zebro.datasource.remote.RecommendationRemoteSource
 import studio.zebro.datasource.util.NetworkBoundSource
 import studio.zebro.datasource.util.NetworkBoundWithLocalSource
+import studio.zebro.recommendation.data.entity.NiftyIndexesDayEntity
 import studio.zebro.recommendation.data.entity.StockRecommendationEntity
+import studio.zebro.recommendation.data.mapper.NiftyIndexesDayEntityMapper.mapNiftyIndexesDayWiseDataModelToNiftyIndexesDayEntity
 import studio.zebro.recommendation.data.mapper.StockRecommendationEntityMapper.mapStockRecommendationRemoteDataModelToStockRecommendationEntity
 
 class RecommendationRepository(
@@ -26,6 +29,17 @@ class RecommendationRepository(
         } else {
             getCachedRecommendationsAndLazilyUpdateCache()
         }
+
+    fun fetchNifty50Index(): Flow<NiftyIndexesDayEntity> = object :
+        NetworkBoundSource<NiftyIndexesDayWiseDataModel, NiftyIndexesDayEntity>() {
+        override suspend fun fetchFromRemote(): Response<NiftyIndexesDayWiseDataModel> {
+            return recommendationRemoteSource.getNifty50Index()
+        }
+
+        override suspend fun postProcess(originalData: NiftyIndexesDayWiseDataModel): NiftyIndexesDayEntity {
+            return mapNiftyIndexesDayWiseDataModelToNiftyIndexesDayEntity(originalData)
+        }
+    }.asFlow(gson).flowOn(Dispatchers.IO)
 
     private fun getStockRecommendationsFromRemoteAndSaveToCache() = object :
         NetworkBoundSource<List<StockRecommendationsDataModel>, List<StockRecommendationEntity>>() {
