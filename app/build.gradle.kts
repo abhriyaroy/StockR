@@ -109,7 +109,7 @@ dependencies {
   // Lottie
   implementation(Libs.lottie)
 
-  implementation(project(Modules.recommendation))
+  implementation(project(Modules.research))
   implementation(project(Modules.core))
 
   testImplementation(TestLibs.junit)
