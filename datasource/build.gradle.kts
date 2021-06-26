@@ -30,8 +30,8 @@ android {
       )
       buildConfigField(
         BuildConfigType.string,
-        BuildConfigFields.kotakRecommendationsUrl,
-        BuildConfigValues.kotakRecommendationsUrl
+        BuildConfigFields.kotakResearchsUrl,
+        BuildConfigValues.kotakResearchsUrl
       )
     }
     getByName("release") {
@@ -44,8 +44,8 @@ android {
       )
       buildConfigField(
         BuildConfigType.string,
-        BuildConfigFields.kotakRecommendationsUrl,
-        BuildConfigValues.kotakRecommendationsUrl
+        BuildConfigFields.kotakResearchsUrl,
+        BuildConfigValues.kotakResearchsUrl
       )
     }
   }

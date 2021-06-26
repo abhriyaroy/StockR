@@ -7,7 +7,7 @@ import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import studio.zebro.core.R
-import studio.zebro.datasource.model.StockRecommendationsDataModel
+import studio.zebro.datasource.model.StockResearchsDataModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

@@ -24,13 +24,13 @@ android {
     getByName("debug") {
       isMinifyEnabled = false
       consumerProguardFiles(
-        "recommendation-proguard-rules.pro"
+        "research-proguard-rules.pro"
       )
     }
     getByName("release") {
       isMinifyEnabled = true
       consumerProguardFiles(
-        "recommendation-proguard-rules.pro"
+        "research-proguard-rules.pro"
       )
     }
   }

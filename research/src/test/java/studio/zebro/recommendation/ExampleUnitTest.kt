@@ -1,4 +1,4 @@
-package studio.zebro.recommendation
+package studio.zebro.research
 
 import org.junit.Test
 

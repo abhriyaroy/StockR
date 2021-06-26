@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_research"
+    app:startDestination="@id/researchFragment">
+
+    <fragment
+        android:id="@+id/researchFragment"
+        android:name="studio.zebro.research.ui.research.ResearchFragment"
+        android:label="research_fragment"
+        tools:layout="@layout/fragment_research">
+        <action
+            android:id="@+id/action_researchFragment_to_researchDetailFragment"
+            app:destination="@id/researchDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/researchDetailFragment"
+        android:name="studio.zebro.research.ui.researchdetail.ResearchDetailFragment"
+        android:label="fragment_research_detail"
+        tools:layout="@layout/fragment_research_detail">
+        <argument
+            android:name="researchItem"
+            app:argType="studio.zebro.research.domain.model.StockResearchModel" />
+    </fragment>
+
+</navigation>

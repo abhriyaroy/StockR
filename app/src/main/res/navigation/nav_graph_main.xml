@@ -11,5 +11,5 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" />
 
-    <include app:graph="@navigation/nav_graph_recommendation" />
+    <include app:graph="@navigation/nav_graph_research" />
 </navigation>
