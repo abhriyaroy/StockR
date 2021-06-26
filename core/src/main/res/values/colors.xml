@@ -12,4 +12,5 @@
     <color name="primary_dark">#00000f</color>
     <color name="negative">#EF6292</color>
     <color name="positive">#16BD67</color>
+    <color name="grey">#777777</color>
 </resources>
