@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
@@ -78,29 +78,29 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
-                    android:textStyle="bold"
                     android:text="15532"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/indexChangeBarrier"
                     app:layout_constraintStart_toEndOf="@id/indexNameTextView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/indexChangePercentage"
+                    android:id="@+id/indexChangePercentageTextView"
                     style="@style/AndroidParagraph2Roboto15Pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-0.23%"
                     android:textColor="@color/white"
-                    app:layout_constraintBottom_toTopOf="@id/indexChangeValue"
+                    app:layout_constraintBottom_toTopOf="@id/indexChangeValueTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toEndOf="@id/indexChangeBarrier"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/indexChangeValue"
+                    android:id="@+id/indexChangeValueTextView"
                     style="@style/AndroidParagraph2Roboto15Pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,14 +109,23 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/indexChangeBarrier"
-                    app:layout_constraintTop_toBottomOf="@id/indexChangePercentage" />
+                    app:layout_constraintTop_toBottomOf="@id/indexChangePercentageTextView" />
 
                 <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/indexChangeBarrier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:barrierDirection="start"
-                    app:constraint_referenced_ids="indexChangeValue, indexChangePercentage" />
+                    app:constraint_referenced_ids="indexChangeValueTextView, indexChangePercentageTextView" />
+
+                <ProgressBar
+                    android:id="@+id/niftyIndexCardProgressView"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

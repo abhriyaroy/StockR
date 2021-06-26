@@ -2,7 +2,6 @@ package studio.zebro.recommendation.ui.recommendation
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import studio.zebro.core.BaseFragment
 import studio.zebro.core.navigation.TransitionNameConstants
-import studio.zebro.core.util.CoreUtility
+import studio.zebro.core.util.CoreUtility.getStockUpOrDownColor
 import studio.zebro.core.util.gone
 import studio.zebro.core.util.showAnimation
 import studio.zebro.core.util.visible
+import studio.zebro.core.util.withDelayOnMain
 import studio.zebro.datasource.util.ResourceState
 import studio.zebro.recommendation.R
 import studio.zebro.recommendation.databinding.FragmentRecommendationBinding
+import studio.zebro.recommendation.domain.model.NiftyIndexesDayModel
 import studio.zebro.recommendation.domain.model.StockRecommendationModel
 import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationItemClickListener
 import studio.zebro.recommendation.ui.recommendation.adapter.RecommendationsRecyclerViewAdapter
@@ -64,6 +65,7 @@ class RecommendationFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        binding.niftyIndexCardView.showAnimation(R.anim.scale_up)
         recommendationViewModel.getNifty50IndexData()
     }
 
@@ -124,26 +126,13 @@ class RecommendationFragment : BaseFragment() {
         recommendationViewModel.stockRecommendations.observe(viewLifecycleOwner, {
             when (it) {
                 is ResourceState.Success -> {
-                    if (it.data.isNotEmpty()) {
-                        stockRecommendationModel = it.data[4]
-                        recommendationsAdapter.setItemsList(it.data)
-                        binding.layoutEmptyRecommendations.rootViewGroup.gone()
-                    } else {
-                        binding.layoutEmptyRecommendations.rootViewGroup.visible()
-                    }
-                    binding.swipeRefresh.isRefreshing = false
+                    handleStockRecommendationSuccessState(it)
                 }
                 is ResourceState.Loading -> {
-                    Log.d(this.javaClass.name, "loading --->")
-                    binding.swipeRefresh.isRefreshing = true
-                    binding.layoutEmptyRecommendations.rootViewGroup.gone()
+                    handleStockRecommendationLoadingState()
                 }
                 is ResourceState.Error -> {
-                    Log.e(this.javaClass.name, "the error is --> ${it.error?.message}")
-                    binding.swipeRefresh.isRefreshing = false
-                    if (recommendationsAdapter.getVisibleItemsList().isEmpty()) {
-                        binding.layoutEmptyRecommendations.rootViewGroup.visible()
-                    }
+                    handleStockRecommendationErrorState()
                 }
             }
         })
@@ -151,29 +140,13 @@ class RecommendationFragment : BaseFragment() {
         recommendationViewModel.nifty50IndexData.observe(viewLifecycleOwner, {
             when (it) {
                 is ResourceState.Success -> {
-                    Log.e(this.javaClass.name, "the nifty index is --> ${it.data}")
-                    binding.indexValueTextView.text = it.data.value.toString()
-                    binding.indexChangeValue.text = it.data.changeValue
-                    binding.indexChangePercentage.text = it.data.changePercentage
-                    binding.indexChangeImageView.apply {
-                        if (it.data.isPositiveChange) {
-                            setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_drop_up)!!.mutate().apply {
-                                setTint(ContextCompat.getColor(requireContext(), R.color.positive))
-                            })
-                        } else {
-                            setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_drop_down)!!.mutate().apply {
-                                setTint(ContextCompat.getColor(requireContext(), R.color.negative))
-                            })
-                        }
-                    }
-                    recommendationViewModel.getNifty50IndexData()
-//                    binding.niftyIndexCardView.showAnimation(R.anim.scale_up)
+                    handleNifty50IndexSuccessState(it)
                 }
                 is ResourceState.Loading -> {
-
+                    handleNifty50IndexLoadingState()
                 }
                 is ResourceState.Error -> {
-
+                    refreshNifty50IndexAfterDelay()
                 }
             }
         })
@@ -189,6 +162,80 @@ class RecommendationFragment : BaseFragment() {
     private fun handleBackPress() {
         requireActivity().onBackPressedDispatcher.addCallback {
             requireActivity().finish()
+        }
+    }
+
+    private fun handleStockRecommendationSuccessState(resourceState: ResourceState.Success<List<StockRecommendationModel>>) {
+        if (resourceState.data.isNotEmpty()) {
+            stockRecommendationModel = resourceState.data[4]
+            recommendationsAdapter.setItemsList(resourceState.data)
+            binding.layoutEmptyRecommendations.rootViewGroup.gone()
+        } else {
+            binding.layoutEmptyRecommendations.rootViewGroup.visible()
+        }
+        binding.swipeRefresh.isRefreshing = false
+    }
+
+    private fun handleStockRecommendationLoadingState() {
+        binding.swipeRefresh.isRefreshing = true
+        binding.layoutEmptyRecommendations.rootViewGroup.gone()
+    }
+
+    private fun handleStockRecommendationErrorState() {
+        binding.swipeRefresh.isRefreshing = false
+        if (recommendationsAdapter.getVisibleItemsList().isEmpty()) {
+            binding.layoutEmptyRecommendations.rootViewGroup.visible()
+        }
+    }
+
+    private fun handleNifty50IndexSuccessState(resourceState: ResourceState.Success<NiftyIndexesDayModel>) {
+        binding.indexValueTextView.text = resourceState.data.value.toString()
+        binding.indexChangeValueTextView.text = resourceState.data.changeValue
+        binding.indexChangePercentageTextView.text = resourceState.data.changePercentage
+        binding.indexChangeImageView.apply {
+            if (resourceState.data.isPositiveChange) {
+                setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_arrow_drop_up
+                    )!!.mutate().apply {
+                        setTint(ContextCompat.getColor(requireContext(), R.color.positive))
+                    })
+            } else {
+                setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_arrow_drop_down
+                    )!!.mutate().apply {
+                        setTint(ContextCompat.getColor(requireContext(), R.color.negative))
+                    })
+            }
+            binding.indexChangeValueTextView.setTextColor(
+                getStockUpOrDownColor(
+                    requireContext(),
+                    resourceState.data.isPositiveChange
+                )
+            )
+            binding.indexChangePercentageTextView.setTextColor(
+                getStockUpOrDownColor(
+                    requireContext(),
+                    resourceState.data.isPositiveChange
+                )
+            )
+        }
+        binding.niftyIndexCardProgressView.gone()
+        refreshNifty50IndexAfterDelay()
+    }
+
+    private fun handleNifty50IndexLoadingState() {
+        if (recommendationViewModel.nifty50IndexData.value == null) {
+            binding.niftyIndexCardProgressView.visible()
+        }
+    }
+
+    private fun refreshNifty50IndexAfterDelay() {
+        withDelayOnMain(5000) {
+            recommendationViewModel.getNifty50IndexData()
         }
     }
 }

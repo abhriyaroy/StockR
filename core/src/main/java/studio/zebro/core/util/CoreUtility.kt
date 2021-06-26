@@ -38,6 +38,14 @@ object CoreUtility {
         }
     }
 
+    fun getStockUpOrDownColor(context: Context, isPositive: Boolean): Int {
+        return if (isPositive) {
+            ContextCompat.getColor(context, R.color.positive)
+        } else {
+            ContextCompat.getColor(context, R.color.negative)
+        }
+    }
+
     fun getStockPositiveNegativeState(action: String) :StockPositiveNegativeState{
         return if (action.equals("buy", true) || action.equals("add", true)) {
             StockPositiveNegativeState.POSITVE
