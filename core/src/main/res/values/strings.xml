@@ -17,4 +17,6 @@
     <string name="stock_parent_view_transition_name">stock_parent_view_transition_name</string>
 
     <string name="nifty_50">Nifty 50</string>
+
+    <string name="research_warning_message">StockR only shows research data</string>
 </resources>
