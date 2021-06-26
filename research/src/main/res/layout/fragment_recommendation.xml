@@ -159,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="16dp"
                             android:paddingTop="16dp"
-                            android:text="@string/recommendations"
+                            android:text="@string/research"
                             android:textColor="@color/white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -191,7 +191,7 @@
                             layout="@layout/layout_empty_graphic_with_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:emptyText="@{context.getString(R.string.empty_recommendations)}"
+                            app:emptyText="@{context.getString(R.string.empty_research)}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
