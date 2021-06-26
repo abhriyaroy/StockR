@@ -1,7 +1,6 @@
 package studio.zebro.recommendation.ui.recommendation
 
 import android.graphics.drawable.ColorDrawable
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import studio.zebro.core.BaseFragment
 import studio.zebro.core.navigation.TransitionNameConstants
+import studio.zebro.core.util.CoreUtility
 import studio.zebro.core.util.gone
 import studio.zebro.core.util.showAnimation
 import studio.zebro.core.util.visible
@@ -60,6 +60,11 @@ class RecommendationFragment : BaseFragment() {
         setupObservers()
         setupSwipeRefreshListener()
         handleBackPress()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recommendationViewModel.getNifty50IndexData()
     }
 
     private fun animateRecommendationCard() {
@@ -119,7 +124,7 @@ class RecommendationFragment : BaseFragment() {
         recommendationViewModel.stockRecommendations.observe(viewLifecycleOwner, {
             when (it) {
                 is ResourceState.Success -> {
-                    if(it.data.isNotEmpty()) {
+                    if (it.data.isNotEmpty()) {
                         stockRecommendationModel = it.data[4]
                         recommendationsAdapter.setItemsList(it.data)
                         binding.layoutEmptyRecommendations.rootViewGroup.gone()
@@ -136,7 +141,7 @@ class RecommendationFragment : BaseFragment() {
                 is ResourceState.Error -> {
                     Log.e(this.javaClass.name, "the error is --> ${it.error?.message}")
                     binding.swipeRefresh.isRefreshing = false
-                    if(recommendationsAdapter.getVisibleItemsList().isEmpty()) {
+                    if (recommendationsAdapter.getVisibleItemsList().isEmpty()) {
                         binding.layoutEmptyRecommendations.rootViewGroup.visible()
                     }
                 }
@@ -144,9 +149,25 @@ class RecommendationFragment : BaseFragment() {
         })
 
         recommendationViewModel.nifty50IndexData.observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 is ResourceState.Success -> {
-
+                    Log.e(this.javaClass.name, "the nifty index is --> ${it.data}")
+                    binding.indexValueTextView.text = it.data.value.toString()
+                    binding.indexChangeValue.text = it.data.changeValue
+                    binding.indexChangePercentage.text = it.data.changePercentage
+                    binding.indexChangeImageView.apply {
+                        if (it.data.isPositiveChange) {
+                            setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_drop_up)!!.mutate().apply {
+                                setTint(ContextCompat.getColor(requireContext(), R.color.positive))
+                            })
+                        } else {
+                            setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_drop_down)!!.mutate().apply {
+                                setTint(ContextCompat.getColor(requireContext(), R.color.negative))
+                            })
+                        }
+                    }
+                    recommendationViewModel.getNifty50IndexData()
+//                    binding.niftyIndexCardView.showAnimation(R.anim.scale_up)
                 }
                 is ResourceState.Loading -> {
 
@@ -161,10 +182,11 @@ class RecommendationFragment : BaseFragment() {
     private fun setupSwipeRefreshListener() {
         binding.swipeRefresh.setOnRefreshListener {
             recommendationViewModel.getStockRecommendations(true)
+            recommendationViewModel.getNifty50IndexData()
         }
     }
 
-    private fun handleBackPress(){
+    private fun handleBackPress() {
         requireActivity().onBackPressedDispatcher.addCallback {
             requireActivity().finish()
         }

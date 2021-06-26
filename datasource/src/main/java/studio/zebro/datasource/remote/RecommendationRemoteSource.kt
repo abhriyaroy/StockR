@@ -36,8 +36,8 @@ class RecommendationRemoteSourceImpl : RecommendationRemoteSource {
                 NiftyIndexesDayWiseDataModel(
                     NIFTY_50_INDEX_NAME,
                     rawNiftyIndicesList[0].text().toFloat(),
-                    trimmedChangeStringArray[0],
                     trimmedChangeStringArray[1],
+                    trimmedChangeStringArray[3],
                     trimmedChangeStringArray[0].toCharArray()[0] == PLUS_SIGN
                 )
             )

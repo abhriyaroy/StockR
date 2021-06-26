@@ -15,4 +15,6 @@
     <string name="stock_sellat_transition_name">stock_sellat_transition_name</string>
     <string name="stock_action_transition_name">stock_action_transition_name</string>
     <string name="stock_parent_view_transition_name">stock_parent_view_transition_name</string>
+
+    <string name="nifty_50">Nifty 50</string>
 </resources>

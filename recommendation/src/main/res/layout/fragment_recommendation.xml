@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,18 +14,120 @@
             android:id="@+id/appLogoImageView"
             android:layout_width="96dp"
             android:layout_height="48dp"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_stockr"
             android:transitionName="@string/app_logo_transition_name"
+            app:layout_constraintBottom_toBottomOf="@id/niftyIndexCardView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/niftyIndexCardView" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/niftyIndexCardView"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:minHeight="240dp"
+            app:cardBackgroundColor="@color/primary_light"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/appLogoImageView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/niftyIndexCardRootLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/indexNameTextView"
+                    style="@style/AndroidHeading4Roboto16Pt"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nifty_50"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/indexValueTextView"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/indexChangeImageView"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_drop_up"
+                    android:tint="@color/positive"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/indexValueTextView"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@id/indexNameTextView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/indexValueTextView"
+                    style="@style/AndroidHeading2Roboto24Pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:textStyle="bold"
+                    android:text="15532"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/indexChangeBarrier"
+                    app:layout_constraintStart_toEndOf="@id/indexNameTextView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/indexChangePercentage"
+                    style="@style/AndroidParagraph2Roboto15Pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-0.23%"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toTopOf="@id/indexChangeValue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@id/indexChangeBarrier"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/indexChangeValue"
+                    style="@style/AndroidParagraph2Roboto15Pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="154"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/indexChangeBarrier"
+                    app:layout_constraintTop_toBottomOf="@id/indexChangePercentage" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/indexChangeBarrier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="start"
+                    app:constraint_referenced_ids="indexChangeValue, indexChangePercentage" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/recommendationsCardView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
             android:minHeight="240dp"
@@ -33,7 +136,7 @@
             app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appLogoImageView">
+            app:layout_constraintTop_toBottomOf="@id/niftyIndexCardView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/recommendationsCardRootLayout"
