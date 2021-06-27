@@ -133,5 +133,5 @@ object TestLibs {
 object Modules {
     const val datasource = ":datasource"
     const val core = ":core"
-    const val recommendation = ":recommendation"
+    const val research = ":research"
 }

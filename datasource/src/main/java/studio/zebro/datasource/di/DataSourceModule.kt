@@ -9,8 +9,8 @@ import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.local.LocalPreferenceSourceImpl
 import studio.zebro.datasource.remote.HistoricalDataRemoteSource
 import studio.zebro.datasource.remote.HistoricalDataRemoteSourceImpl
-import studio.zebro.datasource.remote.RecommendationRemoteSource
-import studio.zebro.datasource.remote.RecommendationRemoteSourceImpl
+import studio.zebro.datasource.remote.ResearchRemoteSource
+import studio.zebro.datasource.remote.ResearchRemoteSourceImpl
 import javax.inject.Singleton
 
 @Module
@@ -19,8 +19,8 @@ class DataSourceModule {
 
     @Singleton
     @Provides
-    fun providesRecommendationRemoteSource(): RecommendationRemoteSource =
-        RecommendationRemoteSourceImpl()
+    fun providesResearchRemoteSource(): ResearchRemoteSource =
+        ResearchRemoteSourceImpl()
 
     @Singleton
     @Provides

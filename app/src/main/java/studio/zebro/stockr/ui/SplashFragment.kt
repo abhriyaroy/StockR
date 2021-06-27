@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import studio.zebro.core.navigation.RecommendationModuleRoute
+import studio.zebro.core.navigation.ResearchModuleRoute
 import studio.zebro.core.util.addOnAnimationListener
 import studio.zebro.core.util.gone
 import studio.zebro.core.util.visible
 import studio.zebro.core.util.withDelayOnMain
-import studio.zebro.recommendation.ui.recommendation.RecommendationViewModel
+import studio.zebro.research.ui.research.ResearchViewModel
 import studio.zebro.stockr.databinding.FragmentSplashBinding
 import javax.inject.Inject
 import kotlin.math.max
@@ -23,8 +23,8 @@ import kotlin.math.max
 class SplashFragment : Fragment() {
 
     @Inject
-    internal lateinit var recommendationModuleRoute: RecommendationModuleRoute
-    private lateinit var recommendationViewModel: RecommendationViewModel
+    internal lateinit var researchModuleRoute: ResearchModuleRoute
+    private lateinit var researchViewModel: ResearchViewModel
     private lateinit var splashFragmentBinding: FragmentSplashBinding
 
     override fun onCreateView(
@@ -40,17 +40,17 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recommendationViewModel =
-            ViewModelProvider(requireActivity())[RecommendationViewModel::class.java]
-        recommendationViewModel.getStockRecommendations(false)
-        recommendationViewModel.getNifty50IndexData()
+        researchViewModel =
+            ViewModelProvider(requireActivity())[ResearchViewModel::class.java]
+        researchViewModel.getStockResearch(false)
+        researchViewModel.getNifty50IndexData()
         attachSplashAnimationCompleteListener()
     }
 
     private fun attachSplashAnimationCompleteListener() {
         splashFragmentBinding.splashLogoLottieView.apply {
             addOnAnimationListener(
-                onAnimationEnd = { showBackgroundAnimation(showRecommendationsScreenWithDelayAndSharedTransition()) }
+                onAnimationEnd = { showBackgroundAnimation(showResearchScreenWithDelayAndSharedTransition()) }
             )
         }
     }
@@ -72,11 +72,11 @@ class SplashFragment : Fragment() {
         }
     }
 
-    private fun showRecommendationsScreenWithDelayAndSharedTransition(): () -> Unit =  {
+    private fun showResearchScreenWithDelayAndSharedTransition(): () -> Unit =  {
         splashFragmentBinding.splashLogoImageView.visible()
         splashFragmentBinding.splashLogoLottieView.gone()
         withDelayOnMain(100) {
-            recommendationModuleRoute.populateView(
+            researchModuleRoute.populateView(
                 this@SplashFragment.findNavController(),
                 splashFragmentBinding.splashLogoImageView
             )

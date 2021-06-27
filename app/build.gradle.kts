@@ -40,7 +40,7 @@ android {
       isDebuggable = true
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
-        "recommendation-proguard-rules.pro"
+        "research-proguard-rules.pro"
       )
     }
     getByName("release") {
@@ -49,7 +49,7 @@ android {
       isDebuggable = false
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
-        "recommendation-proguard-rules.pro"
+        "research-proguard-rules.pro"
       )
 //      signingConfig = signingConfigs.getByName("release")
     }
@@ -109,7 +109,7 @@ dependencies {
   // Lottie
   implementation(Libs.lottie)
 
-  implementation(project(Modules.recommendation))
+  implementation(project(Modules.research))
   implementation(project(Modules.core))
 
   testImplementation(TestLibs.junit)

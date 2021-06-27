@@ -1,5 +1,5 @@
 include(":core")
 include(":datasource")
-include(":recommendation")
+include(":research")
 include(":app")
 rootProject.name = "StockR"

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_main">
+
+            <ImageButton
+                android:id="@+id/backImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:padding="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_back"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/appLogoImageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/appLogoImageView" />
+
+            <ImageView
+                android:id="@+id/appLogoImageView"
+                android:layout_width="96dp"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_stockr"
+                android:transitionName="@string/app_logo_transition_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/researchDetailCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:minHeight="240dp"
+                android:transitionName="@string/stock_parent_view_transition_name"
+                app:cardBackgroundColor="@color/primary_light"
+                app:cardCornerRadius="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appLogoImageView"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/researchCardRootLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/itemFullNameTextView"
+                        style="@style/AndroidHeading2Roboto24Pt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@{stockResearchModelItem.fullName}"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="CHOLAFIN" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/itemSymbolTextView"
+                        style="@style/AndroidHeading3Roboto18Pt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@{stockResearchModelItem.shortName}"
+                        android:textColor="@{CoreUtility.INSTANCE.getStockUpOrDownColor(context, stockResearchModelItem.action)}"
+                        android:textStyle="bold"
+                        android:transitionName="@string/stock_symbol_transition_name"
+                        app:layout_constraintEnd_toStartOf="@id/itemActionTextView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/itemFullNameTextView"
+                        tools:text="CHOLAFIN" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/itemActionTextView"
+                        style="@style/AndroidHeading5Roboto15Pt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@{CoreUtility.INSTANCE.getActionSpannableHighlight(context, context.getString(R.string.action_x ,stockResearchModelItem.action.toUpperCase()), stockResearchModelItem.action)}"
+                        android:textColor="@color/white"
+                        android:transitionName="@string/stock_action_transition_name"
+                        app:layout_constraintBottom_toBottomOf="@id/itemSymbolTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/itemSymbolTextView"
+                        tools:text="Action: SELL" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/itemBuyAtTextView"
+                        style="@style/AndroidParagraph1Roboto17Pt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@{context.getString(R.string.buy_at_x ,stockResearchModelItem.entryPriceInRupees)}"
+                        android:textColor="@color/white"
+                        android:transitionName="@string/stock_buyat_transition_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/itemSymbolTextView"
+                        tools:text="Buy at: 943" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/itemSellAtTextView"
+                        style="@style/AndroidParagraph1Roboto17Pt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@{context.getString(R.string.sell_at_x ,stockResearchModelItem.targetPriceInRupees)}"
+                        android:textColor="@color/white"
+                        android:transitionName="@string/stock_sellat_transition_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/itemBuyAtTextView"
+                        tools:text="Sell at: 990" />
+
+                    <include
+                        android:id="@+id/chartLoadingLayout"
+                        layout="@layout/layout_loading_chart"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/lineChart"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/lineChart" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="324dp"
+                        android:layout_marginTop="16dp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/itemSellAtTextView" />
+
+                    <include
+                        android:id="@+id/layoutEmptyChartView"
+                        layout="@layout/layout_empty_graphic_with_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:emptyText="@{context.getString(R.string.empty_chart)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+    <data>
+
+        <import type="studio.zebro.research.R" />
+
+        <import type="studio.zebro.core.util.CoreUtility" />
+
+        <variable
+            name="stockResearchModelItem"
+            type="studio.zebro.research.domain.model.StockResearchModel" />
+    </data>
+
+
+</layout>

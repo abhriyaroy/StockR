@@ -1,5 +1,5 @@
 # StockR
-A stock recommendation app to help your money grow 💸
+A stock research app to help your money grow 💸
 
 <p align="center">
 <img src="/storeassets/app_icon_svg.png">
@@ -14,19 +14,19 @@ A stock recommendation app to help your money grow 💸
 - [About the Author](#about-the-author)<br>
 
 ## Introduction
-StockR aims to help you manage your finances by putting your money where it can grow! StockR will periodically give you a list of stock recommendations which you can buy at a suggested price and sell at a target price inorder to maximize your gains. StockR will also help you make descisions by looking at past performances of the recommended stocks.
+StockR aims to help you manage your finances by putting your money where it can grow! StockR will periodically give you a list of stock research which you can buy at a suggested price and sell at a target price inorder to maximize your gains. StockR will also help you make descisions by looking at past performances of the recommended stocks.
 
 
 ## UI Samples
 ### Mobile
 <p align="center">
-  <img src="storeassets/landing_mockup.jpg" alt="Recommendations" width=410 height=550 hspace="2">
-  <img src="storeassets/recommendation_mockup.jpg" alt="Past performance" width=410 height=550 hspace="2">
+  <img src="storeassets/landing_mockup.jpg" alt="Research" width=410 height=550 hspace="2">
+  <img src="storeassets/research_mockup.jpg" alt="Past performance" width=410 height=550 hspace="2">
 </p> 
 
 ### Tablet
 <p align="center">
-  <img src="storeassets/ss_tablet_recommendations.png" alt="Recommendations" width=410 height=310 hspace="2">
+  <img src="storeassets/ss_tablet_research.png" alt="Research" width=410 height=310 hspace="2">
   <img src="storeassets/ss_tablet_detail_chart.png" alt="Past performance" width=410 height=310 hspace="2">
 </p>
 
@@ -42,9 +42,9 @@ StockR can be directly downloaded from the [play store](https://play.google.com/
 - Add build pipeline
 
 ## Acknowledgements
-All stock recommendations are taken out of this super amazing website - https://bestbrokerindia.com/index.html<br>
+All stock research are taken out of this super amazing website - https://bestbrokerindia.com/index.html<br>
 All stock related details are fetched directly from NSE website - https://www.nseindia.com/<br>
-StockR scrapes the website to parse data and shows the user with recommendations!
+StockR scrapes the website to parse data and shows the user with research!
 
 StockR will always be free and opensource.🧡
 
