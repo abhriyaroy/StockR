@@ -35,7 +35,7 @@ class ResearchFragment : BaseFragment() {
 
     private lateinit var researchViewModel: ResearchViewModel
     private lateinit var binding: FragmentResearchBinding
-    private lateinit var researchsAdapter: ResearchRecyclerViewAdapter
+    private lateinit var researchAdapter: ResearchRecyclerViewAdapter
     var stockResearchModel: StockResearchModel? = null
 
     override fun onCreateView(
@@ -70,11 +70,11 @@ class ResearchFragment : BaseFragment() {
     }
 
     private fun animateResearchCard() {
-        binding.researchsCardView.showAnimation(R.anim.scale_up)
+        binding.researchCardView.showAnimation(R.anim.scale_up)
     }
 
     private fun initRecyclerView() {
-        researchsAdapter = ResearchRecyclerViewAdapter(requireContext(),
+        researchAdapter = ResearchRecyclerViewAdapter(requireContext(),
             object : ResearchItemClickListener {
 
                 override fun onResearchItemClick(
@@ -118,12 +118,12 @@ class ResearchFragment : BaseFragment() {
                             )
                         )
                     })
-            this.adapter = researchsAdapter
+            this.adapter = researchAdapter
         }
     }
 
     private fun setupObservers() {
-        researchViewModel.stockResearchs.observe(viewLifecycleOwner, {
+        researchViewModel.stockResearch.observe(viewLifecycleOwner, {
             when (it) {
                 is ResourceState.Success -> {
                     handleStockResearchSuccessState(it)
@@ -154,7 +154,7 @@ class ResearchFragment : BaseFragment() {
 
     private fun setupSwipeRefreshListener() {
         binding.swipeRefresh.setOnRefreshListener {
-            researchViewModel.getStockResearchs(true)
+            researchViewModel.getStockResearch(true)
             researchViewModel.getNifty50IndexData()
         }
     }
@@ -168,23 +168,24 @@ class ResearchFragment : BaseFragment() {
     private fun handleStockResearchSuccessState(resourceState: ResourceState.Success<List<StockResearchModel>>) {
         if (resourceState.data.isNotEmpty()) {
             stockResearchModel = resourceState.data[4]
-            researchsAdapter.setItemsList(resourceState.data)
-            binding.layoutEmptyResearchs.rootViewGroup.gone()
+            researchAdapter.setItemsList(resourceState.data)
+            binding.layoutEmptyResearch.rootViewGroup.gone()
         } else {
-            binding.layoutEmptyResearchs.rootViewGroup.visible()
+            binding.layoutEmptyResearch.rootViewGroup.visible()
+            researchViewModel.getStockResearch(true)
         }
         binding.swipeRefresh.isRefreshing = false
     }
 
     private fun handleStockResearchLoadingState() {
         binding.swipeRefresh.isRefreshing = true
-        binding.layoutEmptyResearchs.rootViewGroup.gone()
+        binding.layoutEmptyResearch.rootViewGroup.gone()
     }
 
     private fun handleStockResearchErrorState() {
         binding.swipeRefresh.isRefreshing = false
-        if (researchsAdapter.getVisibleItemsList().isEmpty()) {
-            binding.layoutEmptyResearchs.rootViewGroup.visible()
+        if (researchAdapter.getVisibleItemsList().isEmpty()) {
+            binding.layoutEmptyResearch.rootViewGroup.visible()
         }
     }
 

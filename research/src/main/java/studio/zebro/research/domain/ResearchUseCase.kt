@@ -15,18 +15,18 @@ import studio.zebro.research.domain.model.NiftyIndexesDayModel
 import studio.zebro.research.domain.model.StockResearchModel
 
 interface ResearchUseCase {
-    fun fetchResearchs(isForceRefresh: Boolean = false): Flow<List<StockResearchModel>>
+    fun fetchResearch(isForceRefresh: Boolean = false): Flow<List<StockResearchModel>>
     fun fetchHistoricData(stockSymbol: String): Flow<HistoricStockDataModel>
     fun fetchNifty50Index(): Flow<NiftyIndexesDayModel>
 }
 
-internal class ResearchsInteractor(
+internal class ResearchInteractor(
     private val researchRepository: ResearchRepository,
     private val historicalStockDataRepository: HistoricalStockDataRepository
 ) : ResearchUseCase {
 
-    override fun fetchResearchs(isForceRefresh: Boolean): Flow<List<StockResearchModel>> {
-        return researchRepository.fetchStockResearchs(isForceRefresh)
+    override fun fetchResearch(isForceRefresh: Boolean): Flow<List<StockResearchModel>> {
+        return researchRepository.fetchStockResearch(isForceRefresh)
             .map {
                 Log.d(this.javaClass.name, "---->>>>> here 1")
                 it.map {

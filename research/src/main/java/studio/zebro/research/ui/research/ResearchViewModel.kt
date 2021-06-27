@@ -21,10 +21,10 @@ import studio.zebro.research.domain.model.StockResearchModel
 class ResearchViewModel @ViewModelInject
 constructor(private val researchUseCase: ResearchUseCase) : ViewModel() {
 
-    private val _stockResearchs: MutableLiveData<ResourceState<List<StockResearchModel>>> =
+    private val _stockResearch: MutableLiveData<ResourceState<List<StockResearchModel>>> =
         MutableLiveData()
-    val stockResearchs: LiveData<ResourceState<List<StockResearchModel>>> =
-        _stockResearchs
+    val stockResearch: LiveData<ResourceState<List<StockResearchModel>>> =
+        _stockResearch
 
     private val _stockHistoricalData: MutableLiveData<ResourceState<HistoricStockDataModel>> =
         MutableLiveData()
@@ -34,20 +34,20 @@ constructor(private val researchUseCase: ResearchUseCase) : ViewModel() {
         MutableLiveData()
     val nifty50IndexData: LiveData<ResourceState<NiftyIndexesDayModel>> = _nifty50IndexData
 
-    fun getStockResearchs(isForceRefresh: Boolean) {
+    fun getStockResearch(isForceRefresh: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            _stockResearchs.postValue(ResourceState.loading())
-            researchUseCase.fetchResearchs(isForceRefresh)
+            _stockResearch.postValue(ResourceState.loading())
+            researchUseCase.fetchResearch(isForceRefresh)
                 .catch { error ->
                     if (error is CustomError) {
-                        _stockResearchs.postValue(ResourceState.error(error.errorModel))
+                        _stockResearch.postValue(ResourceState.error(error.errorModel))
                     } else {
-                        _stockResearchs.postValue(ResourceState.error(ErrorModel(message = error.message)))
+                        _stockResearch.postValue(ResourceState.error(ErrorModel(message = error.message)))
                     }
                 }
                 .collect {
                     Log.d(this.javaClass.name, "-------> just before $it")
-                    _stockResearchs.postValue(ResourceState.success(it))
+                    _stockResearch.postValue(ResourceState.success(it))
                 }
         }
     }

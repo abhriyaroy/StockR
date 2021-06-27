@@ -11,22 +11,22 @@ import studio.zebro.research.ui.transition.ResearchRecyclerItemTransitionViewsMo
 class ResearchRecyclerViewAdapter(
     val context: Context,
     private val researchItemClickListener: ResearchItemClickListener
-) : RecyclerView.Adapter<ResearchRecyclerViewAdapter.ResearchsRecyclerViewHolder>() {
+) : RecyclerView.Adapter<ResearchRecyclerViewAdapter.ResearchRecyclerViewHolder>() {
 
     private var itemsList: List<StockResearchModel> = listOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ResearchsRecyclerViewHolder {
+    ): ResearchRecyclerViewHolder {
         return ItemResearchBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ).let {
-            ResearchsRecyclerViewHolder(it)
+            ResearchRecyclerViewHolder(it)
         }
     }
 
-    override fun onBindViewHolder(holder: ResearchsRecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ResearchRecyclerViewHolder, position: Int) {
         with(itemsList[position]) {
             holder.decorateItem(this)
             holder.configureItemForTransition(position, this)
@@ -46,7 +46,7 @@ class ResearchRecyclerViewAdapter(
 
     fun getVisibleItemsList() = itemsList
 
-    class ResearchsRecyclerViewHolder(
+    class ResearchRecyclerViewHolder(
         private val binding: ItemResearchBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 

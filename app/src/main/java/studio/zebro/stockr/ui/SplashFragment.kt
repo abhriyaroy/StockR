@@ -42,7 +42,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         researchViewModel =
             ViewModelProvider(requireActivity())[ResearchViewModel::class.java]
-        researchViewModel.getStockResearchs(false)
+        researchViewModel.getStockResearch(false)
         researchViewModel.getNifty50IndexData()
         attachSplashAnimationCompleteListener()
     }
@@ -50,7 +50,7 @@ class SplashFragment : Fragment() {
     private fun attachSplashAnimationCompleteListener() {
         splashFragmentBinding.splashLogoLottieView.apply {
             addOnAnimationListener(
-                onAnimationEnd = { showBackgroundAnimation(showResearchsScreenWithDelayAndSharedTransition()) }
+                onAnimationEnd = { showBackgroundAnimation(showResearchScreenWithDelayAndSharedTransition()) }
             )
         }
     }
@@ -72,7 +72,7 @@ class SplashFragment : Fragment() {
         }
     }
 
-    private fun showResearchsScreenWithDelayAndSharedTransition(): () -> Unit =  {
+    private fun showResearchScreenWithDelayAndSharedTransition(): () -> Unit =  {
         splashFragmentBinding.splashLogoImageView.visible()
         splashFragmentBinding.splashLogoLottieView.gone()
         withDelayOnMain(100) {

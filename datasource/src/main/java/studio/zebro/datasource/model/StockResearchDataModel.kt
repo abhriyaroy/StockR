@@ -1,6 +1,6 @@
 package studio.zebro.datasource.model
 
-data class StockResearchsDataModel(
+data class StockResearchDataModel(
     val fullName : String,
     val shortName : String,
     val codeNumber : String,

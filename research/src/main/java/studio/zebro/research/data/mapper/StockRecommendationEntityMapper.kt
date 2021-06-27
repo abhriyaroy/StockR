@@ -1,11 +1,11 @@
 package studio.zebro.research.data.mapper
 
-import studio.zebro.datasource.model.StockResearchsDataModel
+import studio.zebro.datasource.model.StockResearchDataModel
 import studio.zebro.research.data.entity.StockResearchEntity
 
 object StockResearchEntityMapper {
-    fun mapStockResearchEntityToStockResearchRemoteDataModel(stockResearchEntity: StockResearchEntity): StockResearchsDataModel {
-        return StockResearchsDataModel(
+    fun mapStockResearchEntityToStockResearchRemoteDataModel(stockResearchEntity: StockResearchEntity): StockResearchDataModel {
+        return StockResearchDataModel(
             stockResearchEntity.fullName,
             stockResearchEntity.shortName,
             stockResearchEntity.codeNumber,
@@ -22,21 +22,21 @@ object StockResearchEntityMapper {
     }
 
     fun mapStockResearchRemoteDataModelToStockResearchEntity(
-        stockResearchsDataModel: StockResearchsDataModel
+        stockResearchDataModel: StockResearchDataModel
     ): StockResearchEntity {
         return StockResearchEntity(
-            stockResearchsDataModel.fullName,
-            stockResearchsDataModel.shortName,
-            stockResearchsDataModel.codeNumber,
-            stockResearchsDataModel.updatedAt,
-            stockResearchsDataModel.entryPriceInRupees,
-            stockResearchsDataModel.targetPriceInRupees,
-            stockResearchsDataModel.stopLossPriceInRupees,
-            stockResearchsDataModel.upsidePercentage,
-            stockResearchsDataModel.duration,
-            stockResearchsDataModel.type,
-            stockResearchsDataModel.action,
-            stockResearchsDataModel.remark,
+            stockResearchDataModel.fullName,
+            stockResearchDataModel.shortName,
+            stockResearchDataModel.codeNumber,
+            stockResearchDataModel.updatedAt,
+            stockResearchDataModel.entryPriceInRupees,
+            stockResearchDataModel.targetPriceInRupees,
+            stockResearchDataModel.stopLossPriceInRupees,
+            stockResearchDataModel.upsidePercentage,
+            stockResearchDataModel.duration,
+            stockResearchDataModel.type,
+            stockResearchDataModel.action,
+            stockResearchDataModel.remark,
         )
     }
 }

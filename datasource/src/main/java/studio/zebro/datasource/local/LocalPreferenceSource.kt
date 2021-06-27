@@ -4,12 +4,12 @@ import com.chibatching.kotpref.KotprefModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import studio.zebro.datasource.model.HistoricalStockDataDayWiseModel
-import studio.zebro.datasource.model.StockResearchsDataModel
+import studio.zebro.datasource.model.StockResearchDataModel
 import java.lang.reflect.Type
 
 interface LocalPreferenceSource {
-    suspend fun getSavedKotakStockResearch(): List<StockResearchsDataModel>
-    suspend fun saveStockKotakResearch(stockResearchsDataModel: List<StockResearchsDataModel>)
+    suspend fun getSavedKotakStockResearch(): List<StockResearchDataModel>
+    suspend fun saveStockKotakResearch(stockResearchDataModel: List<StockResearchDataModel>)
     suspend fun saveStockHistoricalData(
         stockName: String,
         historicalData: List<HistoricalStockDataDayWiseModel>
@@ -19,26 +19,26 @@ interface LocalPreferenceSource {
 }
 
 class LocalPreferenceSourceImpl(private val gson: Gson) : LocalPreferenceSource {
-    private val stockResearchsDataModelAdapter: Type =
-        object : TypeToken<ArrayList<StockResearchsDataModel>>() {}.type
+    private val stockResearchDataModelAdapter: Type =
+        object : TypeToken<ArrayList<StockResearchDataModel>>() {}.type
 
     private val historicStockDataDayWiseModelAdapter: Type =
         object : TypeToken<ArrayList<HistoricalStockDataDayWiseModel>>() {}.type
 
 
-    override suspend fun getSavedKotakStockResearch(): List<StockResearchsDataModel> {
-        return Preferences.kotakStockResearchs.let {
+    override suspend fun getSavedKotakStockResearch(): List<StockResearchDataModel> {
+        return Preferences.kotakStockResearch.let {
             if (it.isNullOrEmpty()) {
                 listOf()
             } else {
-                gson.fromJson(it, stockResearchsDataModelAdapter)
+                gson.fromJson(it, stockResearchDataModelAdapter)
             }
         }
     }
 
-    override suspend fun saveStockKotakResearch(stockResearchsDataModel: List<StockResearchsDataModel>) {
-        Preferences.kotakStockResearchs =
-            gson.toJson(stockResearchsDataModel, stockResearchsDataModelAdapter)
+    override suspend fun saveStockKotakResearch(stockResearchDataModel: List<StockResearchDataModel>) {
+        Preferences.kotakStockResearch =
+            gson.toJson(stockResearchDataModel, stockResearchDataModelAdapter)
     }
 
     override suspend fun getSavedStockHistoricalData(stockName: String): List<HistoricalStockDataDayWiseModel> {
@@ -63,6 +63,6 @@ class LocalPreferenceSourceImpl(private val gson: Gson) : LocalPreferenceSource 
     }
 
     private object Preferences : KotprefModel() {
-        var kotakStockResearchs by stringPref()
+        var kotakStockResearch by stringPref()
     }
 }

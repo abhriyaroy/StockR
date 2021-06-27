@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.NiftyIndexesDayWiseDataModel
-import studio.zebro.datasource.model.StockResearchsDataModel
+import studio.zebro.datasource.model.StockResearchDataModel
 import studio.zebro.datasource.remote.ResearchRemoteSource
 import studio.zebro.datasource.util.NetworkBoundSource
 import studio.zebro.datasource.util.NetworkBoundWithLocalSource
@@ -23,11 +23,11 @@ class ResearchRepository(
     private val researchRemoteSource: ResearchRemoteSource
 ) {
 
-    fun fetchStockResearchs(isForceRefresh: Boolean = false): Flow<List<StockResearchEntity>> =
+    fun fetchStockResearch(isForceRefresh: Boolean = false): Flow<List<StockResearchEntity>> =
         if (isForceRefresh) {
-            getStockResearchsFromRemoteAndSaveToCache()
+            getStockResearchFromRemoteAndSaveToCache()
         } else {
-            getCachedResearchsAndLazilyUpdateCache()
+            getCachedResearchAndLazilyUpdateCache()
         }
 
     fun fetchNifty50Index(): Flow<NiftyIndexesDayEntity> = object :
@@ -41,14 +41,14 @@ class ResearchRepository(
         }
     }.asFlow(gson).flowOn(Dispatchers.IO)
 
-    private fun getStockResearchsFromRemoteAndSaveToCache() = object :
-        NetworkBoundSource<List<StockResearchsDataModel>, List<StockResearchEntity>>() {
+    private fun getStockResearchFromRemoteAndSaveToCache() = object :
+        NetworkBoundSource<List<StockResearchDataModel>, List<StockResearchEntity>>() {
 
-        override suspend fun fetchFromRemote(): Response<List<StockResearchsDataModel>> {
-            return researchRemoteSource.getResearchsFromKotakSecurities()
+        override suspend fun fetchFromRemote(): Response<List<StockResearchDataModel>> {
+            return researchRemoteSource.getResearchFromKotakSecurities()
         }
 
-        override suspend fun postProcess(originalData: List<StockResearchsDataModel>): List<StockResearchEntity> {
+        override suspend fun postProcess(originalData: List<StockResearchDataModel>): List<StockResearchEntity> {
             localPreferenceSource.saveStockKotakResearch(originalData)
             return originalData
                 .map {
@@ -57,15 +57,15 @@ class ResearchRepository(
         }
     }.asFlow(gson).flowOn(Dispatchers.IO)
 
-    private fun getCachedResearchsAndLazilyUpdateCache() = object :
-        NetworkBoundWithLocalSource<List<StockResearchsDataModel>,
-                List<StockResearchsDataModel>, List<StockResearchEntity>>() {
+    private fun getCachedResearchAndLazilyUpdateCache() = object :
+        NetworkBoundWithLocalSource<List<StockResearchDataModel>,
+                List<StockResearchDataModel>, List<StockResearchEntity>>() {
 
-        override suspend fun saveToLocal(response: List<StockResearchsDataModel>) {
+        override suspend fun saveToLocal(response: List<StockResearchDataModel>) {
             localPreferenceSource.saveStockKotakResearch(response)
         }
 
-        override suspend fun fetchFromLocal(): Flow<List<StockResearchsDataModel>> {
+        override suspend fun fetchFromLocal(): Flow<List<StockResearchDataModel>> {
             return flow {
                 localPreferenceSource.getSavedKotakStockResearch()
                     .let {
@@ -74,11 +74,11 @@ class ResearchRepository(
             }
         }
 
-        override suspend fun fetchFromRemote(): Response<List<StockResearchsDataModel>> {
-            return researchRemoteSource.getResearchsFromKotakSecurities()
+        override suspend fun fetchFromRemote(): Response<List<StockResearchDataModel>> {
+            return researchRemoteSource.getResearchFromKotakSecurities()
         }
 
-        override suspend fun postProcess(originalData: List<StockResearchsDataModel>): List<StockResearchEntity> {
+        override suspend fun postProcess(originalData: List<StockResearchDataModel>): List<StockResearchEntity> {
             return originalData
                 .map {
                     mapStockResearchRemoteDataModelToStockResearchEntity(it)

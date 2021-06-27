@@ -132,7 +132,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/researchsCardView"
+                    android:id="@+id/researchCardView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
@@ -148,12 +148,12 @@
                     app:layout_constraintTop_toBottomOf="@id/niftyIndexCardView">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/researchsCardRootLayout"
+                        android:id="@+id/researchCardRootLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/researchsTitleTextView"
+                            android:id="@+id/researchTitleTextView"
                             style="@style/AndroidHeading4Roboto16Pt"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/researchsTitleTextView">
+                            app:layout_constraintTop_toBottomOf="@id/researchTitleTextView">
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/researchRecyclerView"
@@ -182,12 +182,12 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/researchsTitleTextView" />
+                                app:layout_constraintTop_toBottomOf="@id/researchTitleTextView" />
 
                         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
                         <include
-                            android:id="@+id/layoutEmptyResearchs"
+                            android:id="@+id/layoutEmptyResearch"
                             layout="@layout/layout_empty_graphic_with_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

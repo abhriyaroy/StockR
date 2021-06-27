@@ -12,7 +12,7 @@ import studio.zebro.datasource.remote.ResearchRemoteSource
 import studio.zebro.research.data.HistoricalStockDataRepository
 import studio.zebro.research.data.ResearchRepository
 import studio.zebro.research.domain.ResearchUseCase
-import studio.zebro.research.domain.ResearchsInteractor
+import studio.zebro.research.domain.ResearchInteractor
 import studio.zebro.research.navigation.ResearchModuleRouteImpl
 import javax.inject.Singleton
 
@@ -49,5 +49,5 @@ class ResearchModule {
         researchRepository: ResearchRepository,
         historicalStockDataRepository: HistoricalStockDataRepository
     ): ResearchUseCase =
-        ResearchsInteractor(researchRepository, historicalStockDataRepository)
+        ResearchInteractor(researchRepository, historicalStockDataRepository)
 }

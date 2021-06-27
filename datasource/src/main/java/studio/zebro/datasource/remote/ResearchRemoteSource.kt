@@ -7,7 +7,7 @@ import org.jsoup.select.Elements
 import retrofit2.Response
 import studio.zebro.datasource.BuildConfig
 import studio.zebro.datasource.model.NiftyIndexesDayWiseDataModel
-import studio.zebro.datasource.model.StockResearchsDataModel
+import studio.zebro.datasource.model.StockResearchDataModel
 import studio.zebro.datasource.util.Constants.CHANGE_PRICE_CLASS_NAME
 import studio.zebro.datasource.util.Constants.CURRENT_PRICE_CLASS_NAME
 import studio.zebro.datasource.util.Constants.DIV_ITEM_CSS_TAG
@@ -18,7 +18,7 @@ import studio.zebro.datasource.util.Constants.TABLE_ITEM_CSS_TAG
 
 interface ResearchRemoteSource {
     fun getNifty50Index(): Response<NiftyIndexesDayWiseDataModel>
-    fun getResearchsFromKotakSecurities(): Response<List<StockResearchsDataModel>>
+    fun getResearchFromKotakSecurities(): Response<List<StockResearchDataModel>>
 }
 
 class ResearchRemoteSourceImpl : ResearchRemoteSource {
@@ -46,45 +46,45 @@ class ResearchRemoteSourceImpl : ResearchRemoteSource {
         }
     }
 
-    override fun getResearchsFromKotakSecurities(): Response<List<StockResearchsDataModel>> {
+    override fun getResearchFromKotakSecurities(): Response<List<StockResearchDataModel>> {
         val parsedData: Document = Jsoup.connect(BuildConfig.KOTAK_RESEARCH_URL).get()
-        val rawStockResearchs: Elements = parsedData.select(TABLE_ITEM_CSS_TAG)
-        val iterableSize = rawStockResearchs.size
-        return mutableListOf<StockResearchsDataModel>().let {
+        val rawStockResearch: Elements = parsedData.select(TABLE_ITEM_CSS_TAG)
+        val iterableSize = rawStockResearch.size
+        return mutableListOf<StockResearchDataModel>().let {
             var count = 0
             while (count < iterableSize) {
-                rawStockResearchs
+                rawStockResearch
                 if (
-                    rawStockResearchs[count].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 1].text().split(",")[0].equals("NA", true)
-                    || rawStockResearchs[count + 1].text().split(",")[1].trim()
+                    rawStockResearch[count].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 1].text().split(",")[0].equals("NA", true)
+                    || rawStockResearch[count + 1].text().split(",")[1].trim()
                         .equals("NA", true)
-                    || rawStockResearchs[count + 2].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 3].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 4].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 5].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 6].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 7].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 8].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 9].text().trim().equals("NA", true)
-                    || rawStockResearchs[count + 10].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 2].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 3].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 4].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 5].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 6].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 7].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 8].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 9].text().trim().equals("NA", true)
+                    || rawStockResearch[count + 10].text().trim().equals("NA", true)
                 ) {
                     count += 10
                 } else {
                     it.add(
-                        StockResearchsDataModel(
-                            rawStockResearchs[count].text().trim(),
-                            rawStockResearchs[++count].text().split(",")[0],
-                            rawStockResearchs[count].text().split(",")[1].trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
-                            rawStockResearchs[++count].text().trim(),
+                        StockResearchDataModel(
+                            rawStockResearch[count].text().trim(),
+                            rawStockResearch[++count].text().split(",")[0],
+                            rawStockResearch[count].text().split(",")[1].trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
+                            rawStockResearch[++count].text().trim(),
                         )
                     )
                 }
