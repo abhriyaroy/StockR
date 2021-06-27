@@ -20,7 +20,7 @@ StockR aims to help you manage your finances by putting your money where it can 
 ## UI Samples
 ### Mobile
 <p align="center">
-  <img src="storeassets/landing_mockup.jpg" alt="Research" width=410 height=550 hspace="2">
+  <img src="storeassets/landing_mockup_with_nifty.jpg" alt="Research" width=410 height=550 hspace="2">
   <img src="storeassets/research_mockup.jpg" alt="Past performance" width=410 height=550 hspace="2">
 </p> 
 
