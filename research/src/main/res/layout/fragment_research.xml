@@ -64,7 +64,6 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_arrow_drop_up"
-                            android:tint="@color/positive"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/indexValueTextView"
                             app:layout_constraintHorizontal_bias="1.0"

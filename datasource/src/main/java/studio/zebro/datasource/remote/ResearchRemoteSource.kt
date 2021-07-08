@@ -30,14 +30,15 @@ class ResearchRemoteSourceImpl : ResearchRemoteSource {
         val rawNiftyIndicesList = rawDivItems.filter {
             it.className() == CURRENT_PRICE_CLASS_NAME || it.className() == CHANGE_PRICE_CLASS_NAME
         }
+        rawNiftyIndicesList
         val trimmedChangeStringArray = rawNiftyIndicesList[1].text().trim().split(" ")
         return if (rawNiftyIndicesList.size >= 2) {
             Response.success(
                 NiftyIndexesDayWiseDataModel(
                     NIFTY_50_INDEX_NAME,
                     rawNiftyIndicesList[0].text().toFloat(),
+                    trimmedChangeStringArray[0],
                     trimmedChangeStringArray[1],
-                    trimmedChangeStringArray[3],
                     trimmedChangeStringArray[0].toCharArray()[0] == PLUS_SIGN
                 )
             )
