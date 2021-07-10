@@ -11,11 +11,11 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/emptyViewLottie"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/dimen_150dp"
+            android:layout_height="@dimen/dimen_150dp"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"
-            android:layout_marginBottom="0dp"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_0dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/not_found_anim" />

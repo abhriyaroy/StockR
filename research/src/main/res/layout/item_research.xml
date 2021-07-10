@@ -10,12 +10,12 @@
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:padding="16dp">
+        android:padding="@dimen/dimen_16dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/itemNameTextView"
             style="@style/AndroidParagraph1Roboto17Pt"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
             android:text="@{stockResearchModelItem.shortName}"
             android:textColor="@{CoreUtility.INSTANCE.getStockUpOrDownColor(context, stockResearchModelItem.action)}"
@@ -27,9 +27,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/itemBuyAtTextView"
             style="@style/AndroidParagraph3Roboto12Pt"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:text="@{context.getString(R.string.buy_at_x ,stockResearchModelItem.entryPriceInRupees)}"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,9 +39,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/itemSellAtTextView"
             style="@style/AndroidParagraph3Roboto12Pt"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:text="@{context.getString(R.string.sell_at_x ,stockResearchModelItem.targetPriceInRupees)}"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
             style="@style/AndroidParagraph3Roboto12Pt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
             android:text="@{CoreUtility.INSTANCE.getActionSpannableHighlight(context, context.getString(R.string.action_x ,stockResearchModelItem.action.toUpperCase()), stockResearchModelItem.action)}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
