@@ -16,12 +16,12 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/splash_logo_lottie_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/dimen_0dp"
+            android:layout_height="@dimen/dimen_0dp"
             app:lottie_rawRes="@raw/spash_anim"
             app:lottie_loop="false"
             app:lottie_speed="0.7"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/dimen_16dp"
             app:lottie_autoPlay="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -30,11 +30,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/splash_logo_image_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/dimen_0dp"
+            android:layout_height="@dimen/dimen_0dp"
             android:transitionName="@string/app_logo_transition_name"
             android:src="@drawable/ic_stockr"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/dimen_16dp"
             android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -42,10 +42,10 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dimen_0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
             android:text="@string/research_warning_message"
             android:textAlignment="center"
             android:textColor="@color/grey"
