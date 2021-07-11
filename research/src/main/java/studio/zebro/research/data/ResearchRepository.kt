@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
+import studio.zebro.core.util.DispatcherProvider
 import studio.zebro.core.util.SerializerProvider
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.NiftyIndexesDayWiseDataModel
@@ -19,6 +20,7 @@ import studio.zebro.research.data.mapper.NiftyIndexesDayEntityMapper.mapNiftyInd
 import studio.zebro.research.data.mapper.StockResearchEntityMapper.mapStockResearchRemoteDataModelToStockResearchEntity
 
 class ResearchRepository(
+    private val dispatcherProvider : DispatcherProvider,
     private val serializerProvider: SerializerProvider,
     private val localPreferenceSource: LocalPreferenceSource,
     private val researchRemoteSource: ResearchRemoteSource
@@ -40,7 +42,7 @@ class ResearchRepository(
         override suspend fun postProcess(originalData: NiftyIndexesDayWiseDataModel): NiftyIndexesDayEntity {
             return mapNiftyIndexesDayWiseDataModelToNiftyIndexesDayEntity(originalData)
         }
-    }.asFlow(serializerProvider.getGson()).flowOn(Dispatchers.IO)
+    }.asFlow(serializerProvider.getGson()).flowOn(dispatcherProvider.getIoDispatcher())
 
     private fun getStockResearchFromRemoteAndSaveToCache() = object :
         NetworkBoundSource<List<StockResearchDataModel>, List<StockResearchEntity>>() {
@@ -56,7 +58,7 @@ class ResearchRepository(
                     mapStockResearchRemoteDataModelToStockResearchEntity(it)
                 }
         }
-    }.asFlow(serializerProvider.getGson()).flowOn(Dispatchers.IO)
+    }.asFlow(serializerProvider.getGson()).flowOn(dispatcherProvider.getIoDispatcher())
 
     private fun getCachedResearchAndLazilyUpdateCache() = object :
         NetworkBoundWithLocalSource<List<StockResearchDataModel>,
@@ -85,5 +87,5 @@ class ResearchRepository(
                     mapStockResearchRemoteDataModelToStockResearchEntity(it)
                 }
         }
-    }.asFlow(serializerProvider.getGson()).flowOn(Dispatchers.IO)
+    }.asFlow(serializerProvider.getGson()).flowOn(dispatcherProvider.getIoDispatcher())
 }

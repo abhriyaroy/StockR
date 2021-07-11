@@ -2,6 +2,7 @@ package studio.zebro.recommendation.data
 
 import com.google.gson.Gson
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -14,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import retrofit2.Response
+import studio.zebro.core.util.DispatcherProvider
 import studio.zebro.core.util.SerializerProvider
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.remote.HistoricalDataRemoteSource
@@ -31,16 +33,22 @@ class HistoricalStockDataRepositoryTest {
     lateinit var historicalDataRemoteSource: HistoricalDataRemoteSource
     @Mock
     private lateinit var serializerProvider: SerializerProvider
+    @Mock
+    private lateinit var dispatcherProvider: DispatcherProvider
     private lateinit var historicalStockDataRepository: HistoricalStockDataRepository
     private val gson = Gson()
 
     @Before
     fun setup(){
         historicalStockDataRepository = HistoricalStockDataRepository(
+            dispatcherProvider,
             serializerProvider,
             localPreferenceSource,
             historicalDataRemoteSource
         )
+
+        `when`(serializerProvider.getGson()).thenReturn(gson)
+        `when`(dispatcherProvider.getIoDispatcher()).thenReturn(Dispatchers.Default)
     }
 
     @Test
@@ -51,13 +59,13 @@ class HistoricalStockDataRepositoryTest {
         `when`(historicalDataRemoteSource.get3monthsHistoricData(stockSymbol)).thenReturn(
             Response.success(historicalStockDataDayWiseModelDataList)
         )
-        `when`(serializerProvider.getGson()).thenReturn(gson)
 
         historicalStockDataRepository.getHistoricDataForStock(stockSymbol)
             .collect {
                 assertEquals(mappedHistoricalStockDataEntity, it)
                 verify(serializerProvider).getGson()
                 verify(historicalDataRemoteSource).get3monthsHistoricData(stockSymbol)
+                verify(dispatcherProvider).getIoDispatcher()
             }
     }
 
