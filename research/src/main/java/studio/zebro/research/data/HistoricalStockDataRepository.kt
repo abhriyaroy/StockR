@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
+import studio.zebro.core.util.SerializerProvider
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.HistoricalStockDataDayWiseModel
 import studio.zebro.datasource.remote.HistoricalDataRemoteSource
@@ -16,7 +17,7 @@ import studio.zebro.research.data.entity.HistoricalStockDataEntity
 import studio.zebro.research.data.mapper.HistoricalStockDataMapper
 
 class HistoricalStockDataRepository(
-    private val gson: Gson,
+    private val serializerProvider: SerializerProvider,
     private val localPreferenceSource: LocalPreferenceSource,
     private val historicalDataRemoteSource: HistoricalDataRemoteSource
 ) {
@@ -35,6 +36,6 @@ class HistoricalStockDataRepository(
                 )
             }
 
-        }.asFlow(gson).flowOn(Dispatchers.IO)
+        }.asFlow(serializerProvider.getGson()).flowOn(Dispatchers.IO)
 
 }
