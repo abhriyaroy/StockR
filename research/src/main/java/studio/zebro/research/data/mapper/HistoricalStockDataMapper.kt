@@ -7,7 +7,7 @@ import studio.zebro.research.data.entity.HistoricalStockDataIntraDayEntity
 
 object HistoricalStockDataMapper {
 
-    fun mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(historicalStockDataEntity: HistoricalStockDataEntity): List<HistoricalStockDataDayWiseModel> {
+    fun mapHistoricalStockDataDayWiseModelToHistoricalStockDataEntity(historicalStockDataEntity: HistoricalStockDataEntity): List<HistoricalStockDataDayWiseModel> {
         return historicalStockDataEntity.dataItemsList
             .reversed()
             .map {
@@ -15,7 +15,7 @@ object HistoricalStockDataMapper {
             }
     }
 
-    fun mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(list: List<HistoricalStockDataDayWiseModel>): HistoricalStockDataEntity {
+    fun mapHistoricalStockDataDayWiseModelToHistoricalStockDataEntity(list: List<HistoricalStockDataDayWiseModel>): HistoricalStockDataEntity {
         return HistoricalStockDataEntity(
             list.maxOf { it.highPrice.replace(",", "").toFloat() },
             list.minOf { it.lowPrice.replace(",", "").toFloat() },

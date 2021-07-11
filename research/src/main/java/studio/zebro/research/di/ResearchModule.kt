@@ -29,11 +29,11 @@ class ResearchModule {
     @Singleton
     @Provides
     fun providesResearchRepository(
-        gson: Gson,
+        serializerProvider: SerializerProvider,
         localPreferenceSource: LocalPreferenceSource,
         researchRemoteSource: ResearchRemoteSource
     ): ResearchRepository =
-        ResearchRepository(gson, localPreferenceSource, researchRemoteSource)
+        ResearchRepository(serializerProvider, localPreferenceSource, researchRemoteSource)
 
     @Singleton
     @Provides
