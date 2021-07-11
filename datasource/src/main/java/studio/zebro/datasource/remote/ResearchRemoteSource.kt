@@ -30,7 +30,6 @@ class ResearchRemoteSourceImpl : ResearchRemoteSource {
         val rawNiftyIndicesList = rawDivItems.filter {
             it.className() == CURRENT_PRICE_CLASS_NAME || it.className() == CHANGE_PRICE_CLASS_NAME
         }
-        rawNiftyIndicesList
         val trimmedChangeStringArray = rawNiftyIndicesList[1].text().trim().split(" ")
         return if (rawNiftyIndicesList.size >= 2) {
             Response.success(
