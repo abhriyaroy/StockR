@@ -22,11 +22,10 @@ import studio.zebro.core.util.SerializerProvider
 import studio.zebro.datasource.local.CustomError
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.remote.HistoricalDataRemoteSource
-import studio.zebro.datasource.util.Constants
 import studio.zebro.datasource.util.Constants.ERROR_CODE_NOT_LOADED
 import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_CODE
 import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_MESSAGE
-import studio.zebro.recommendation.data.mapper.HistoricalStockDataMapperTest.mapHistoricalStockDataDayWiseModelToHistoricalStockDataEntityTest
+import studio.zebro.recommendation.data.mapper.HistoricalStockDataMapperTestHelper.mapHistoricalStockDataDayWiseModelToHistoricalStockDataEntityTest
 import studio.zebro.recommendation.testdataprovider.HistoricalStockDataProvider.getHistoricalStockDataDayWiseModelList
 import studio.zebro.research.data.HistoricalStockDataRepository
 import java.lang.IllegalStateException
@@ -86,6 +85,8 @@ class HistoricalStockDataRepositoryTest {
         historicalStockDataRepository.getHistoricDataForStock(stockSymbol)
             .catch { e->
                 assert(e is CustomError)
+                assertEquals(NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
+                assertEquals(NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
             }
             .collect {  }
         verify(serializerProvider).getGson()
