@@ -1,22 +1,21 @@
 package studio.zebro.research.data
 
-import android.util.Log
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
+import studio.zebro.core.util.DispatcherProvider
+import studio.zebro.core.util.SerializerProvider
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.model.HistoricalStockDataDayWiseModel
 import studio.zebro.datasource.remote.HistoricalDataRemoteSource
 import studio.zebro.datasource.util.NetworkBoundSource
-import studio.zebro.datasource.util.NetworkBoundWithLocalSource
 import studio.zebro.research.data.entity.HistoricalStockDataEntity
 import studio.zebro.research.data.mapper.HistoricalStockDataMapper
 
 class HistoricalStockDataRepository(
-    private val gson: Gson,
+    private val dispatcherProvider : DispatcherProvider,
+    private val serializerProvider: SerializerProvider,
     private val localPreferenceSource: LocalPreferenceSource,
     private val historicalDataRemoteSource: HistoricalDataRemoteSource
 ) {
@@ -30,11 +29,11 @@ class HistoricalStockDataRepository(
             }
 
             override suspend fun postProcess(originalData: List<HistoricalStockDataDayWiseModel>): HistoricalStockDataEntity {
-                return HistoricalStockDataMapper.mapHistoricalStockDataEntityToHistoricalStockDataDayWiseModel(
+                return HistoricalStockDataMapper.mapHistoricalStockDataDayWiseModelToHistoricalStockDataEntity(
                     originalData
                 )
             }
 
-        }.asFlow(gson).flowOn(Dispatchers.IO)
+        }.asFlow(serializerProvider.getGson()).flowOn(dispatcherProvider.getIoDispatcher())
 
 }
