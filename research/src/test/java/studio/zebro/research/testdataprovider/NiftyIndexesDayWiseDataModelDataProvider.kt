@@ -1,4 +1,4 @@
-package studio.zebro.recommendation.testdataprovider
+package studio.zebro.research.testdataprovider
 
 import studio.zebro.datasource.model.NiftyIndexesDayWiseDataModel
 import java.util.*

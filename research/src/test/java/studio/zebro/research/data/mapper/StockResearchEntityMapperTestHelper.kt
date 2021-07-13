@@ -1,4 +1,4 @@
-package studio.zebro.recommendation.data.mapper
+package studio.zebro.research.data.mapper
 
 import studio.zebro.datasource.model.StockResearchDataModel
 import studio.zebro.research.data.entity.StockResearchEntity

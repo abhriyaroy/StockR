@@ -1,4 +1,4 @@
-package studio.zebro.recommendation.data
+package studio.zebro.research.data
 
 import com.google.gson.Gson
 import junit.framework.Assert.assertEquals
@@ -27,9 +27,9 @@ import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.remote.ResearchRemoteSource
 import studio.zebro.datasource.util.Constants
 import studio.zebro.datasource.util.ErrorCodes
-import studio.zebro.recommendation.data.mapper.StockResearchEntityMapperTestHelper
-import studio.zebro.recommendation.testdataprovider.NiftyIndexesDayWiseDataModelDataProvider
-import studio.zebro.recommendation.testdataprovider.StockResearchDataModelProvider.getStockResearchDataModelList
+import studio.zebro.research.data.mapper.StockResearchEntityMapperTestHelper
+import studio.zebro.research.testdataprovider.NiftyIndexesDayWiseDataModelDataProvider
+import studio.zebro.research.testdataprovider.StockResearchDataModelProvider.getStockResearchDataModelList
 import studio.zebro.research.data.ResearchRepository
 import studio.zebro.research.data.mapper.NiftyIndexesDayEntityMapper.mapNiftyIndexesDayWiseDataModelToNiftyIndexesDayEntity
 import java.lang.IllegalStateException

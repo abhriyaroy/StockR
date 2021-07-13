@@ -1,4 +1,4 @@
-package studio.zebro.recommendation.data
+package studio.zebro.research.data
 
 import com.google.gson.Gson
 import junit.framework.Assert.assertEquals
@@ -25,8 +25,8 @@ import studio.zebro.datasource.remote.HistoricalDataRemoteSource
 import studio.zebro.datasource.util.Constants.ERROR_CODE_NOT_LOADED
 import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_CODE
 import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_MESSAGE
-import studio.zebro.recommendation.data.mapper.HistoricalStockDataMapperTestHelper.mapHistoricalStockDataDayWiseModelToHistoricalStockDataEntityTest
-import studio.zebro.recommendation.testdataprovider.HistoricalStockDataProvider.getHistoricalStockDataDayWiseModelList
+import studio.zebro.research.data.mapper.HistoricalStockDataMapperTestHelper.mapHistoricalStockDataDayWiseModelToHistoricalStockDataEntityTest
+import studio.zebro.research.testdataprovider.HistoricalStockDataProvider.getHistoricalStockDataDayWiseModelList
 import studio.zebro.research.data.HistoricalStockDataRepository
 import java.lang.IllegalStateException
 import java.util.*

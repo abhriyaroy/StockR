@@ -1,4 +1,4 @@
-package studio.zebro.recommendation.data.mapper
+package studio.zebro.research.data.mapper
 
 import studio.zebro.core.util.CoreUtility
 import studio.zebro.datasource.model.HistoricalStockDataDayWiseModel
