@@ -103,6 +103,7 @@ object TestLibs {
     const val junitExtension = "androidx.test.ext:junit:${Versions.junitExtension}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     const val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${Versions.mockitoKotlin}"
+    const val mockitoInline = "org.mockito:mockito-inline:2.8.47"
 }
 object Modules {
     const val datasource = ":datasource"
