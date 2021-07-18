@@ -2,9 +2,11 @@ package studio.zebro.research.data
 
 import com.google.gson.Gson
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody
 import org.junit.After
@@ -94,14 +96,19 @@ class ResearchRepositoryTest {
         `when`(researchRemoteSource.getResearchFromKotakSecurities()).thenReturn(
             Response.error(Constants.ERROR_CODE_NOT_LOADED, errorResponseBody)
         )
+        var isExceptionCaught = false
 
         researchRepository.fetchStockResearch(true)
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(ErrorCodes.NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(ErrorCodes.NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
             }
-            .collect {  }
+            .onCompletion {
+                assertTrue(isExceptionCaught)
+            }
+            .collect {}
 
         verify(serializerProvider).getGson()
         verify(researchRemoteSource).getResearchFromKotakSecurities()
@@ -113,14 +120,19 @@ class ResearchRepositoryTest {
     fun `should return exception on fetchStockResearch call failure due to getResearchFromKotakSecurities throwing exception with isForceRefresh true`()
             = runBlocking {
         `when`(researchRemoteSource.getResearchFromKotakSecurities()).thenThrow(IllegalStateException::class.java)
+        var isExceptionCaught = false
 
         researchRepository.fetchStockResearch(true)
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(ErrorCodes.NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(ErrorCodes.NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
             }
-            .collect {  }
+            .onCompletion {
+                assertTrue(isExceptionCaught)
+            }
+            .collect {}
 
         verify(serializerProvider).getGson()
         verify(researchRemoteSource).getResearchFromKotakSecurities()
@@ -166,12 +178,17 @@ class ResearchRepositoryTest {
     fun `should return exception on fetchStockResearch call failure due to getSavedKotakStockResearch throws exception with isForceRefresh false`()
             = runBlocking {
         `when`(localPreferenceSource.getSavedKotakStockResearch()).thenThrow(IllegalStateException::class.java)
+        var isExceptionCaught = false
 
         researchRepository.fetchStockResearch(false)
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(ErrorCodes.NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(ErrorCodes.NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
+            }
+            .onCompletion {
+                assertTrue(isExceptionCaught)
             }
             .collect {}
 
@@ -190,16 +207,19 @@ class ResearchRepositoryTest {
         }
         `when`(localPreferenceSource.getSavedKotakStockResearch()).thenReturn(listOfCachedStockResearchDataModel)
         `when`(researchRemoteSource.getResearchFromKotakSecurities()).thenThrow(IllegalStateException::class.java)
+        var isExceptionCaught = false
 
         researchRepository.fetchStockResearch(false)
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(ErrorCodes.NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(ErrorCodes.NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
             }
-            .collect {
-                assertEquals(mappedCacheList, it)
+            .onCompletion {
+                assertTrue(isExceptionCaught)
             }
+            .collect {}
 
         verify(serializerProvider).getGson()
         verify(dispatcherProvider).getIoDispatcher()
@@ -219,16 +239,19 @@ class ResearchRepositoryTest {
         `when`(localPreferenceSource.getSavedKotakStockResearch()).thenReturn(listOfCachedStockResearchDataModel)
         `when`(researchRemoteSource.getResearchFromKotakSecurities())
             .thenReturn(Response.error(Constants.ERROR_CODE_NOT_LOADED, errorResponseBody))
+        var isExceptionCaught = false
 
         researchRepository.fetchStockResearch(false)
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(ErrorCodes.NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(ErrorCodes.NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
             }
-            .collect {
-                assertEquals(mappedCacheList, it)
+            .onCompletion {
+                assertTrue(isExceptionCaught)
             }
+            .collect {}
 
         verify(serializerProvider).getGson()
         verify(dispatcherProvider).getIoDispatcher()
@@ -267,12 +290,17 @@ class ResearchRepositoryTest {
     fun `should return exception on fetchNifty50Index failure due to getNifty50Index call failure with IllegalStateException`() = runBlocking {
         Mockito.`when`(researchRemoteSource.getNifty50Index())
             .thenThrow(IllegalStateException::class.java)
+        var isExceptionCaught = false
 
         researchRepository.fetchNifty50Index()
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(ErrorCodes.NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(ErrorCodes.NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
+            }
+            .onCompletion {
+                assertTrue(isExceptionCaught)
             }
             .collect {  }
         verify(serializerProvider).getGson()
@@ -286,12 +314,17 @@ class ResearchRepositoryTest {
         val errorResponseBody = ResponseBody.create(null, "{}")
         `when`(researchRemoteSource.getNifty50Index())
             .thenReturn(Response.error(Constants.ERROR_CODE_NOT_LOADED, errorResponseBody))
+        var isExceptionCaught = false
 
         researchRepository.fetchNifty50Index()
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(ErrorCodes.NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(ErrorCodes.NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
+            }
+            .onCompletion {
+                assertTrue(isExceptionCaught)
             }
             .collect {  }
         verify(serializerProvider).getGson()

@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import studio.zebro.core.util.DispatcherProvider
 import studio.zebro.research.data.HistoricalStockDataRepository
 import studio.zebro.research.data.ResearchRepository
 import studio.zebro.research.domain.mapper.HistoricStockDataModelMapper.mapHistoricalStockDataEntityToHistoricStockDataModel
@@ -22,18 +23,16 @@ interface ResearchUseCase {
 
 internal class ResearchInteractor(
     private val researchRepository: ResearchRepository,
-    private val historicalStockDataRepository: HistoricalStockDataRepository
+    private val historicalStockDataRepository: HistoricalStockDataRepository,
 ) : ResearchUseCase {
 
     override fun fetchResearch(isForceRefresh: Boolean): Flow<List<StockResearchModel>> {
         return researchRepository.fetchStockResearch(isForceRefresh)
             .map {
-                Log.d(this.javaClass.name, "---->>>>> here 1")
                 it.map {
                     mapStockResearchEntityToStockResearchModel(it)
                 }
             }
-            .flowOn(Dispatchers.IO)
     }
 
     override fun fetchHistoricData(stockSymbol: String): Flow<HistoricStockDataModel> {

@@ -2,9 +2,11 @@ package studio.zebro.research.data
 
 import com.google.gson.Gson
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody
 import org.junit.After
@@ -81,14 +83,19 @@ class HistoricalStockDataRepositoryTest {
     fun `should return exception on getHistoricDataForStock failure due to get3monthsHistoricData call failure with IllegalStateException`() = runBlocking {
         val stockSymbol = UUID.randomUUID().toString()
         `when`(historicalDataRemoteSource.get3monthsHistoricData(stockSymbol)).thenThrow(IllegalStateException::class.java)
+        var isExceptionCaught = false
 
         historicalStockDataRepository.getHistoricDataForStock(stockSymbol)
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
             }
-            .collect {  }
+            .onCompletion {
+                assertTrue(isExceptionCaught)
+            }
+            .collect { }
         verify(serializerProvider).getGson()
         verify(historicalDataRemoteSource).get3monthsHistoricData(stockSymbol)
         verify(dispatcherProvider).getIoDispatcher()
@@ -101,14 +108,19 @@ class HistoricalStockDataRepositoryTest {
         val errorResponseBody = ResponseBody.create(null, "{}")
         `when`(historicalDataRemoteSource.get3monthsHistoricData(stockSymbol))
             .thenReturn(Response.error(ERROR_CODE_NOT_LOADED, errorResponseBody))
+        var isExceptionCaught = false
 
         historicalStockDataRepository.getHistoricDataForStock(stockSymbol)
             .catch { e->
                 assert(e is CustomError)
                 assertEquals(NETWORK_ERROR_CODE, (e as CustomError).errorModel!!.code)
                 assertEquals(NETWORK_ERROR_MESSAGE, (e as CustomError).errorModel!!.message)
+                isExceptionCaught = true
             }
-            .collect {  }
+            .onCompletion {
+                assertTrue(isExceptionCaught)
+            }
+            .collect { }
         verify(serializerProvider).getGson()
         verify(historicalDataRemoteSource).get3monthsHistoricData(stockSymbol)
         verify(dispatcherProvider).getIoDispatcher()
