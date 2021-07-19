@@ -11,6 +11,7 @@ import retrofit2.Response
 import studio.zebro.datasource.local.CustomError
 import studio.zebro.datasource.model.ErrorModel
 import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_CODE
+import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_MESSAGE
 
 /**
  * A repository which provides resource from local database as well as remote end point.
@@ -51,7 +52,7 @@ abstract class NetworkBoundWithLocalSource<DB_TYPE, API_RESPONSE_TYPE, MAPPED_RE
         } catch (e: Exception) {
             e.printStackTrace()
             // Emit Exception occurred
-            throw CustomError(ErrorModel(NETWORK_ERROR_CODE, " Can't get latest data."))
+            throw CustomError(ErrorModel(NETWORK_ERROR_CODE, NETWORK_ERROR_MESSAGE))
         }
 
         // Retrieve data from storage and emit

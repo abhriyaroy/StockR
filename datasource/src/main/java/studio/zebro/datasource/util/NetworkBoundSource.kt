@@ -8,6 +8,7 @@ import retrofit2.Response
 import studio.zebro.datasource.local.CustomError
 import studio.zebro.datasource.model.ErrorModel
 import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_CODE
+import studio.zebro.datasource.util.ErrorCodes.NETWORK_ERROR_MESSAGE
 import java.io.IOException
 
 /**
@@ -46,14 +47,13 @@ abstract class NetworkBoundSource<API_RESPONSE_TYPE, MAPPED_RETURN_TYPE> {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-
                 // Emit Error state
-                throw CustomError(errorResponse)
+                throw Exception()
             }
         } catch (e: Exception) {
             e.printStackTrace()
             // Emit Exception occurred
-            throw CustomError(ErrorModel(NETWORK_ERROR_CODE, "Can't get latest data."))
+            throw CustomError(ErrorModel(NETWORK_ERROR_CODE, NETWORK_ERROR_MESSAGE))
         }
     }
 

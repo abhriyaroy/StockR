@@ -6,6 +6,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import studio.zebro.core.navigation.ResearchModuleRoute
+import studio.zebro.core.util.DispatcherProvider
+import studio.zebro.core.util.SerializerProvider
 import studio.zebro.datasource.local.LocalPreferenceSource
 import studio.zebro.datasource.remote.HistoricalDataRemoteSource
 import studio.zebro.datasource.remote.ResearchRemoteSource
@@ -28,20 +30,22 @@ class ResearchModule {
     @Singleton
     @Provides
     fun providesResearchRepository(
-        gson: Gson,
+        dispatcherProvider: DispatcherProvider,
+        serializerProvider: SerializerProvider,
         localPreferenceSource: LocalPreferenceSource,
         researchRemoteSource: ResearchRemoteSource
     ): ResearchRepository =
-        ResearchRepository(gson, localPreferenceSource, researchRemoteSource)
+        ResearchRepository(dispatcherProvider, serializerProvider, localPreferenceSource, researchRemoteSource)
 
     @Singleton
     @Provides
     fun providesHistoricStockDataRepository(
-        gson: Gson,
+        dispatcherProvider: DispatcherProvider,
+        serializerProvider: SerializerProvider,
         localPreferenceSource: LocalPreferenceSource,
         historicalDataRemoteSource: HistoricalDataRemoteSource
     ): HistoricalStockDataRepository =
-        HistoricalStockDataRepository(gson, localPreferenceSource, historicalDataRemoteSource)
+        HistoricalStockDataRepository(dispatcherProvider, serializerProvider, localPreferenceSource, historicalDataRemoteSource)
 
     @Singleton
     @Provides

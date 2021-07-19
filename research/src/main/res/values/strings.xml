@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="index_value">15532</string>
+  <string name="index_change_percentage">-0.23%</string>
+  <string name="index_change_value">154</string>
+  <string name="back_button_description">Back Button</string>
+  <string name="app_logo_description">App Logo</string>
+</resources>

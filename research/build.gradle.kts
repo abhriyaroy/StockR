@@ -74,6 +74,12 @@ dependencies {
 
   implementation(Libs.mPAndroidChart)
 
+  testImplementation(TestLibs.junit)
+  testImplementation(TestLibs.junitExtension)
+  testImplementation(TestLibs.espressoCore)
+  testImplementation(TestLibs.mockitoKotlin)
+  testImplementation(TestLibs.mockitoInline)
+
   implementation(project(Modules.core))
 }
 repositories {

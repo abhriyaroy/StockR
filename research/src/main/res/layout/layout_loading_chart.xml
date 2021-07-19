@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <ProgressBar
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_height="@dimen/dimen_48dp"
         android:id="@+id/progressBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/loadingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
         android:text="@string/loading_graph"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
