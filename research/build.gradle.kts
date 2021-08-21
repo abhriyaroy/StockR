@@ -82,7 +82,3 @@ dependencies {
 
   implementation(project(Modules.core))
 }
-repositories {
-  maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-  mavenCentral()
-}

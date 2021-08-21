@@ -7,8 +7,8 @@ object Apps {
     const val versionName = "1.0.2"
 }
 object Versions {
-    const val gradle = "4.1.0"
-    const val kotlin = "1.4.31"
+    const val gradle = "7.0.0"
+    const val kotlin = "1.5.21"
     const val appcompat = "1.2.0"
     const val coreKtx = "1.3.2"
     const val designSupport = "1.2.1"
@@ -31,6 +31,7 @@ object Versions {
     const val firebaseAnalytics = "17.5.0"
     const val googleServices = "4.3.3"
     const val lottie = "3.1.0"
+    const val compose = "1.0.1"
     // Jsoup
     const val jsoup = "1.13.1"
     // Test

@@ -70,8 +70,3 @@ dependencies {
 
   api(project(Modules.datasource))
 }
-
-repositories {
-  maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-  mavenCentral()
-}

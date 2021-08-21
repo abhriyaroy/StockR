@@ -100,7 +100,3 @@ dependencies {
   implementation(Libs.lifecycleCommon)
   implementation(Libs.lifecycleExtension)
 }
-repositories {
-  maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-  mavenCentral()
-}

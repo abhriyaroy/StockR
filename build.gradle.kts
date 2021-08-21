@@ -3,8 +3,8 @@ buildscript {
     repositories {
     google()
     jcenter()
+      mavenCentral()
       maven { url = uri("https://jitpack.io") }
-      maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
   }
   dependencies {
     classpath("com.android.tools.build:gradle:${Versions.gradle}")
@@ -19,10 +19,8 @@ allprojects {
   repositories {
     google()
     jcenter()
+    mavenCentral()
     maven { url = uri("https://jitpack.io") }
-    maven {
-      url  = uri("http://dl.bintray.com/countly/maven")
-    }
     maven {
       url = uri("https://androidx.dev/snapshots/builds/6543454/artifacts/repository/")
     }
