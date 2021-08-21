@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -17,8 +18,10 @@ import studio.zebro.research.domain.ResearchUseCase
 import studio.zebro.research.domain.model.HistoricStockDataModel
 import studio.zebro.research.domain.model.NiftyIndexesDayModel
 import studio.zebro.research.domain.model.StockResearchModel
+import javax.inject.Inject
 
-class ResearchViewModel @ViewModelInject
+@HiltViewModel
+class ResearchViewModel @Inject
 constructor(private val researchUseCase: ResearchUseCase) : ViewModel() {
 
     private val _stockResearch: MutableLiveData<ResourceState<List<StockResearchModel>>> =

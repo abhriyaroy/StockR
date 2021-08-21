@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import studio.zebro.core.util.DispatcherProvider
 import studio.zebro.core.util.DispatcherProviderImpl
 import studio.zebro.core.util.SerializerProvider
@@ -12,7 +12,7 @@ import studio.zebro.core.util.SerializerProviderImpl
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 class CoreModule {
 
     @Provides

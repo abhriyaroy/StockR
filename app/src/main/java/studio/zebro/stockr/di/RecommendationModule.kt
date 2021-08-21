@@ -3,13 +3,12 @@ package studio.zebro.stockr.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import studio.zebro.stockr.data.ResearchRepository
 import javax.inject.Singleton
 
-
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 class ResearchModule {
     @Provides
     @Singleton
