@@ -3,7 +3,7 @@ name: Run unit tests
 
 ## Actions that will be executed when you push code currently none
 on:
-  push:
+  pull_request:
 
 jobs:
   build:
