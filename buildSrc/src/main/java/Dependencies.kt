@@ -30,8 +30,9 @@ object Versions {
     const val firebaseMessaging = "20.2.4"
     const val firebaseAnalytics = "17.5.0"
     const val googleServices = "4.3.3"
-    const val lottie = "3.1.0"
+    const val lottie = "4.1.0"
     const val compose = "1.0.1"
+    const val activityCompose = "1.3.1"
     // Jsoup
     const val jsoup = "1.13.1"
     // Test
@@ -96,8 +97,20 @@ object Libs {
         "com.google.firebase:firebase-analytics-ktx:${Versions.firebaseAnalytics}"
     //Lottie & Glide
     const val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
+    const val lottieCompose = "com.airbnb.android:lottie-compose:${Versions.lottie}"
     //Jsoup
     const val jsoup = "org.jsoup:jsoup:${Versions.jsoup}"
+    //Compose
+    const val composeActivityExtension = "androidx.activity:activity-compose:${Versions.activityCompose}"
+    const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
+    const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
+    const val composeFoundationLayout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
+    const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
+    const val composeIcons = "androidx.compose.material:material-icons-extended:${Versions.compose}"
+    const val composeFoundation = "androidx.compose.foundation:foundation:${Versions.compose}"
+    const val composeAnimation = "androidx.compose.animation:animation:${Versions.compose}"
+    const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+    const val composeRuntimeLiveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
 }
 object TestLibs {
     const val junit = "junit:junit:${Versions.junit}"
