@@ -1,5 +1,5 @@
 object Apps {
-    const val compileSdk = 30
+    const val compileSdk = 31
     const val buildToolsVersion = "30.0.2"
     const val minSdk = 21
     const val targetSdk = 30
@@ -18,6 +18,7 @@ object Versions {
     const val cardView = "1.0.0"
     const val swipeRefresh = "1.0.0"
     const val navComponent = "2.3.0"
+    const val navigationCompose = "2.4.0-alpha09"
     const val hilt = "2.38.1"
     const val hiltSnapShot = "1.0.0-alpha03"
     const val okHttp = "4.8.1"
@@ -63,6 +64,8 @@ object Libs {
     const val navComponentFragment =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navComponent}"
     const val navComponentUi = "androidx.navigation:navigation-ui-ktx:${Versions.navComponent}"
+    const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+
     // OkHttp
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val okHttpLogging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"

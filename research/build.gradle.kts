@@ -65,6 +65,7 @@ dependencies {
   // Navigation
   implementation(Libs.navComponentFragment)
   implementation(Libs.navComponentUi)
+  implementation(Libs.navigationCompose)
 
   // Lifecycle
   implementation(Libs.lifecycleViewModel)

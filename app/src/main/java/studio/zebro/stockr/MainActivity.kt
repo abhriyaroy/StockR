@@ -17,6 +17,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import studio.zebro.stockr.R
 import studio.zebro.stockr.uicompose.SplashScreen
+import studio.zebro.stockr.uicompose.navigation.StockRNavigation
 import studio.zebro.stockr.uicompose.theme.StockRTheme
 
 @AndroidEntryPoint
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color.White
                 ) {
-                    SplashScreen()
+                    StockRNavigation()
                 }
             }
         }
