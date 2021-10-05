@@ -1,4 +1,4 @@
-package studio.zebro.stockr.uicompose.theme
+package studio.zebro.core.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

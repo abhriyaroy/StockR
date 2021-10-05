@@ -123,7 +123,7 @@ class ResearchFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        researchViewModel.stockResearch.observe(viewLifecycleOwner, {
+        researchViewModel.stockResearch.observe(viewLifecycleOwner) {
             when (it) {
                 is ResourceState.Success -> {
                     handleStockResearchSuccessState(it)
@@ -135,9 +135,9 @@ class ResearchFragment : BaseFragment() {
                     handleStockResearchErrorState()
                 }
             }
-        })
+        }
 
-        researchViewModel.nifty50IndexData.observe(viewLifecycleOwner, {
+        researchViewModel.nifty50IndexData.observe(viewLifecycleOwner) {
             when (it) {
                 is ResourceState.Success -> {
                     handleNifty50IndexSuccessState(it)
@@ -149,7 +149,7 @@ class ResearchFragment : BaseFragment() {
                     refreshNifty50IndexAfterDelay()
                 }
             }
-        })
+        }
     }
 
     private fun setupSwipeRefreshListener() {

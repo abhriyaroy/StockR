@@ -107,6 +107,7 @@ object Libs {
     const val composeActivityExtension = "androidx.activity:activity-compose:${Versions.activityCompose}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
+    const val composeUiLayout = "androidx.ui:ui-foundation:${Versions.compose}"
     const val composeFoundationLayout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
     const val composeIcons = "androidx.compose.material:material-icons-extended:${Versions.compose}"

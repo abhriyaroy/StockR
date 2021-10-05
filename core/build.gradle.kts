@@ -37,6 +37,7 @@ android {
   }
   buildFeatures {
     dataBinding = true
+    compose = true
   }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -44,6 +45,9 @@ android {
   }
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_1_8.toString()
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion = Versions.compose
   }
 }
 
@@ -67,6 +71,18 @@ dependencies {
   kapt(Libs.hiltCompiler)
   // Lottie
   api(Libs.lottie)
+
+  // Compose
+  implementation(Libs.composeActivityExtension)
+  implementation(Libs.composeRuntime)
+  implementation(Libs.composeUi)
+  implementation(Libs.composeFoundationLayout)
+  implementation(Libs.composeMaterial)
+  implementation(Libs.composeIcons)
+  implementation(Libs.composeFoundation)
+  implementation(Libs.composeAnimation)
+  implementation(Libs.composeUiTooling)
+  implementation(Libs.composeRuntimeLiveData)
 
   api(project(Modules.datasource))
 }

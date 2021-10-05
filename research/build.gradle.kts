@@ -35,14 +35,18 @@ android {
     }
   }
   buildFeatures {
-        dataBinding = true
-    }
+    dataBinding = true
+    compose = true
+  }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
   }
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_1_8.toString()
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion = Versions.compose
   }
 }
 
@@ -74,6 +78,18 @@ dependencies {
   implementation(Libs.lifecycleExtension)
 
   implementation(Libs.mPAndroidChart)
+
+  // Compose
+  implementation(Libs.composeActivityExtension)
+  implementation(Libs.composeRuntime)
+  implementation(Libs.composeUi)
+  implementation(Libs.composeFoundationLayout)
+  implementation(Libs.composeMaterial)
+  implementation(Libs.composeIcons)
+  implementation(Libs.composeFoundation)
+  implementation(Libs.composeAnimation)
+  implementation(Libs.composeUiTooling)
+  implementation(Libs.composeRuntimeLiveData)
 
   testImplementation(TestLibs.junit)
   testImplementation(TestLibs.junitExtension)

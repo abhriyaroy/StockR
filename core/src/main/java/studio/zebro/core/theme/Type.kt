@@ -1,4 +1,4 @@
-package studio.zebro.stockr.uicompose.theme
+package studio.zebro.core.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
