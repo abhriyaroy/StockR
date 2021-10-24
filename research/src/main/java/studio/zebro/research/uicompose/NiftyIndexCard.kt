@@ -44,50 +44,62 @@ fun NiftyIndexCard(shouldShowProgressBar: Boolean, data: NiftyIndexesDayModel? =
                     style = Typography.h4
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Image(
-                    painter = painterResource(
-                        if (data?.isPositiveChange == true) {
-                            R.drawable.ic_arrow_drop_up
-                        } else {
-                            R.drawable.ic_arrow_drop_down
+                Box(Modifier.align(Alignment.CenterVertically)) {
+                    Row() {
+                        Image(
+                            painter = painterResource(
+                                if (data?.isPositiveChange == true) {
+                                    R.drawable.ic_arrow_drop_up
+                                } else {
+                                    R.drawable.ic_arrow_drop_down
+                                }
+                            ),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .width(dimensionResource(R.dimen.dimen_24dp))
+                                .height(dimensionResource(R.dimen.dimen_24dp))
+                                .alpha(getAlphaIfShouldHideView(!shouldShowProgressBar)),
+                            contentScale = ContentScale.Crop,
+                            colorFilter = ColorFilter.tint(
+                                getIndexColor(
+                                    data?.isPositiveChange ?: false
+                                )
+                            )
+                        )
+                        Text(
+                            modifier = Modifier.alpha(getAlphaIfShouldHideView(!shouldShowProgressBar)),
+                            text = stringResource(R.string.index_value),
+                            textAlign = TextAlign.Start,
+                            color = WhiteColor,
+                            style = Typography.h2
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column(modifier = Modifier.alpha(getAlphaIfShouldHideView(!shouldShowProgressBar))) {
+                            Text(
+                                text = data?.changePercentage ?: "",
+                                textAlign = TextAlign.Start,
+                                color = getIndexColor(data?.isPositiveChange ?: false),
+                                style = Typography.subtitle1,
+                            )
+                            Text(
+                                text = data?.changeValue ?: "",
+                                textAlign = TextAlign.Start,
+                                color = getIndexColor(data?.isPositiveChange ?: false),
+                                style = Typography.subtitle1
+                            )
                         }
-                    ),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .width(dimensionResource(R.dimen.dimen_24dp))
-                        .height(dimensionResource(R.dimen.dimen_24dp))
-                        .alpha(getAlphaIfShouldHideView(!shouldShowProgressBar)),
-                    contentScale = ContentScale.Crop,
-                    colorFilter = ColorFilter.tint(getIndexColor(data?.isPositiveChange ?: false))
-                )
-                Text(
-                    modifier = Modifier.alpha(getAlphaIfShouldHideView(!shouldShowProgressBar)),
-                    text = stringResource(R.string.index_value),
-                    textAlign = TextAlign.Start,
-                    color = WhiteColor,
-                    style = Typography.h2
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column(modifier = Modifier.alpha(getAlphaIfShouldHideView(!shouldShowProgressBar))) {
-                    Text(
-                        text = data?.changePercentage ?: "",
-                        textAlign = TextAlign.Start,
-                        color = getIndexColor(data?.isPositiveChange ?: false),
-                        style = Typography.subtitle1,
-                    )
-                    Text(
-                        text = data?.changeValue ?: "",
-                        textAlign = TextAlign.Start,
-                        color = getIndexColor(data?.isPositiveChange ?: false),
-                        style = Typography.subtitle1
-                    )
+                        Spacer(modifier = Modifier.width(16.dp))
+                    }
+                    if (shouldShowProgressBar) {
+                        CircularProgressIndicator(
+                            color = WhiteColor, modifier = Modifier.align(
+                                Alignment.Center
+                            )
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.width(16.dp))
             }
             Spacer(modifier = Modifier.height(8.dp))
-        }
-        if (shouldShowProgressBar) {
-            CircularProgressIndicator(color = WhiteColor)
         }
     }
 }
