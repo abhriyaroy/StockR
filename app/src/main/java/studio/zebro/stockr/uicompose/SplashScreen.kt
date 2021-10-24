@@ -17,7 +17,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.*
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -31,9 +32,11 @@ import studio.zebro.research.ui.research.ResearchViewModel
 import kotlin.math.hypot
 
 @Composable
-fun SplashScreen(navController: NavController, researchViewModel: ResearchViewModel = viewModel()) {
+fun SplashScreen(navController: NavController, researchViewModel: ResearchViewModel) {
     researchViewModel.getStockResearch(false)
     researchViewModel.getNifty50IndexData()
+    println("hererererere spalsh--->>>>> ${researchViewModel.hashCode()}")
+
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.spash_anim))
     val progress by animateLottieCompositionAsState(composition)
     Box(

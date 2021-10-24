@@ -33,6 +33,7 @@ object Versions {
     const val googleServices = "4.3.3"
     const val lottie = "4.1.0"
     const val compose = "1.0.1"
+    const val composeLifeCycleViewModel = "2.4.0-beta01"
     const val activityCompose = "1.3.1"
     // Jsoup
     const val jsoup = "1.13.1"
@@ -60,6 +61,7 @@ object Libs {
     const val hiltViewModelLifecycle =
         "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltSnapShot}"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltSnapShot}"
+    const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
     // Navigation component
     const val navComponentFragment =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navComponent}"
@@ -115,6 +117,7 @@ object Libs {
     const val composeAnimation = "androidx.compose.animation:animation:${Versions.compose}"
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeRuntimeLiveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
+    const val composeViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.composeLifeCycleViewModel}"
 }
 object TestLibs {
     const val junit = "junit:junit:${Versions.junit}"

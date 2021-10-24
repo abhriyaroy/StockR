@@ -6,19 +6,22 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import studio.zebro.research.uicompose.ResearchListingScreen
 import studio.zebro.stockr.uicompose.SplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
+import studio.zebro.research.ui.research.ResearchViewModel
 
 @Composable
 fun StockRNavigation() {
     val navController = rememberNavController()
+    val researchViewModel : ResearchViewModel = hiltViewModel()
     NavHost(
         navController = navController,
         startDestination = SPLASH_SCREEN_NAV_NAME
     ) {
         composable(SPLASH_SCREEN_NAV_NAME) {
-            SplashScreen(navController = navController)
+            SplashScreen(navController, researchViewModel)
         }
         composable(RESEARCH_LISTING_SCREEN_NAV_NAME) {
-            ResearchListingScreen(navController = navController)
+            ResearchListingScreen(navController, researchViewModel)
         }
     }
 }

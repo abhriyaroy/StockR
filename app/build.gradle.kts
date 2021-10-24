@@ -86,6 +86,7 @@ dependencies {
   implementation(Libs.hiltCore)
   implementation(Libs.hiltCommon)
   implementation(Libs.hiltViewModelLifecycle)
+  implementation(Libs.hiltNavigationCompose)
   kapt(Libs.hiltDaggerAndroidCompiler)
   kapt(Libs.hiltCompiler)
   // Navigation
@@ -125,6 +126,7 @@ dependencies {
   implementation(Libs.composeAnimation)
   implementation(Libs.composeUiTooling)
   implementation(Libs.composeRuntimeLiveData)
+  implementation(Libs.composeViewModel)
 
   implementation(project(Modules.research))
   implementation(project(Modules.core))

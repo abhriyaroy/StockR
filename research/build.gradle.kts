@@ -63,6 +63,7 @@ dependencies {
   implementation(Libs.hiltCore)
   implementation(Libs.hiltCommon)
   implementation(Libs.hiltViewModelLifecycle)
+  implementation(Libs.hiltNavigationCompose)
   kapt(Libs.hiltDaggerAndroidCompiler)
   kapt(Libs.hiltCompiler)
 
@@ -90,6 +91,7 @@ dependencies {
   implementation(Libs.composeAnimation)
   implementation(Libs.composeUiTooling)
   implementation(Libs.composeRuntimeLiveData)
+  implementation(Libs.composeViewModel)
 
   testImplementation(TestLibs.junit)
   testImplementation(TestLibs.junitExtension)
