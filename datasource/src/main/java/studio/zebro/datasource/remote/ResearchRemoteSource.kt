@@ -33,13 +33,24 @@ class ResearchRemoteSourceImpl : ResearchRemoteSource {
         val trimmedChangeStringArray = rawNiftyIndicesList[1].text().trim().split(" ")
         return if (rawNiftyIndicesList.size >= 2) {
             Response.success(
-                NiftyIndexesDayWiseDataModel(
-                    NIFTY_50_INDEX_NAME,
-                    rawNiftyIndicesList[0].text().toFloat(),
-                    trimmedChangeStringArray[0],
-                    trimmedChangeStringArray[1],
-                    trimmedChangeStringArray[0].toCharArray()[0] == PLUS_SIGN
-                )
+                if(trimmedChangeStringArray.size == 2){
+                    NiftyIndexesDayWiseDataModel(
+                        NIFTY_50_INDEX_NAME,
+                        rawNiftyIndicesList[0].text().toFloat(),
+                        trimmedChangeStringArray[0],
+                        trimmedChangeStringArray[1],
+                        trimmedChangeStringArray[0].toCharArray()[0] == PLUS_SIGN
+                    )
+                } else {
+                    NiftyIndexesDayWiseDataModel(
+                        NIFTY_50_INDEX_NAME,
+                        rawNiftyIndicesList[0].text().toFloat(),
+                        trimmedChangeStringArray[0] + trimmedChangeStringArray[1],
+                        trimmedChangeStringArray[2] + trimmedChangeStringArray[3],
+                        trimmedChangeStringArray[0].toCharArray()[0] == PLUS_SIGN
+                    )
+                }
+
             )
         } else {
             Response.error(ERROR_CODE_NOT_LOADED, ResponseBody.create(null, ""))
