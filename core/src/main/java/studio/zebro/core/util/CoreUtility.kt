@@ -4,9 +4,12 @@ import android.content.Context
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavOptions
 import studio.zebro.core.R
+import studio.zebro.core.theme.NegativeColor
+import studio.zebro.core.theme.PositiveColor
 import studio.zebro.datasource.model.StockResearchDataModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -35,6 +38,14 @@ object CoreUtility {
             ContextCompat.getColor(context, R.color.positive)
         } else {
             ContextCompat.getColor(context, R.color.negative)
+        }
+    }
+
+    fun getStockUpOrDownColorComposable(action: String): Color {
+        return if (action.equals("buy", true) || action.equals("add", true)) {
+            PositiveColor
+        } else {
+            NegativeColor
         }
     }
 

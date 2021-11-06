@@ -45,7 +45,7 @@ fun NiftyIndexCard(shouldShowProgressBar: Boolean, data: NiftyIndexesDayModel? =
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Box(Modifier.align(Alignment.CenterVertically)) {
-                    Row() {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
                             painter = painterResource(
                                 if (data?.isPositiveChange == true) {

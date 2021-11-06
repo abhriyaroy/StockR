@@ -33,7 +33,7 @@ import kotlin.math.hypot
 
 @Composable
 fun SplashScreen(navController: NavController, researchViewModel: ResearchViewModel) {
-    researchViewModel.getStockResearch(false)
+    researchViewModel.getStockResearch(true)
     researchViewModel.getNifty50IndexData()
     println("hererererere spalsh--->>>>> ${researchViewModel.hashCode()}")
 

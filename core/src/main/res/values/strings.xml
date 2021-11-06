@@ -3,6 +3,7 @@
     <string name="buy_at_x">Buy at: ₹%1$s</string>
     <string name="sell_at_x">Sell at: ₹%1$s</string>
     <string name="action_x">Action: %1$s</string>
+    <string name="action">Action:</string>
     <string name="loading_graph">Loading graph data</string>
 
     <string name="empty_research">Couldn\'t find any research data</string>
